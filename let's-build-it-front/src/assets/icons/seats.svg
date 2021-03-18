@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="seats" width="8" height="11.001" viewBox="0 0 8 11.001">
+    <defs>
+        <style>
+            .cls-1{fill:#66768b}
+        </style>
+    </defs>
+    <path id="Path_232" d="M181-79.023a3.714 3.714 0 0 0-4 3.693v2.238s1.017.63 4 .63a9.344 9.344 0 0 0 4-.63v-2.238a3.714 3.714 0 0 0-4-3.693z" class="cls-1" transform="translate(-176.999 83.463)"/>
+    <path id="Path_233" d="M188.294-97.705a2.244 2.244 0 0 1-2.236-2.247 2.244 2.244 0 0 1 2.236-2.247 2.244 2.244 0 0 1 2.236 2.247 2.244 2.244 0 0 1-2.236 2.247z" class="cls-1" transform="translate(-184.294 102.199)"/>
+</svg>

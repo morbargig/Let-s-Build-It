@@ -1,0 +1,59 @@
+ul {
+  padding: 0;
+  margin: 0;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+
+  >li {
+    flex: 0 0 50%;
+    margin-bottom: 5px;
+
+    >span {
+      color: #001a3e;
+
+      &:first-child {
+        color: #66768b;
+
+        &::after {
+          content: ":";
+          display: inline-block;
+          margin-right: 5px;
+        }
+      }
+
+    }
+  }
+
+  &.view-type-block {
+    justify-content: flex-start;
+
+    >li {
+      >span {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #001a3e;
+
+        &:first-child {
+          color: #66768b;
+          font-weight: normal;
+
+          &::after {
+            content: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.bold-label {
+  span {
+    &:first-child {
+      font-weight: bold !important;
+    }
+  }
+}

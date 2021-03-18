@@ -1,0 +1,47 @@
+<prx-wsi-card #charges title="Charges" [showEdit]="true" [fullHeight]="true">
+  <div class="row flex-grow flex-wrap">
+    <prx-key-value-pair
+      class="col-12 col-md-8"
+      *ngIf="!!chargesControls?.length"
+      [items]="chargesItems"
+      [viewType]="'block'"
+    >
+    </prx-key-value-pair>
+    <prx-key-value-pair
+      class="col-12 col-md-4"
+      *ngIf="!!touristChargesControls?.length"
+      [items]="touristChargesItems"
+      [viewType]="'block'"
+    >
+    </prx-key-value-pair>
+  </div>
+
+  <ng-container edit-template>
+    <div class="row">
+      <ideo-dynamic-form-group
+        *ngIf="!!chargesControls?.length"
+        class="col-12 col-md-8"
+        [(form)]="form"
+        [config]="chargesControls"
+        [showSubmitButton]="false"
+      >
+      </ideo-dynamic-form-group>
+
+      <ideo-dynamic-form-group
+        *ngIf="!!chargesControls?.length"
+        class="col-12 col-md-4"
+        [(form)]="touristForm"
+        [config]="touristChargesControls"
+        [showSubmitButton]="false"
+      >
+      </ideo-dynamic-form-group>
+    </div>
+
+    <div class="col-12 d-flex justify-content-end form-btns">
+      <button class="btn btn-info" (click)="charges.editMode = false">Cancel</button>
+      <button class="btn btn-primary" [disabled]="!form?.valid" (click)="onChargesSubmit(charges, form, touristForm)">
+        Save Changes
+      </button>
+    </div>
+  </ng-container>
+</prx-wsi-card>

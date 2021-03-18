@@ -1,0 +1,51 @@
+<div class="row mb-2">
+  <div class="col d-flex justify-content-between align-items-center">
+    <h3 class="mb-0">Settings</h3>
+    <div class="d-flex justify-content-end align-items-center">
+      <button (click)="editMode = true" class="btn btn-link" *ngIf="!editMode; else formActions">
+        <img src="assets/icons/edit.svg" alt="" />
+      </button>
+
+      <ng-template #formActions>
+        <div class="col-12 d-flex justify-content-end form-btns">
+          <button class="btn btn-info" (click)="editMode = false">Cancel</button>
+          <button class="btn btn-primary" [disabled]="
+              !generalForm?.valid || !serviceForm?.valid" (click)="onSubmit()">
+            Save Changes
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <prx-wsi-card [editMode]="editMode" title="General" [loading]="!car">
+
+      <prx-key-value-pair [items]="generalControls" [itemsPerRow]="1" [viewType]="'block'">
+      </prx-key-value-pair>
+
+      <div edit-template>
+        <ideo-dynamic-form-group *ngIf="!!generalControls?.length" [config]="generalControls" [showSubmitButton]="false"
+          [(form)]="generalForm"> </ideo-dynamic-form-group>
+      </div>
+    </prx-wsi-card>
+  </div>
+  <div class="col-12">
+    <prx-wsi-card [editMode]="editMode" title="Maintenance parameters" [loading]="!car">
+
+      <prx-key-value-pair [items]="serviceControls" [itemsPerRow]="2" [viewType]="'block'">
+      </prx-key-value-pair>
+
+      <div edit-template>
+        <ideo-dynamic-form-group *ngIf="!!serviceControls?.length" [config]="serviceControls" [showSubmitButton]="false"
+          [(form)]="serviceForm"> </ideo-dynamic-form-group>
+      </div>
+    </prx-wsi-card>
+  </div>
+</div>
+
+<ng-template #loading>
+  <ideo-loader [template]="'product'" [isLoading]="true" [count]="1"></ideo-loader>
+</ng-template>

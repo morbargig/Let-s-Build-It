@@ -1,0 +1,26 @@
+<div class="row d-flex justify-content-center">
+    <div class="col-4 text-center my-5 py-5" style="border: solid 1px #cfd4db;">
+        <prx-icon icon='finish-booking'></prx-icon>
+        <h2 class="py-2" style="font-size: 26px;">Booking Successfully Finished</h2>
+        <h4 class="text- " style="font-size: 18px;">
+            <a class="pb-4" style="color: #2d709f;">
+                Booking ID: {{  bookingId}}
+            </a>
+            <div>
+                The customer {{customerName }}({{customerEmail}})
+            </div>
+            should receive in-app notification
+        </h4>
+
+        <div class="pt-4 row d-flex justify-content-center">
+            <button [routerLink]="['./']" class="col-5 mx-2 my-1 btn-info btn"
+                style="border: solid 2px #2d709f; color : #2d709f">
+                Back to {{customerName}}
+
+            </button>
+            <button [routerLink]="['./']" class="col-5 mx-2 my-1 btn-primary btn">
+                Start booking wizard again
+            </button>
+        </div>
+    </div>
+</div>

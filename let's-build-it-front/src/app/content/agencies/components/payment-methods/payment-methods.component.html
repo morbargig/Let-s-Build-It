@@ -1,0 +1,131 @@
+<div class="row mb-2">
+  <div class="col d-flex justify-content-between align-items-center">
+    <h3 class="mb-0">Payment Methods</h3>
+    <div class="d-flex justify-content-end align-items-center">
+      <button (click)="editMode = true" class="btn btn-link" *ngIf="!editMode; else formActions">
+        <img src="assets/icons/edit.svg" alt="" />
+      </button>
+
+      <ng-template #formActions>
+        <div class="col-12 d-flex justify-content-end form-btns">
+          <button class="btn btn-info" (click)="editMode = false">Cancel</button>
+          <button
+            class="btn btn-primary"
+            [disabled]="
+              !contactPersonForm?.valid || !billingForm?.valid || !companyAccountForm?.valid || !bankAccountForm?.valid
+            "
+            (click)="onSubmit()"
+          >
+            Save Changes
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-4 d-flex flex-wrap flex-grow">
+    <prx-wsi-card
+      [fullHeight]="true"
+      [editMode]="editMode"
+      title="Bank account"
+    >
+      <prx-key-value-pair
+        *ngIf="!!bankAccountControls?.length"
+        [items]="bankAccountControls"
+        [itemsPerRow]="2"
+        [viewType]="'block'"
+      >
+      </prx-key-value-pair>
+
+      <ng-container edit-template>
+        <ideo-dynamic-form-group
+          *ngIf="!!bankAccountControls?.length"
+          [(form)]="bankAccountForm"
+          [config]="bankAccountControls"
+          [showSubmitButton]="false"
+        >
+        </ideo-dynamic-form-group>
+      </ng-container>
+    </prx-wsi-card>
+  </div>
+  <div class="col-12 col-md-4 d-flex flex-wrap flex-grow">
+    <div class="row">
+      <prx-wsi-card
+        [editMode]="editMode"
+        [fullHeight]="false"
+        title="Company account"
+        class="col-12"
+        #companyAccountAndBilling
+        [loading]="!partner"
+      >
+        <prx-key-value-pair
+          *ngIf="!!companyAccountControls?.length"
+          [items]="companyAccountControls"
+          [itemsPerRow]="2"
+          [viewType]="'block'"
+        >
+        </prx-key-value-pair>
+
+        <ng-container edit-template>
+          <ideo-dynamic-form-group
+            *ngIf="!!companyAccountControls?.length"
+            [(form)]="companyAccountForm"
+            [config]="companyAccountControls"
+            [showSubmitButton]="false"
+          >
+          </ideo-dynamic-form-group>
+        </ng-container>
+      </prx-wsi-card>
+
+      <prx-wsi-card
+        [editMode]="editMode"
+        [fullHeight]="false"
+        title="Billing"
+        class="col-12"
+        #companyAccountAndBilling
+        [loading]="!partner"
+      >
+        <prx-key-value-pair
+          *ngIf="!!billingControls?.length"
+          [items]="billingControls"
+          [itemsPerRow]="2"
+          [viewType]="'block'"
+        >
+        </prx-key-value-pair>
+
+        <ng-container edit-template>
+          <ideo-dynamic-form-group
+            *ngIf="!!billingControls?.length"
+            [(form)]="billingForm"
+            [config]="billingControls"
+            [showSubmitButton]="false"
+          >
+          </ideo-dynamic-form-group>
+        </ng-container>
+      </prx-wsi-card>
+    </div>
+  </div>
+  <div class="col-12 col-md-4 d-flex flex-wrap flex-grow">
+    <prx-wsi-card [fullHeight]="true" [editMode]="editMode" title="Contact person" [loading]="false">
+      <prx-key-value-pair
+        *ngIf="!!contactPersonControls?.length"
+        [items]="contactPersonControls"
+        [itemsPerRow]="2"
+        [viewType]="'block'"
+      >
+      </prx-key-value-pair>
+
+      <ng-container edit-template>
+        <ideo-dynamic-form-group
+          *ngIf="!!contactPersonControls?.length"
+          [(form)]="contactPersonForm"
+          [config]="contactPersonControls"
+          [showSubmitButton]="false"
+        >
+        </ideo-dynamic-form-group>
+      </ng-container>
+    </prx-wsi-card>
+  </div>
+</div>

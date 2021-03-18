@@ -1,0 +1,6 @@
+<!-- {{!!item[col.field] ? 'Yes' : 'No'}} -->
+<i
+  *ngIf="!!col.parsedData ? !!col.parsedData(item[col.field]) : !!item[col.field]"
+  class="fas fa-check text-success"
+></i>
+<i *ngIf="!!col.parsedData ? !col.parsedData(item[col.field]) : !item[col.field]" class="fas fa-times text-danger"></i>

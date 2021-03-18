@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-start pb-2">
+  <button
+    type="button"
+    class="btn pl-3 pr-4 filter-collapse position-relative mr-2"
+    [ngClass]="{ 'btn-primary border-0': !!isCollapsed, 'btn-outline-primary': !isCollapsed }"
+    (click)="isCollapsed = !isCollapsed"
+    [attr.aria-expanded]="!isCollapsed"
+    aria-controls="filter-collapse"
+  >
+    <i class="fas fa-filter" [ngClass]="{ 'fa-times-circle': !isCollapsed }"></i>
+    {{ !isCollapsed ? 'Hide' : 'Show' }} Filters
+    <div *ngIf="!!appliedFilterCount" class="filter-badge position-absolute text-white f-10">
+      {{ appliedFilterCount }}
+    </div>
+  </button>
+  <ideo-button *ngFor="let btn of buttons" [button]="btn" [hidden]="!!isCollapsed" class="mt-auto"></ideo-button>
+</div>
+
+<form
+  [formGroup]="group"
+  class="row"
+  [ngClass]="{ 'd-flex': !isCollapsed }"
+  (ngSubmit)="applyFilters(true)"
+  [ngbCollapse]="isCollapsed"
+>
+  <ng-container *ngFor="let col of columns">
+    <ng-container
+      *ngIf="!col.filter || (!!col.filter && col.filter.filter != false)"
+      [tableFilter]="col.filter"
+      [column]="col"
+      [group]="group"
+    >
+    </ng-container>
+  </ng-container>
+  <ideo-button [button]="applyBtn" [hidden]="!!isCollapsed" class="ml-auto mr-4"></ideo-button>
+
+  <!-- <div class="d-flex justify-content-end ml-auto pb-3 col-sm-6 col-lg-3 col-xl-3">
+    <ideo-button *ngFor="let btn of buttons" [button]="btn"></ideo-button>
+  </div> -->
+</form>

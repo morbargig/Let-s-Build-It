@@ -1,0 +1,49 @@
+<div class="row" *ngIf="!!group" [formGroup]="group">
+    <div class="col-10 col-md-5 m-3 p-1">
+        PICK-UP DATE
+        <div
+            class="date-card p-3  d-flex align-items-center justify-content-between border-black d-flex justify-content-between">
+            <div>
+                <div class="font-weight-bolder">
+                    PICK-UP DATE
+                </div>
+                <div>
+                    <div *ngIf="control?.get('startDate')?.value as startDateValue">
+                        {{ startDateValue ?  (startDateValue  | date: 'fullDate') : 'no Date' }}
+                    </div>
+                </div>
+            </div>
+            <div class=" d-flex pr-1">
+                <button class="btn white-btn px-0"> </button>
+                <button class="btn blue-btn pl-0">
+                    <input type="datetime-local" required class="date-btn btn px-0"
+                        [formControl]="control.get('startDate')" >
+                    Select date & time
+                </button>
+            </div>
+        </div>
+    </div>
+    <prx-icon class="col-0 col-md-1 mx-2 d-flex align-items-center img-responsive" icon='point-arrow'></prx-icon>
+    <div class="col-10 col-md-5 m-3 p-1 width-fit">
+        DROP OFF DATE
+        <div
+            class="date-card p-3  d-flex align-items-center justify-content-between border-black d-flex justify-content-between">
+            <div>
+                <div class="font-weight-bolder">
+                    DROP OFF DATE
+                </div>
+                <div *ngIf="control?.get('endDate')?.value as endDateValue">
+                    {{  endDateValue ?  ( endDateValue  | date: 'fullDate') : 'no Date'  }}
+                </div>
+            </div>
+            <div class=" d-flex pr-1">
+                <button class="btn white-btn px-0"> </button>
+                <button class="btn blue-btn pl-0">
+                    <input type="datetime-local" required class="date-btn btn px-0"
+                        [formControl]="control.get('endDate')">
+                    Select date & time
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

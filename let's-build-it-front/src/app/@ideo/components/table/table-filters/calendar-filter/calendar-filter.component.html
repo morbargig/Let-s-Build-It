@@ -1,0 +1,16 @@
+<div class="position-relative">
+  <div class="position-absolute f-10 date-filter-placeholder">{{ filter.placeholder || filter.label }}</div>
+  <div [formGroup]="group" class="input-group">
+    <input
+      class="form-control"
+      [type]="filter.inputType || 'datetime-local'"
+      [placeholder]="filter.placeholder"
+      formControlName="value"
+      [id]="id"
+      (change)="!!filter.onChange && filter.onChange(group.controls['value'])"
+    />
+    <div class="input-group-append">
+      <ideo-select [showPlaceholder]="false" [options]="comparisonOptions" placeholder="Operator" formControlName="matchMode"> </ideo-select>
+    </div>
+  </div>
+</div>

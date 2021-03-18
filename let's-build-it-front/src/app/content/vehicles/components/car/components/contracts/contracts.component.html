@@ -1,0 +1,50 @@
+<div class="row mb-2">
+  <div class="col d-flex justify-content-between align-items-center">
+    <h3 class="mb-0">Contracts</h3>
+    <div class="d-flex justify-content-end align-items-center">
+      <button class="btn btn-secondary mr-2">Book Now</button>
+      <ideo-select [options]="dropdownActions" placeholder="Actions"></ideo-select>
+    </div>
+  </div>
+</div>
+
+<prx-wsi-card [showHeader]="false">
+  <ideo-table
+    *ngIf="!!columns?.length"
+    #tc
+    [items]="items"
+    [columns]="columns"
+    [buttons]="itemActions"
+    (onLazyLoad)="onLazyLoad($event)"
+    stateKey="car-contracts"
+    [totalRecords]="totalRecords"
+    [filters]="filters"
+    [(selection)]="selection"
+    [showFilters]="true"
+    [initSelection]="initSelection"
+    dataKey="car-contracts.data"
+    [lazy]="lazy"
+    [fullHeight]="true"
+  >
+    <prx-context-menu class="d-flex justify-content-end" top-right>
+      <ng-container menu-icon>
+        <prx-icon icon="more-horizontal"></prx-icon>
+      </ng-container>
+
+      <ng-container *ngFor="let item of topRightButtons" [ngSwitch]="item.optionsArr?.length > 0">
+        <div *ngSwitchCase="true" class="btn-group w-100">
+          <div class="btn-group w-100 d-flex justify-content-between align-items-center">
+            <button *ngFor="let opt of item.optionsArr" class="btn btn-link" (click)="opt.click($event)">
+              <i class="{{ opt.icon }}"></i>
+              {{ opt.label }}
+            </button>
+          </div>
+        </div>
+        <a class="dropdown-item" *ngSwitchCase="false" (click)="item.click()">
+          <prx-icon [icon]="item.faIcon" class="context-menu-icon"></prx-icon>
+          {{ item.label }}
+        </a>
+      </ng-container>
+    </prx-context-menu>
+  </ideo-table>
+</prx-wsi-card>

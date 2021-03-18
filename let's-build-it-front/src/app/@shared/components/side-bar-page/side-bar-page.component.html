@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="side-bar col-12 col-md-3 col-xl-2">
+      <h2>
+        <a [routerLink]="[backLink.value]"> <i class="fas fa-angle-left"></i></a>
+        {{ backLink.label }}
+      </h2>
+      <ul class="list-unstyled">
+        <li
+          *ngFor="let item of sidebarItems | permitted"
+          [ngClass]="{ active: currentRoute == item.value }"
+          [routerLink]="['./' + item.value]"
+        >
+          <prx-icon *ngIf="!!item.icon" [size]="'xs'" class="mr-3" [icon]="item.icon"></prx-icon>
+          {{ item.label }}
+        </li>
+      </ul>
+    </div>
+    <div class="col-xl-10 col-md-9 col-12 side-bar-content bg-page" *ngIf="!!entity && !loading; else isLoading">
+      <prx-breadcrum *ngIf="!!breadcrumbs?.length" [items]="breadcrumbs" styleCss="side-bar"></prx-breadcrum>
+      <prx-entity-details *ngIf="!!entityDetails && !!showDetails" [details]="entityDetails"></prx-entity-details>
+      <router-outlet *ngIf="!!entity"></router-outlet>
+    </div>
+  </div>
+</div>
+
+<ng-template #isLoading>
+  <div class="col-xl-10 col-md-9 col-12">
+    <ng-container *ngIf="!!loading; else notFound">
+      <ideo-loader [template]="'product'" [isLoading]="loading" [count]="3"></ideo-loader>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #notFound>
+  <h4 class="text-center d-block">No data found..</h4>
+</ng-template>

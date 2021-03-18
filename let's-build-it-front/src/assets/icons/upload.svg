@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke:#88939f;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px}
+        </style>
+    </defs>
+    <g id="upload" transform="translate(-3 -3)">
+        <path id="Path_271" d="M31.5 22.5v6a3 3 0 0 1-3 3h-21a3 3 0 0 1-3-3v-6" class="cls-1"/>
+        <path id="Path_272" d="M25.5 12L18 4.5 10.5 12" class="cls-1"/>
+        <path id="Path_273" d="M18 4.5v18" class="cls-1"/>
+    </g>
+</svg>

@@ -1,0 +1,9 @@
+<div [formGroup]="group" *ngIf="!filter.hidden">
+  <ideo-select
+    formControlName="value"
+    [placeholder]="filter.placeholder || filter.label"
+    (valueChanged)="filter?.onChange && filter.onChange($event)"
+    [options]="!!filter.asyncOptions ? (filter.asyncOptions | async) : filter.options"
+    [lazyOptions]="!!filter.lazyOptions ? filter.lazyOptions : null"
+  ></ideo-select>
+</div>

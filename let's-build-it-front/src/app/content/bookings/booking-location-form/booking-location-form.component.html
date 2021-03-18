@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-3" *ngIf="!!group && !!zones && controls?.length" [formGroup]="group">
+        <ideo-dynamic-form-group *ngIf="controls?.length" class="col-12 col-md-8"
+            [(form)]="group?.controls[config.name]" [config]="controls" [showSubmitButton]="false">
+        </ideo-dynamic-form-group>
+    </div>
+    <div class="col-9 map">
+        <agm-map [latitude]="31.771959" [longitude]="35.217018" (mapReady)="onMapReady($event)">
+            <!-- <agm-marker *ngIf="!selectedPoint?.length ; else pointLoop" [latitude]="31.771959" [longitude]="35.217018">
+            </agm-marker>
+
+            <ng-template #pointLoop>
+                <div *ngFor="let point of selectedPoint">
+                    <agm-marker [iconUrl]="'map-marker' | icon" [latitude]="point.latitude"
+                        [longitude]="point.longitude" [label]="'fsdfsdfdsfs'">
+                    </agm-marker>
+                    <agm-info-window [isOpen]="true">
+                        <div #content> gdfsgsdfgsdfgsdfgsf</div>
+                    </agm-info-window>
+                </div>
+            </ng-template> -->
+        </agm-map>
+    </div>
+</div>

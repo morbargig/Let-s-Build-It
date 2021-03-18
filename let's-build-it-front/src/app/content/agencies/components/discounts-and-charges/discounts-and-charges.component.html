@@ -1,0 +1,9 @@
+<div class="col d-flex justify-content-between align-items-center">
+  <h3 class="mb-0">Discounts and Charges</h3>
+</div>
+
+<ng-container *ngIf="!!partnerId">
+  <prx-discounts [partnerId]="partnerId"></prx-discounts>
+  <prx-fixed-discounts [partnerId]="partnerId"></prx-fixed-discounts>
+  <prx-charges [partnerId]="partnerId"></prx-charges>
+</ng-container>

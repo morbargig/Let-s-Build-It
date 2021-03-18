@@ -1,0 +1,28 @@
+<prx-key-value-pair [items]="billingItems" [itemsPerRow]="2" [viewType]="'block'"> </prx-key-value-pair>
+
+<div class="row mb-3">
+  <div class="col-12 d-flex justify-content-end align-items-center">
+    <button class="btn btn-secondary" [routerLink]="['./create']">+ Manage</button>
+  </div>
+</div>
+
+<ideo-table
+  *ngIf="!!columns?.length"
+  #tc
+  [items]="items"
+  [columns]="columns"
+  [buttons]="itemActions"
+  (onLazyLoad)="onLazyLoad($event)"
+  stateKey="b2b-subscription"
+  [totalRecords]="totalRecords"
+  [filters]="filters"
+  [(selection)]="selection"
+  [showFilters]="true"
+  [initSelection]="initSelection"
+  dataKey="b2b-subscription.data"
+  [lazy]="lazy"
+  [fullHeight]="true"
+>
+</ideo-table>
+
+<router-outlet></router-outlet>

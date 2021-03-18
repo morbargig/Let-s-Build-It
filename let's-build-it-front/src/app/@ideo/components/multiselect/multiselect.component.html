@@ -1,0 +1,90 @@
+<div ngbDropdown (openChange)="openChange($event)" [autoClose]="'outside'" class="dropdown" [display]="'dynamic'">
+  <button
+    type="button"
+    class="{{ buttonStyleClass }} form-control d-flex justify-content-between align-items-center"
+    [id]="id"
+    [disabled]="!!disabled"
+    (click)="scrollEnd()"
+    ngbDropdownToggle
+    *ngIf="!queryFilters || !lazyOptions || !isOpen || !!selectedKeys?.length"
+  >
+    <span *ngIf="!!queryElement?.value; else defaultLabel">
+      <small>term:</small>
+      '{{ queryElement?.value }}'
+    </span>
+    <ng-template #defaultLabel>{{ label }}</ng-template>
+  </button>
+  <input
+    type="text"
+    autofocus
+    #queryElement
+    [hidden]="!lazyOptions || !!selectedKeys?.length || (!!lazyOptions && !isOpen)"
+    placeholder="Search {{ label }}"
+    class="form-control search-query"
+    (keyup)="queryChanged($event)"
+    (click)="$event.preventDefault() && $event.stopPropagation() && $event.stopImmediatePropagation()"
+  />
+  <div *ngIf="!lazyOptions" ngbDropdownMenu [attr.aria-labelledby]="id" class="py-0 my-0 shadow multi-dropdown-div">
+    <div
+      *ngFor="let option of options; let i = index"
+      ngbDropdownItem
+      class="px-2 py-1"
+      [ngClass]="{ active: !!selectedKeys[!!dataKey ? option.value[dataKey] : option.value] }"
+      (click)="optionClicked(option.value)"
+    >
+      <div class="custom-control custom-checkbox">
+        <input
+          type="checkbox"
+          class="custom-control-input"
+          id="multiselctcheckbox-{{ id }}-{{ i }}"
+          [checked]="!!selectedKeys[!!dataKey ? option.value[dataKey] : option.value]"
+        />
+        <label
+          class="custom-control-label multi-select-text"
+          for="multiselctcheckbox-{{ id }}-{{ i }}"
+          (click)="$event.stopPropagation()"
+        >
+          {{ option.label }}
+        </label>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!!lazyOptions" ngbDropdownMenu [attr.aria-labelledby]="id" class="py-0 my-0 shadow multi-dropdown-div">
+    <cdk-virtual-scroll-viewport
+      #vsv
+      style="height: 100px"
+      (scrolledIndexChange)="nextBatch($event, null)"
+      [itemSize]="30"
+      *ngIf="asyncOptions | async as aOptions"
+    >
+      <div
+        *cdkVirtualFor="let option of aOptions; let i = index; trackBy: trackByIdx"
+        class="px-2 py-1 virtual-scroll"
+        ngbDropdownItem
+        (click)="optionClicked(option?.value)"
+        [ngClass]="{ active: !!selectedKeys[!!dataKey ? option.value[dataKey] : option.value] }"
+      >
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="multiselctcheckbox-{{ id }}-{{ i }}"
+            [checked]="!!selectedKeys[!!dataKey ? option.value[dataKey] : option.value]"
+          />
+          <img [src]="option.icon | imageId:true" class="list-icon" *ngIf="!!option.icon" alt="" />
+          <label
+            class="custom-control-label multi-select-text text-overflow"
+            for="multiselctcheckbox-{{ id }}-{{ i }}"
+            (click)="$event.stopPropagation()"
+          >
+            {{ option.label }}
+            <ng-container *ngIf="!!option.title" class="description">
+              <small class="text-muted">{{ option.title }}</small>
+            </ng-container>
+          </label>
+        </div>
+      </div>
+    </cdk-virtual-scroll-viewport>
+    <span class="total-items text-muted">{{ totalItems | number }} matches</span>
+  </div>
+</div>

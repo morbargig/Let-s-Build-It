@@ -1,0 +1,56 @@
+<div class="row mb-2">
+  <div class="col d-flex justify-content-between align-items-center">
+    <h3 class="mb-0">Summary</h3>
+    <div class="d-flex justify-content-end align-items-center">
+      <button class="btn btn-secondary mr-2">Book Now</button>
+      <ideo-select [options]="dropdownActions" placeholder="Actions"></ideo-select>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 col-md-8 col-xl-6">
+    <div class="row">
+      <div class="col-12 col-md d-flex flex-wrap flex-column" *ngFor="let stripe of stripes">
+        <prx-wsi-card [showHeader]="false" [fullHeight]="true" [alignment]="'end'">
+          <div class="d-flex justify-content-between align-items-end" *ngIf="!stripe.items?.length; else multiple">
+            <div class="align-self-end">
+              <h2>{{ stripe.value }}</h2>
+              <h5>{{ stripe.label }}</h5>
+            </div>
+            <prx-icon *ngIf="!!stripe.icon" [size]="'2x'" [icon]="stripe.icon"></prx-icon>
+          </div>
+          <ng-template #multiple>
+            <div>
+              <h5 class="d-block">{{ stripe.label }}</h5>
+              <div class="d-flex justify-content-between align-items-end">
+                <div class="d-flex flex-column" *ngFor="let i of stripe.items">
+                  <h3>{{ i.label }}</h3>
+                  <h5>{{ i.value }}</h5>
+                </div>
+                <prx-icon *ngIf="!!stripe.icon" [size]="'2x'" [icon]="stripe.icon"></prx-icon>
+              </div>
+            </div>
+          </ng-template>
+        </prx-wsi-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <prx-wsi-card title="Utilisation"> </prx-wsi-card>
+      </div>
+      <div class="col-12">
+        <prx-wsi-card title="Booking"> </prx-wsi-card>
+      </div>
+      <div class="col-12">
+        <prx-wsi-card title="Contracts"> </prx-wsi-card>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-4 col-xl-6 flex-wrap d-flex flex-column">
+    <prx-wsi-card [showHeader]="false" [fullHeight]="true" [fuller]="true">
+      <agm-map [latitude]="31.771959" [longitude]="35.217018">
+        <agm-marker [latitude]="31.771959" [longitude]="35.217018"></agm-marker>
+      </agm-map>
+    </prx-wsi-card>
+  </div>
+</div>

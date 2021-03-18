@@ -1,0 +1,21 @@
+.acronym {
+  padding: 7px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0.8rem;
+
+  &.big {
+    padding: 10px;
+    font-size: 1rem;
+    margin-right: 0.3125rem;
+  }
+}
+
+:host::ng-deep {
+  .nav-link-content {
+    transform: scale(0.8) !important;
+    // transform: translate(0.4em);
+    margin-right: -0.4em;
+    z-index: 2;
+  }
+}

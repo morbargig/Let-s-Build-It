@@ -1,0 +1,32 @@
+<div *ngIf="!!formControls">
+  <div class="modal-header">
+    <h4 class="modal-title">Rental Force Close Action</h4>
+    <button type="button" class="close" (click)="onCancel()">
+      <prx-icon icon="x"></prx-icon>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <ideo-dynamic-form-group #dyn [config]="formControls" [showSubmitButton]="false"> </ideo-dynamic-form-group>
+      </div>
+      <div class="col-12 col-md-6 d-flex justify-content-center flex-column">
+        <img class="img-fluid mb-3" src="https://picsum.photos/300/200" alt="" />
+        <img class="img-fluid" src="https://picsum.photos/300/200" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-gray" (click)="onCancel()">Close</button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="!dyn.form.valid || !dyn.form.touched"
+      (click)="formSubmitted(dyn.form)"
+    >
+      Submit
+    </button>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<prx-page-header title="Access control list" pre="Configuration">
+  <nav page-tools>
+    <button class="btn btn-gray-light text-darker">
+      <prx-icon [icon]="views.table"></prx-icon>
+    </button>
+    <button class="btn btn-gray-light text-darker">
+      <prx-icon [icon]="views.list"></prx-icon>
+    </button>
+  </nav>
+</prx-page-header>
+
+<div class="container-fluid">
+  <ng-container *ngIf="!!aclList$ && aclList$ | async as acls; else loading">
+    <prx-card *ngFor="let acl of acls | groupBy: 'category'" class="mb-2">
+      <prx-card-header>
+        <ng-container card-title>
+          <div class="row gap-y align-items-center">
+            <div class="col-md-6">
+              <h5 class="mb-0">{{ acl.key }}</h5>
+              <!-- <span class="badge badge-{{ acl.statusBadge }} badge-pill text-capitalize">{{ acl.status }}</span> -->
+            </div>
+          </div>
+        </ng-container>
+
+        <nav class="nav" card-tools>
+          <prx-vertical-toggler
+            [toggled]="expandedAcls[acl.key]"
+            (click)="expandedAcls[acl.key] = !expandedAcls[acl.key]"
+          ></prx-vertical-toggler>
+
+          <prx-context-menu>
+            <ng-container menu-icon>
+              <prx-icon icon="more-horizontal"></prx-icon>
+            </ng-container>
+
+            <a class="dropdown-item" [routerLink]="['invoice', acl.key]">
+              <prx-icon [icon]="icons.export" class="context-menu-icon"></prx-icon>
+              Export
+            </a>
+            <a class="dropdown-item" href="javascript:;">
+              <prx-icon [icon]="icons.download" class="context-menu-icon"></prx-icon>
+              Import
+            </a>
+          </prx-context-menu>
+        </nav>
+      </prx-card-header>
+
+      <prx-card-body
+        *ngIf="!!columns?.length"
+        [collapse]="!expandedAcls[acl.key]"
+        [isAnimated]="true"
+        (expanded)="drillDown(acl)"
+      >
+        <ngx-datatable
+          class="table"
+          [rows]="aclsRoles[acl.key]"
+          [columnMode]="ColumnMode.force"
+          headerHeight="auto"
+          [rowHeight]="false"
+          footerHeight="auto"
+        >
+          <ngx-datatable-column *ngFor="let column of columns" [name]="column.name">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              <span *ngIf="column.name == 'Permission'">{{ row[column.prop] }}</span>
+              <prx-checkbox
+                *ngIf="column.name != 'Permission'"
+                [checked]="row[column.prop]"
+                (onChanged)="permissionChanged(row['permissionName'], column.prop, $event)"
+              ></prx-checkbox>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </prx-card-body>
+    </prx-card>
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="row">
+      <div class="col-md-12">
+        <ideo-loader [template]="'list'" [isLoading]="isLoading" [count]="4"></ideo-loader>
+      </div>
+    </div>
+  </ng-template>
+</div>

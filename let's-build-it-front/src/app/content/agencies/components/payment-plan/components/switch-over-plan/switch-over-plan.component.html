@@ -1,0 +1,37 @@
+<prx-wsi-card title="Current payment plan"> 
+    <h5>
+        <span class="first-span">Trial Period</span>
+        <span class="second-span">10 days left</span>
+    </h5>
+    <prx-key-value-pair  [items]="trialItems"></prx-key-value-pair>
+    <h5 class="mt-4">Switchover plan</h5>
+    <h5>
+        <span class="first-span">Revenue % fees</span>
+    </h5>
+    <prx-key-value-pair [items]="partialSwitchOverItems" [itemsPerRow]="1"></prx-key-value-pair>  
+    <div class="row mt-4">
+        <div class="col-12 d-flex justify-content-center form-btns">
+            <button class="btn btn-info w-50">Discard</button>
+            <button class="btn btn-primary w-50">Checkout</button>
+        </div>
+    </div>
+</prx-wsi-card>
+<prx-wsi-card title="Current payment plan"> 
+    <h5>
+        <span class="first-span">Revenue % fees</span>
+    </h5>
+    <prx-key-value-pair  [items]="allSwitchOverItems" [itemsPerRow]="1"></prx-key-value-pair>
+    <h5 class="mt-4">Switchover plan</h5>
+    <h5>
+        <span class="first-span">Fixed Price</span>
+    </h5>
+    <prx-key-value-pair [items]="firstSwitchOverItems" [itemsPerRow]="1"></prx-key-value-pair>  
+    <div class="row mt-4">
+        <div class="col-12 d-flex justify-content-center form-btns">
+            <button class="btn btn-info w-50">Discard</button>
+            <button class="btn btn-primary w-50">Checkout</button>
+        </div>
+    </div>
+</prx-wsi-card>
+
+

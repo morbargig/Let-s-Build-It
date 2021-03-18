@@ -1,0 +1,39 @@
+.page-header {
+  font-size: 1.375rem;
+  font-weight: 500;
+  color: #001a3e;
+
+}
+
+.first-span {
+  font-size: 1.5625rem;
+  font-weight: 500;
+  color: #2d709f;
+}
+
+.second-span {
+  font-size: 1.375rem;
+  font-weight: 500;
+  color: #66768b;
+}
+
+.fas.fa-check-circle {
+  color: #2d709f;
+}
+
+.fas.fa-circle {
+  color: #eff2f6;
+}
+
+
+:host::ng-deep {
+  .active-card {
+    .wsi-card {
+      border: solid 2px #2d709f;
+      .wsi-card {
+        border: none;
+        ;
+      }
+    }
+  }
+}

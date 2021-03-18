@@ -1,0 +1,8 @@
+.car-card {
+  .body {
+    > * {
+      border: 1px solid black;
+      padding: 0.5rem 1rem;
+    }
+  }
+}

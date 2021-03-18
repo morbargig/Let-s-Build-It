@@ -1,0 +1,15 @@
+ul {
+  >li {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #001a3e;
+
+    &:first-of-type {
+      opacity: 0.6;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #001a3e;
+    }
+  }
+}
+

@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-12">
+    <prx-wsi-card title="General" [showEdit]="true" #general [loading]="!inventory">
+      <prx-key-value-pair
+        *ngIf="!!generalControls?.length"
+        [items]="generalControls"
+        [itemsPerRow]="4"
+        [viewType]="'block'"
+      >
+      </prx-key-value-pair>
+
+      <div edit-template>
+        <div class="row">
+          <div class="col-12">
+            <ideo-dynamic-form-group
+              *ngIf="!!generalControls?.length && !!inventory"
+              [(form)]="form"
+              [config]="generalControls"
+              [showSubmitButton]="false"
+            >
+            </ideo-dynamic-form-group>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 d-flex justify-content-end form-btns">
+            <button class="btn btn-info" (click)="general.toggleEdit()">Cancel</button>
+            <button class="btn btn-primary" [disabled]="!form?.valid" (click)="patchGeneral(form?.getRawValue())">
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </prx-wsi-card>
+  </div>
+</div>
+
+<prx-wsi-card [showHeader]="false" [loading]="!inventory">
+  <ideo-table *ngIf="!!inventory" [items]="[inventory]"
+   [columns]="columns" [lazy]="false" [showFilters]="false">
+  </ideo-table>
+</prx-wsi-card>

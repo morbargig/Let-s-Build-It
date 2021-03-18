@@ -1,0 +1,13 @@
+ideo-dynamic-form-group + ideo-dynamic-form-group,
+prx-key-value-pair + prx-key-value-pair {
+  &::before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 2px;
+    border-radius: 14px;
+    background-color: #f1f4f8;
+    margin-left: -15px;
+    position: absolute;
+  }
+}

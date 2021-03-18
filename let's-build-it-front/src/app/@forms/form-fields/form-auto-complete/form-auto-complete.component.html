@@ -1,0 +1,11 @@
+<ideo-autocomplete
+  [id]="id"
+  [formControl]="control"
+  (valueChanged)="!!config.onChange && config.onChange($event, control)"
+  [dataKey]="config.data?.dataKey"
+  [labelKey]="config.data?.labelKey"
+  [optionsFetcher]="optionsFetcher"
+  [resolveLabel]="resolveLabel"
+  [options]="!!config.optionsArr$ ? (config.optionsArr$ | async) : config.optionsArr"
+>
+</ideo-autocomplete>

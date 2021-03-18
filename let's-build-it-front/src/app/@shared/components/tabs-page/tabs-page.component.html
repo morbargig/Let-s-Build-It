@@ -1,0 +1,11 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item" *ngFor="let tab of config?.tabs | permitted">
+    <a class="nav-link" [ngClass]="{ active: currentRoute == tab.value }" aria-current="page"
+      [routerLink]="['./' + tab.value]">
+      {{ tab.label }}
+    </a>
+  </li>
+</ul>
+<prx-wsi-card [showHeader]="false">
+  <router-outlet></router-outlet>
+</prx-wsi-card>

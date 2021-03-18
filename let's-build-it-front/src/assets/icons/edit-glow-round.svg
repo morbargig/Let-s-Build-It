@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29">
+    <defs>
+        <style>
+            .cls-2{fill:#66768b}
+        </style>
+    </defs>
+    <g id="more" transform="translate(-1512 -749)">
+        <circle id="Ellipse_7" cx="14.5" cy="14.5" r="14.5" fill="#f1f4f8" transform="translate(1512 749)"/>
+        <circle id="Ellipse_9" cx="1.5" cy="1.5" r="1.5" class="cls-2" transform="translate(1518 762)"/>
+        <circle id="Ellipse_10" cx="1.5" cy="1.5" r="1.5" class="cls-2" transform="translate(1525 762)"/>
+        <circle id="Ellipse_11" cx="1.5" cy="1.5" r="1.5" class="cls-2" transform="translate(1532 762)"/>
+    </g>
+</svg>

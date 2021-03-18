@@ -1,0 +1,47 @@
+<div class="row mb-2">
+  <div class="col d-flex justify-content-between align-items-center">
+    <h3 class="mb-0">General</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-4 d-flex flex-column flex-wrap">
+    <prx-wsi-card title="Vehicle IDs" [fullHeight]="true">
+      <prx-key-value-pair *ngIf="!!car; else loading" [items]="vehicleIdsItems"></prx-key-value-pair>
+    </prx-wsi-card>
+  </div>
+  <div class="col-12 col-md-4 d-flex flex-column flex-wrap">
+    <prx-wsi-card title="Hardware" [fullHeight]="true">
+      <prx-key-value-pair *ngIf="!!car; else loading" [items]="hardwareItems"></prx-key-value-pair>
+    </prx-wsi-card>
+  </div>
+  <div class="col-12 col-md-4 d-flex flex-column flex-wrap">
+    <prx-wsi-card title="Status" [fullHeight]="true">
+      <prx-key-value-pair *ngIf="!!car; else loading" [items]="statusItems"></prx-key-value-pair>
+    </prx-wsi-card>
+  </div>
+
+  <div class="col-12">
+    <prx-wsi-card title="Vehicle Owner">
+      <prx-key-value-pair *ngIf="!!car; else loading" [items]="carOwnerItems" [itemsPerRow]="3"></prx-key-value-pair>
+    </prx-wsi-card>
+  </div>
+
+  <div class="col-12">
+    <prx-wsi-card title="Legal Documents">
+      <prx-docs *ngIf="!!car; else loading" [items]="docs" [itemActions]="docActions"></prx-docs>
+    </prx-wsi-card>
+  </div>
+
+  <div class="col-12">
+    <prx-wsi-card title="Segments"></prx-wsi-card>
+  </div>
+
+  <div class="col-12">
+    <prx-wsi-card title="Tags"></prx-wsi-card>
+  </div>
+</div>
+
+<ng-template #loading>
+  <ideo-loader [template]="'product'" [isLoading]="true" [count]="1"></ideo-loader>
+</ng-template>

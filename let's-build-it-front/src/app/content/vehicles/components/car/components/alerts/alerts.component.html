@@ -1,0 +1,30 @@
+<div class="row mb-2">
+  <div class="col d-flex justify-content-between align-items-center">
+    <h3 class="mb-0">Alerts</h3>
+    <div class="d-flex justify-content-end align-items-center">
+      <button class="btn btn-secondary mr-2">Book Now</button>
+      <ideo-select [options]="dropdownActions" placeholder="Actions"></ideo-select>
+    </div>
+  </div>
+</div>
+
+<prx-wsi-card [showHeader]="false">
+  <ideo-table
+    *ngIf="!!columns?.length"
+    #tc
+    [items]="items"
+    [columns]="columns"
+    [buttons]="itemActions"
+    (onLazyLoad)="onLazyLoad($event)"
+    stateKey="car-alert"
+    [totalRecords]="totalRecords"
+    [filters]="filters"
+    [(selection)]="selection"
+    [showFilters]="true"
+    [initSelection]="initSelection"
+    dataKey="car-alert.data"
+    [lazy]="lazy"
+    [fullHeight]="true"
+  >
+  </ideo-table>
+</prx-wsi-card>

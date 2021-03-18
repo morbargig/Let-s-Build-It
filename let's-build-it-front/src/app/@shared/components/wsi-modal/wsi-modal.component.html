@@ -1,0 +1,52 @@
+<div
+  class="modal d-block fade show"
+  [ngClass]="{ in: !!started && !isClosing }"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modal"
+>
+  <div class="modal-dialog modal-dialog-centered" [ngClass]="{ 'modal-xl': typeObj?.mode !== 'Not Found' || !typeObj }">
+    <div class="modal-content">
+      <div class="modal-header" *ngIf="!!typeObj?.title || (!typeObj && !!title); else header" id="header">
+        <h4 class="modal-title">
+          {{ typeObj?.title || title }}
+        </h4>
+        <button type="button" class="close" (click)="discardModal()">
+          <prx-icon icon="x"></prx-icon>
+        </button>
+      </div>
+
+      <ng-template #header>
+        <ng-content select="[custom-header]"></ng-content>
+      </ng-template>
+      <div class="modal-body">
+        <ng-content *ngIf="!typeObj || typeObj?.mode !== 'Not Found'; else loading"></ng-content>
+      </div>
+      <div class="modal-footer">
+        <button *ngIf="typeObj?.mode === 'Not Found'" class="btn btn-primary" (click)="discardModal()">Got It</button>
+        <div *ngIf="typeObj?.mode !== 'Not Found'">
+          <button class="btn btn-info" (click)="discardModal()">Discard</button>
+          <button class="btn btn-primary" (click)="onSubmit()" [disabled]="!isValidForm">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+    <ideo-loader
+      *ngIf="typeObj?.mode !== 'Not Found'; else notFound"
+      [template]="'product'"
+      [count]="3"
+      [isLoading]="true"
+    >
+    </ideo-loader>
+  </ng-template>
+  <ng-template #notFound>
+    <h5>
+      {{ typeObj.subTitle }}
+    </h5>
+    <h6>
+      {{ typeObj.message }}
+    </h6>
+  </ng-template>
+  <div class="modal-backdrop fade show" (click)="discardModal()"></div>
+</div>

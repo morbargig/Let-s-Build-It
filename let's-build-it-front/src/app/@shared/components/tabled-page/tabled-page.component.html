@@ -1,0 +1,57 @@
+<prx-page-header [title]="config.title" [pre]="config.preTitle">
+  <nav page-tools>
+    <div class="panel-toolbar d-flex justify-content-end align-items-center">
+      <ideo-button *ngFor="let tool of pageActions | filter: { type: null }" [button]="tool" size="small"></ideo-button>
+
+      <prx-context-menu>
+        <ng-container menu-icon>
+          <prx-icon icon="more-horizontal"></prx-icon>
+        </ng-container>
+
+        <ng-container *ngFor="let item of topRightButtons" [ngSwitch]="item.optionsArr?.length > 0">
+          <div *ngSwitchCase="true" class="btn-group w-100">
+            <div class="btn-group w-100 d-flex justify-content-between align-items-center">
+              <button *ngFor="let opt of item.optionsArr" class="btn btn-link" (click)="opt.click($event)">
+                <i class="{{ opt.icon }}"></i>
+                {{ opt.label }}
+              </button>
+            </div>
+          </div>
+          <a class="dropdown-item" *ngSwitchCase="false" (click)="item.click()">
+            <prx-icon [icon]="item.faIcon" class="context-menu-icon"></prx-icon>
+            {{ item.label }}
+          </a>
+        </ng-container>
+      </prx-context-menu>
+    </div>
+  </nav>
+</prx-page-header>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <prx-wsi-card [showHeader]="false">
+        <ideo-table
+          #tc
+          [items]="items"
+          [columns]="columns"
+          [buttons]="itemActions"
+          (onLazyLoad)="onLazyLoad($event)"
+          [stateKey]="config.stateKey"
+          [totalRecords]="totalRecords"
+          [filters]="filters"
+          [(selection)]="selection"
+          [selectionMode]="selectionMode"
+          [showFilters]="config?.showFilters"
+          [initSelection]="initSelection"
+          [dataKey]="config?.dataKey"
+          [lazy]="lazy"
+          [fullHeight]="true"
+        >
+        </ideo-table>
+      </prx-wsi-card>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

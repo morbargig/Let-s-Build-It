@@ -1,0 +1,71 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title">Import</h4>
+    <button type="button" class="close" (click)="modalRef.hide()">
+      <prx-icon icon="x"></prx-icon>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <ngx-dropzone (change)="onSelect($event)" *ngIf="!file">
+      <ngx-dropzone-label
+        >Drop your file here or
+        <button (click)="downloadTemplate($event)" rel="noopener noreferrer">
+          Download template
+        </button></ngx-dropzone-label
+      >
+    </ngx-dropzone>
+    <div class="row" *ngIf="!!file">
+      <div class="col-12">
+        <ideo-table
+          #table
+          [columns]="config.columns"
+          [valid]="config.validator"
+          [items]="items$ | async"
+          [totalRecords]="(items$ | async)?.length"
+          [showFilters]="false"
+          [lazy]="false"
+          (onLazyLoad)="lazy($event)"
+          [buttons]="itemsActions"
+          [autoValidate]="formControls"
+          [loading$]="loading$"
+          [fullHeight]="true"
+        ></ideo-table>
+        <!-- <form [formGroup]="form">
+          <table class="table">
+            <thead>
+              <tr>
+                <th *ngFor="let column of config.controls">
+                  {{ column.config.label }}
+                </th>
+              </tr>
+            </thead>
+            <tbody formArrayName="items">
+              <tr *ngFor="let item of items; let i = index" [formGroupName]="i">
+                <td *ngFor="let control of config.controls">
+                  <ideo-dynamic-form-control
+                    [dynamicControl]="control"
+                    [mode]="2"
+                    [group]="form.get('items').get(i + '')"
+                  ></ideo-dynamic-form-control>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-gray" (click)="onCancel()">Close</button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="!table?.form || !table?.form?.valid"
+      (click)="onConfirm()"
+    >
+      Confirm
+    </button>
+  </div>
+</div>

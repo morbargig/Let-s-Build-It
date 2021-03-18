@@ -1,0 +1,48 @@
+.details {
+  padding: 1.25rem 1.25rem 1.25rem 1.0625rem;
+  box-shadow: 0 2px 12px 0 rgba(165, 178, 191, 0.2);
+  background-color: #f9fbfd;
+}
+
+.image {
+  height: 100px;
+}
+
+ul {
+  > li {
+    > span {
+      &:first-of-type {
+        margin-right: 0.3125rem;
+      }
+    }
+  }
+}
+
+.img-box {
+  margin: 0 34px 0 0;
+}
+
+.left-side > li > span {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #66768b;
+
+  &.partner_title {
+    font-size: 1.625rem;
+    font-weight: 500;
+    line-height: 1.23;
+    color: #001a3e;
+  }
+}
+
+.right-side > li > span {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #66768b;
+}
+
+.right-side > li > span:nth-child(2) {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #001a3e;
+}

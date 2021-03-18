@@ -1,0 +1,46 @@
+.date-card {
+
+  border-radius: 8px;
+  border: solid 1px #66768b;
+  background-color: #ffffff;
+}
+
+.date-btn {
+  background-color: #2d709f;
+  color: #2d709f;
+  background: #2d709f;
+  width: inherit;
+  border: none;
+  width: 4.375rem;
+  overflow: hidden;
+  position: relative;
+  left: -2.5rem;
+  margin-right: -2.5rem;
+  align-items: center;
+  padding-inline-start: -2.3438rem !important;
+
+  :focus {
+    outline: none;
+    outline-color: unset;
+    outline-style: unset;
+  }
+}
+
+.blue-btn {
+  background-color: #2d709f;
+  color: white;
+  background: #2d709f;
+  border-radius: 15px 15px 15px 15px;
+//   border-radius: unset;
+}
+
+.white-btn {
+  transform: scale(1.2);
+  background: white;
+  border-radius: unset;
+  z-index: 1;
+  width: 2.625rem;
+}
+.point-arrow{
+    width: 4.6875rem;
+}

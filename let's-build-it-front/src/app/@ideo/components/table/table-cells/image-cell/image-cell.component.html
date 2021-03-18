@@ -1,0 +1,15 @@
+<div *ngIf="((!!col.parsedFullData && col.parsedFullData(item)) || item[col.field]) as value">
+  <img *ngIf="!isStatic"
+    [hidden]="!value"
+    [src]="value | imageId: true"
+    class="img-fluid img-thumbnail"
+    style="max-height: 33px"
+  />
+
+  <img *ngIf="!!isStatic"
+    [hidden]="!value"
+    [src]="value"
+    class="img-fluid"
+    style="max-height: 33px"
+  />
+</div>

@@ -1,0 +1,7 @@
+<div class="position-absolute validation-wrapper" *ngIf="!!errorMessages && (!!control.touched || !!autoShowErrors)">
+  <ng-container *ngFor="let errMsg of errorMessages; let first = first; let i = index">
+    <div class="invalid-feedback d-block mt-0" *ngIf="control.hasError(errMsg.value)">
+      {{ errMsg.label }}
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,7 @@
+<ul *ngIf="!!items?.length" class="list-unstyled row view-type-{{ viewType }}">
+  <li *ngFor="let item of items | filter: { 'config.type': ['text', 'date', 'email', null, undefined ,'number'] }"
+    [style.flex]="sizeStyle">
+    <span class="label"> {{ (item?.label) || (item?.config?.label) || (item?.config?.data?.text) }}</span>
+    <span>{{ (item?.value) || ((item?.config)?.value) }}</span>
+  </li>
+</ul>

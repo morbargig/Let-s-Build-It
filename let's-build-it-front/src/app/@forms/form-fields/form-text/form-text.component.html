@@ -1,0 +1,23 @@
+<ng-container *ngIf="config?.type == 'separator'; else regular">
+  <div [class]="config?.inputStyleClass || 'col-12 d-block'">
+    <hr />
+  </div>
+</ng-container>
+
+<ng-template #regular>
+  <!-- [attr.disabled]="config?.disabled" -->
+  <input *ngIf="!config.data?.rows" 
+   [type]="config?.type"
+    class="form-control {{ config?.inputStyleClass }}" [ngClass]="{ 'is-invalid': !!control.touched && !control.valid }"
+    [id]="id" [autocomplete]="config.data?.autocomplete || 'off'" [placeholder]="config?.placeholder || ''"
+    [formControl]="group?.controls[config?.name]" (input)="onChange($event.target.value)" />
+
+  <textarea *ngIf="!!config.data?.rows" [formControl]="group?.controls[config?.name]" [id]="id"
+    [cols]="config.data?.cols" [rows]="config.data.rows" (input)="onChange($event.target.value)"
+    [placeholder]="config?.placeholder || ''" class="form-control {{ config?.inputStyleClass }}"
+    [ngClass]="{ 'is-invalid': !!control.touched && !control.valid }"></textarea>
+
+  <span *ngIf="config.data?.autoGenerator" class="auto-generator" (click)="autoGeneratorClicked()">
+    {{ config.data.autoGeneratorLabel }}
+  </span>
+</ng-template>

@@ -1,0 +1,38 @@
+<div class="wsi-card d-flex flex-column  justify-content-{{ alignment }}" [ngClass]="{ 'full-height': !!fullHeight }">
+  <div class="row" *ngIf="!!showHeader">
+    <div class="col-12 header d-flex justify-content-between align-items-center" *ngIf="!!title; else customHeader">
+      <h5>{{ title }}</h5>
+      <div class="right-bar">
+        <button *ngIf="!!showEdit" (click)="toggleEdit()" class="btn btn-link">
+          <img src="assets/icons/edit.svg" alt="" />
+        </button>
+        <!-- <ng-content select="[right-bar-btns]"></ng-content> -->
+      </div>
+    </div>
+    <ng-template #customHeader>
+      <div class="col-12 header d-flex justify-content-between align-items-center">
+        <ng-content select="[custom-header]"></ng-content>
+        <div class="right-bar">
+          <button *ngIf="!!showEdit" (click)="toggleEdit()" class="btn btn-link">
+            <img src="assets/icons/edit.svg" alt="" />
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <div class="row" [ngClass]="{ 'flex-grow': fuller }">
+    <div *ngIf="!loading; else loadingTemplate" class="col-12 body d-flex flex-column"
+      [ngClass]="{ 'flex-grow': fullHeight }">
+      <div [hidden]="!!editMode" [ngClass]="{ 'flex-grow': fullHeight }">
+        <ng-content></ng-content>
+      </div>
+      <div [hidden]="!editMode">
+        <ng-content select="[edit-template]"></ng-content>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingTemplate>
+  <ideo-loader [template]="'product'" [isLoading]="true" [count]="1"></ideo-loader>
+</ng-template>

@@ -1,0 +1,56 @@
+@import "import";
+
+.side-bar {
+  background: #2c354f;
+  height: calc(100vh - 140px);
+  position: sticky;
+  top: 0;
+  :host >>> .breadcrumb {
+    padding: 1.5rem 0 1rem 0 !important;
+    margin-bottom: 0;
+    background: #f1f4f8;
+
+  }
+  h2 {
+    font-size: 1.275rem;
+    font-weight: 500;
+    color: #f1f4f8;
+    position: sticky;
+    top: 0;
+    border-bottom: solid 1px rgba(214, 219, 224, 0.15);
+    padding: 1rem 0 1rem 0.5rem;
+    margin: 0 -0.9375rem;
+
+    a {
+      color: #f1f4f8;
+      padding: 10px 15px;
+      color: #f1f4f8;
+    }
+  }
+
+  ul {
+    position: sticky;
+    top: 5rem;
+
+    li {
+      padding: 0.5rem 1rem;
+      // padding: 0.25rem 0 0.25rem 2.8125rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #f1f4f8;
+      outline: none;
+      transition: all .1s ease-in-out;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &.active {
+        color: $color-primary;
+        border-radius: 5px;
+        background-color: #f1f4f8;
+        color: #2c354f;
+      }
+    }
+  }
+}

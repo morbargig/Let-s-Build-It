@@ -1,0 +1,36 @@
+<div class="row mb-2">
+    <div class="col d-flex justify-content-between align-items-center">
+      <h3 class="mb-0">Zones</h3>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col-12 col-md-6 col-xl-4">
+    <prx-wsi-card [showEdit]="false">
+      <div class="row">
+        <div class="col-12">
+          <ideo-dynamic-form-group
+            *ngIf="!!formControls?.length"
+            [(form)]="form"
+            [config]="formControls"
+            [showSubmitButton]="false"
+          >
+          </ideo-dynamic-form-group>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-end form-btns">
+          <button class="btn btn-info" [routerLink]="!!zone ? ['../../'] : ['../']">Cancel</button>
+          <button class="btn btn-primary" [disabled]="!form?.valid" (click)="patch(form?.getRawValue())">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </prx-wsi-card>
+  </div>
+  <div class="col-12 col-md-6 col-xl-8 flex-wrap d-flex flex-column">
+    <prx-wsi-card [showHeader]="false" [fullHeight]="true" [fuller]="true">
+      <agm-map [latitude]="31.771959" [longitude]="35.217018" (mapReady)="onMapReady($event)"> </agm-map>
+    </prx-wsi-card>
+  </div>
+</div>

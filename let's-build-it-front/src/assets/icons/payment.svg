@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17.595" height="15.473" viewBox="0 0 17.595 15.473">
+    <defs>
+        <style>
+            .cls-1{fill:#357daf}
+        </style>
+    </defs>
+    <g id="payment" transform="rotate(-14.98 -1.91 21.143)">
+        <path id="Rectangle_112" d="M2 0h11a2 2 0 0 1 2 2v2H0V2a2 2 0 0 1 2-2z" class="cls-1" transform="translate(4.405 4.968)"/>
+        <path id="Rectangle_113" d="M0 0h15v3a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V0z" class="cls-1" transform="translate(4.405 11.968)"/>
+    </g>
+</svg>

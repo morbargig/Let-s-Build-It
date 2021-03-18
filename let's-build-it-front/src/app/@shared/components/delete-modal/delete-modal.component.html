@@ -1,0 +1,23 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title">Action required</h4>
+    <button type="button" class="close" (click)="modalRef.hide()">
+      <prx-icon icon="x"></prx-icon>
+    </button>
+  </div>
+
+  <div class="modal-body" >
+    <ng-container *ngIf="!message; else customMessage">
+      Are you sure you would like to delete '{{ modalRef.content?.name || modalRef.content?.id || 'this entity' }}'?
+    </ng-container>
+  </div>
+
+  <ng-template #customMessage>
+    {{ message }}
+  </ng-template>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-gray" (click)="onCancel()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="onConfirm()">Confirm</button>
+  </div>
+</div>

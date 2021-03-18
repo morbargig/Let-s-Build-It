@@ -1,0 +1,11 @@
+.map{
+    height: 41.875rem;
+}
+
+:host::ng-deep{
+    area {
+        background-color: black;
+        height: 100px;
+        width: 50px;
+    }
+}

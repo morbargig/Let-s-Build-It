@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-12">
+    <prx-wsi-card title="Business Profile" [showEdit]="true" #card [loading]="!partner">
+      <prx-key-value-pair [items]="generalControls" [itemsPerRow]="3" [viewType]="'block'"> </prx-key-value-pair>
+
+      <div edit-template>
+        <div class="row">
+          <div class="col-12">
+            <ideo-dynamic-form-group [(form)]="form" [config]="generalControls" [showSubmitButton]="false">
+            </ideo-dynamic-form-group>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 d-flex justify-content-end form-btns">
+            <button class="btn btn-info" (click)="card.toggleEdit()">Cancel</button>
+            <button class="btn btn-primary" [disabled]="!form?.valid" (click)="patchGeneral(form?.getRawValue())">
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </prx-wsi-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <prx-wsi-card title="Legal & Documents" [showEdit]="false" [loading]="!partner">
+      <prx-docs [items]="docs" [itemActions]="docActions"></prx-docs>
+    </prx-wsi-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <prx-wsi-card title="Settings" [showEdit]="true" [loading]="!partner" #settingsCard>
+      <prx-key-value-pair [items]="settingsControls" [itemsPerRow]="1" [viewType]="'block'"> </prx-key-value-pair>
+      <div class="row">
+        <div class="col">
+          <span>Two factor auth</span>
+          <span class="d-block"><i class="fas fa-check text-success"></i></span>
+        </div>
+      </div>
+      <div edit-template>
+        <div class="row">
+          <div class="col-12">
+            <ideo-dynamic-form-group [(form)]="settingsForm" [config]="settingsControls" [showSubmitButton]="false">
+            </ideo-dynamic-form-group>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 d-flex justify-content-end form-btns">
+            <button class="btn btn-info" (click)="settingsCard.toggleEdit()">Cancel</button>
+            <button class="btn btn-primary" [disabled]="!settingsForm?.valid">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </prx-wsi-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <prx-wsi-card title="Tags" [showEdit]="true" [loading]="!partner"> </prx-wsi-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <prx-wsi-card title="Notes" [showEdit]="false" [loading]="!partner"> </prx-wsi-card>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="entity-details">
+  <div class="media-container">
+    <div class="bg-img rounded-circle" [style.background-image]="'url(' + (details.mediaId | imageId) + ')'"></div>
+    <!-- <img [src]="details.mediaId | imageId" class="img-fluid rounded-circle" alt="" /> -->
+  </div>
+  <div class="content">
+    <div>
+      <h1>
+        {{ details.title }} <span *ngIf="!!details.titleSpan">{{ details.titleSpan }}</span>
+      </h1>
+      <div *ngIf="!!details.subTitle">
+        <h4 *ngIf="!!details.subTitle?.length; else regularTitle">
+          <span *ngFor="let item of details.subTitle">{{ item }}</span>
+        </h4>
+
+        <ng-template #regularTitle>
+          <h4>
+            <span>{{ details.subTitle }}</span>
+          </h4>
+        </ng-template>
+      </div>
+      <ul class="bottom-values" *ngIf="!!details.bottomValues?.length">
+        <li *ngFor="let item of details.bottomValues">
+          <span>{{ item.label }}</span>
+          <span>{{ item.value }}</span>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <ul class="right-values" *ngIf="!!details.rightValues?.length">
+        <li *ngFor="let item of details.rightValues">
+          <span>{{ item.label }}</span>
+          <span>{{ item.value }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

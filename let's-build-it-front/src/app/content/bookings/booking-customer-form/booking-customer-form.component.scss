@@ -1,0 +1,18 @@
+:host::ng-deep {
+  .user-image {
+    width: 3rem !important;
+    height: 3rem !important;
+    margin-right: 1em;
+  }
+
+  .acronym {
+    width: 2.4375rem;
+    height: 2.4375rem;
+    padding: 0.4375rem;
+    border-radius: 50%;
+    color: #fff;
+    background-color: violet;
+    font-size: 1rem;
+    margin-right: 0.5em;
+  }
+}

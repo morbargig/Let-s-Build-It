@@ -1,0 +1,8 @@
+<ideo-multiselect
+  [id]="id"
+  [formControl]="control"
+  (valueChanged)="!!config.onChange && config.onChange($event, control)"
+  [options]="!!config.optionsArr$ ? (config.optionsArr$ | async) : config.optionsArr"
+  [dataKey]="config.data?.dataKey"
+>
+</ideo-multiselect>

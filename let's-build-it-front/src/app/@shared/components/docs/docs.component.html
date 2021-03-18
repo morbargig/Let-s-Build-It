@@ -1,0 +1,29 @@
+<ul>
+  <li *ngFor="let item of items">
+    <h6>{{ item.label }}</h6>
+    <div style="background-image: url('{{ item.value | imageId }}');">
+      <prx-context-menu [appendToBody]="true" [placement]="'top right'">
+        <ng-container menu-icon>
+          <prx-icon icon="more-vertical"></prx-icon>
+        </ng-container>
+
+        <button class="dropdown-item" (click)="mi.click(item.value)" type="button" *ngFor="let mi of itemActions">
+          <prx-icon [icon]="mi.icon" class="context-menu-icon mr-3"></prx-icon>
+          {{ mi.label }}
+        </button>
+
+        <button class="dropdown-item" type="button" (click)="mi.click(item.value)" *ngFor="let mi of item.items">
+          <prx-icon [icon]="mi.icon" class="context-menu-icon mr-3"></prx-icon>
+          {{ mi.label }}
+        </button>
+      </prx-context-menu>
+    </div>
+  </li>
+  <li *ngIf="!!showAdd" class="add">
+    <img src="assets/icons/upload.svg" alt="" />
+    <h4>
+      Click here <br />
+      To upload an image
+    </h4>
+  </li>
+</ul>

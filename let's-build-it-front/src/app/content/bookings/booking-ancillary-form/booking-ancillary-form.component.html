@@ -1,0 +1,32 @@
+<div *ngFor="let ancillary of items; let i = index">
+  <div *ngIf="i === 0 || ancillary.ancillaryGroupId !== ancillaryGroupId " class="pt-2">
+    <span class="d-none">
+      {{ setAncillaryGroupId( ancillary.ancillaryGroupId) }}
+    </span>
+    <div class="custom-header">
+      {{ ancillary.ancillaryGroupName}}
+
+      <span class="font-smaller small  text-muted">
+        &nbsp;
+        {{ selectedByGroup? (selectedByGroup[ancillary?.ancillaryGroupId] || 0) : 0 }} selected
+      </span>
+    </div>
+  </div>
+  <prx-wsi-card class=" my-2 py-0">
+    <div class="row ancillary" (click)="ancillarySelected(ancillary)"
+      [ngClass]="{ selected: !!selectedItems[ancillary.id] }">
+      <div class="col-2 d-flex flex-grow justify-content-start align-items-start">
+        <img src="assets/icons/check-empty.svg" class="mr-3" alt="" *ngIf="!selectedItems[ancillary.id]" />
+        <img src="assets/icons/check.svg" class="mr-3 checked" alt="" />
+
+        <div>
+          <h4>{{ ancillary.title }}</h4>
+          <span>Price {{ ancillary.price | currency }}</span>
+        </div>
+      </div>
+      <div class="col-10">
+        <p>{{ ancillary.description }}</p>
+      </div>
+    </div>
+  </prx-wsi-card>
+</div>

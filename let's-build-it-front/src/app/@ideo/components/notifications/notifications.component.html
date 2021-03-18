@@ -1,0 +1,9 @@
+<div class="notifications">
+  <ul class="">
+    <li *ngFor="let notification of notifications" class="{{ notification.type }} border p-3">
+      <button type="button" class="toast-close-button" role="button" (click)="close(notification)">×</button>
+      <i class="{{ notification.type }}"></i>
+      <p class="mb-0">{{ notification.content }}</p>
+    </li>
+  </ul>
+</div>

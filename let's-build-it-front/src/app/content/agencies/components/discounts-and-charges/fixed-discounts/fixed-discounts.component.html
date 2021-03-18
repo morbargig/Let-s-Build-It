@@ -1,0 +1,35 @@
+<prx-wsi-card #fixedDiscount title="Fixed Discount" [showEdit]="true">
+  <input
+    *ngIf="!!fixedDiscounts"
+    type="checkbox"
+    [(ngModel)]="fixedDiscounts.isActive"
+    (change)="onActiveFixedDiscounts()"
+  />
+  <label>Enable other service discount</label>
+  <div>
+    <prx-key-value-pair [items]="fixedDiscountItems" [viewType]="'block'"> </prx-key-value-pair>
+  </div>
+  <ng-container edit-template>
+    <input
+      type="checkbox"
+      *ngIf="!!fixedDiscounts"
+      [(ngModel)]="fixedDiscounts.isActive"
+      (change)="onActiveFixedDiscounts()"
+    />
+    <label>Enable other service discount</label>
+    <ideo-dynamic-form-group
+      *ngIf="!!fixedDiscountControls?.length"
+      [(form)]="form"
+      [config]="fixedDiscountControls"
+      [showSubmitButton]="false"
+    >
+    </ideo-dynamic-form-group>
+
+    <div class="col-12 d-flex justify-content-end form-btns">
+      <button class="btn btn-info" (click)="fixedDiscount.editMode = false">Cancel</button>
+      <button class="btn btn-primary" [disabled]="!form?.valid" (click)="onFixedDiscountSubmit(fixedDiscount, form)">
+        Save Changes
+      </button>
+    </div>
+  </ng-container>
+</prx-wsi-card>

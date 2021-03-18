@@ -1,0 +1,15 @@
+<prx-wsi-modal
+  [title]="modalPageConfig?.title"
+  [type]="modalPageConfig.type"
+  [close]="modalPageConfig.closeUrl"
+  (submit)="modalPageConfig?.submit(form.getRawValue())"
+  [isValidForm]="!!form?.valid"
+>
+  <ideo-dynamic-form-group
+    *ngIf="!!formControls?.length"
+    [(form)]="form"
+    [config]="formControls"
+    [showSubmitButton]="false"
+  >
+  </ideo-dynamic-form-group>
+</prx-wsi-modal>

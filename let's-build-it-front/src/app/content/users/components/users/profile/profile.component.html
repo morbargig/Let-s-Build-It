@@ -1,0 +1,22 @@
+<prx-wsi-card [title]="'Details'" [showEdit]="true" #profileCard>
+    <div class="mt-3">
+        <prx-key-value-pair [items]="profileControls" [itemsPerRow]="4" [viewType]="'block'">
+        </prx-key-value-pair>
+    </div>
+    <div edit-template>
+        <div class="row">
+            <div class="col-12">
+                <ideo-dynamic-form-group [(form)]="profileForm" [config]="profileControls" [showSubmitButton]="false">
+                </ideo-dynamic-form-group>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <button class="btn btn-info" (click)="profileCard.toggleEdit()">Cancel</button>
+                <button class="btn btn-primary" [disabled]="!profileForm?.valid">Save
+                    Changes</button>
+            </div>
+        </div>
+    </div>
+</prx-wsi-card>
+<prx-wsi-card [title]="'Tags'" [showEdit]="true" #tagsCard></prx-wsi-card>

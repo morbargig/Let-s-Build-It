@@ -1,0 +1,10 @@
+<prx-breadcrum [items]="breadcrumbs" class="no-margin"></prx-breadcrum>
+
+<div class="container-fluid d-flex justify-content-center">
+  <div class="col-12 col-md-10">
+    <ideo-dynamic-stepped-form #dyn [config]="arrayConfig?.controls" (onSubmit)="submitForm($event)"
+      [validation]="arrayConfig?.validation" [footerMode]="1" [errorMessages]="arrayConfig?.errorMessages"
+      [formValue]="entity" (formChange)="formChanged($event)">
+    </ideo-dynamic-stepped-form>
+  </div>
+</div>

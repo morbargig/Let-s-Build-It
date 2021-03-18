@@ -1,0 +1,41 @@
+<div class="row mb-2">
+  <div class="col d-flex justify-content-between align-items-center">
+    <h3 class="mb-0">Zones</h3>
+    <div class="d-flex justify-content-end align-items-center">
+      <button class="btn btn-secondary mr-2">Add Zone</button>
+      <button class="btn btn-secondary mr-2">Book Now</button>
+      <ideo-select [options]="dropdownActions" placeholder="Actions"></ideo-select>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 col-md-8 col-xl-6">
+    <prx-wsi-card [showHeader]="false">
+      <ideo-table
+        *ngIf="!!columns?.length"
+        #tc
+        [items]="items"
+        [columns]="columns"
+        [buttons]="itemActions"
+        (onLazyLoad)="onLazyLoad($event)"
+        stateKey="car-zones"
+        [totalRecords]="totalRecords"
+        [filters]="filters"
+        [(selection)]="selection"
+        [showFilters]="true"
+        [initSelection]="initSelection"
+        dataKey="car-zones.data"
+        [lazy]="lazy"
+        [fullHeight]="true"
+      >
+      </ideo-table>
+    </prx-wsi-card>
+  </div>
+  <div class="col-12 col-md-4 col-xl-6 flex-wrap d-flex flex-column">
+    <prx-wsi-card [showHeader]="false" [fullHeight]="true" [fuller]="true">
+      <agm-map [latitude]="31.771959" [longitude]="35.217018">
+        <agm-marker [latitude]="31.771959" [longitude]="35.217018"></agm-marker>
+      </agm-map>
+    </prx-wsi-card>
+  </div>
+</div>

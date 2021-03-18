@@ -1,0 +1,10 @@
+th.input-column {
+  min-width: 80px;
+}
+:host::ng-deep {
+  .group-validation-wrapper {
+    .validation-wrapper {
+      transform: translateY(-100%);
+    }
+  }
+}

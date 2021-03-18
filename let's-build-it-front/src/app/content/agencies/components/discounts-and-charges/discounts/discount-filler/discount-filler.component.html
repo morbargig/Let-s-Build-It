@@ -1,0 +1,13 @@
+<h4>{{ title }}</h4>
+<label (click)="onActiveType()">
+  <input [ngModel]="enable" type="checkbox" />
+  {{ description }}
+</label>
+
+<ng-container *ngIf="!!controls?.length && enable">
+  <ideo-dynamic-form-group [(form)]="form" [config]="controls" [showSubmitButton]="false"> </ideo-dynamic-form-group>
+  <div class="col-12 d-flex justify-content-end form-btns" *ngIf="!!form?.dirty || !!form?.touched">
+    <button class="btn btn-info btn-sm">Cancel</button>
+    <button class="btn btn-primary btn-sm" [disabled]="!form?.valid" (click)="onSubmit()">Save Changes</button>
+  </div>
+</ng-container>

@@ -1,0 +1,17 @@
+@import "~src/theme/user/variables";
+
+ul {
+  li {
+    padding: 0.3rem 0.6rem;
+    margin: 0.3125rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.active {
+      color: $color-primary;
+      font-weight: bold;
+    }
+  }
+}

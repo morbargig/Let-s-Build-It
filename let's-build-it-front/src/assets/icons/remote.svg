@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="11.749" height="17.259" viewBox="0 0 11.749 17.259">
+    <defs>
+        <style>
+            .cls-1{fill:#66768b}
+        </style>
+    </defs>
+    <g id="remote" transform="translate(-34.365 -27.659)">
+        <rect id="Rectangle_103" width="11.749" height="10.863" class="cls-1" rx="3" transform="translate(34.365 27.659)"/>
+        <rect id="Rectangle_104" width="4.375" height="11.863" class="cls-1" rx="2" transform="translate(38.053 33.056)"/>
+        <rect id="Rectangle_105" width="3.687" height="3.466" fill="#fff" rx="1" transform="translate(38.396 31.358)"/>
+    </g>
+</svg>

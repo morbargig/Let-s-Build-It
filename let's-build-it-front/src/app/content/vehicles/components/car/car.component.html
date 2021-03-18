@@ -1,0 +1,16 @@
+<prx-breadcrum [items]="breadcrumbs" class="no-margin"></prx-breadcrum>
+<!-- <prx-car-details *ngIf="!!car" [car]="car"></prx-car-details> -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3">
+      <ul class="list-unstyled">
+        <li *ngFor="let item of items" [ngClass]="{ active: currentRoute == item.value }" (click)="item.click($event)">
+          {{ item.label }}
+        </li>
+      </ul>
+    </div>
+    <div class="col-9" *ngIf="!!car">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+.ancillary {
+  padding-top: 1.4375rem;
+  padding-bottom: 1.4375rem;
+  border-radius: 8px;
+  border: solid 1px #9aa5b3;
+  transition: border ease-in-out 0.2s;
+
+  &.selected {
+    border: solid 2px #2d709f;
+
+    img {
+      &.checked {
+        transform: scale3d(1);
+        transition-delay: transform .1s, opacity .1s;
+        opacity: 1;
+        z-index: 2;
+        display: inline-block;
+      }
+    }
+  }
+
+  img {
+    z-index: 2;
+    transition: all ease-in-out 0.2s;
+
+    &.checked {
+      transform: scale3d(0.1);
+      opacity: 0;
+      z-index: 1;
+      display: none;
+    }
+  }
+}
+
+.custom-header {
+  color: #2d709f;
+  font-size: 1rem;
+}
+
+:host::ng-deep {
+  .wsi-card {
+    margin: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    z-index: 1;
+  }
+}

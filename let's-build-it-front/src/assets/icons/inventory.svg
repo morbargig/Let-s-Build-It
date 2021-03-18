@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12.943" viewBox="0 0 12 12.943">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke:#357daf;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px}
+        </style>
+    </defs>
+    <g id="inventory" transform="rotate(90 13.25 4.75)">
+        <path id="Path_338" d="M27 24v-9" class="cls-1" transform="translate(-7.057 -7.5)"/>
+        <path id="Path_339" d="M18 15V6" class="cls-1" transform="translate(-3.028 1.5)"/>
+        <path id="Path_340" d="M9 30v-9" class="cls-1" transform="translate(1 -13.5)"/>
+    </g>
+</svg>

@@ -1,0 +1,24 @@
+<form
+  class="dynamic-form {{ formCssClass }}"
+  *ngIf="!!form"
+  [formGroup]="form"
+  novalidate
+  (ngSubmit)="handleSubmit($event)"
+>
+  <div class="row {{ formRowCssClass }}" *ngIf="!!config?.length">
+    <div *ngFor="let field of config" class="col {{ field.config.styleClass }}">
+      <ideo-dynamic-form-control
+        *ngIf="!!field?.config?.name && !!form.controls[field.config.name]"
+        [dynamicControl]="field"
+        [group]="form"
+      >
+      </ideo-dynamic-form-control>
+    </div>
+    <div class="col-12 position-relative" [ngClass]="{ 'mb-3': !!errorMessages }">
+      <ideo-validation-messages [messages]="errorMessages" [control]="form"></ideo-validation-messages>
+    </div>
+  </div>
+  <button *ngIf="!!showSubmitButton && !!form" type="submit" class="btn btn-primary" [disabled]="!form.valid">
+    Submit
+  </button>
+</form>

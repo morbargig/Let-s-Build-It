@@ -1,0 +1,113 @@
+@import "~src/theme/user/variables";
+
+.title {
+  h3 {
+    font-size: 1.375rem;
+    font-weight: 500;
+    color: #001a3e;
+    margin: 34px 0 18px 0;
+
+    span {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #66768b;
+    }
+  }
+}
+
+ul {
+  align-items: flex-end;
+}
+
+li {
+  margin-right: 0.6875rem;
+  border-radius: 5px;
+  min-height: 8.25rem;
+  display: flex;
+  align-items: flex-end;
+
+  a {
+    background-color: $color-primary;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: none;
+    width: 12.5rem;
+    max-width: 100%;
+    padding: 0.6625rem 1.5625rem;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0px -5px 8px 0 rgba(0, 0, 0, 0.2);
+
+    &:hover:not(.active) {
+      background-color: $color-primary;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: none;
+    }
+
+    &.active {
+      position: relative;
+      color: $color-primary;
+      padding: 1.0625rem 1.5625rem;
+
+      &:before {
+        content: " ";
+        height: 2px;
+        width: 50%;
+        background-color: $color-primary;
+        position: absolute;
+        top: 0;
+        left: 25%;
+        display: block;
+      }
+
+      color: $color-primary;
+      font-size: 1.125rem;
+      font-weight: 500;
+
+      .total {
+        font-size: 2.8125rem;
+
+        .sub_total {
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: #66768b;
+        }
+
+        &:first-of-type {
+          &::after {
+            content: "/";
+            color: #66768b;
+            font-size: 2rem;
+            top: 10px;
+          }
+        }
+      }
+    }
+
+    .total {
+      font-size: 2rem;
+      line-height: 1.2;
+
+      &.active {
+        font-size: 2.8125rem;
+        font-weight: 500;
+      }
+
+      &:first-of-type {
+        &::after {
+          content: "/";
+          color: #fff;
+          position: absolute;
+          left: 93%;
+          top: 3px;
+        }
+      }
+
+      .sub_total {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}

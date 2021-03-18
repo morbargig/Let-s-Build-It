@@ -1,0 +1,31 @@
+<div class="row mb-2">
+  <div class="col d-flex justify-content-between align-items-center">
+    <h3 class="mb-0">Users management</h3>
+    <div class="d-flex justify-content-end align-items-center">
+      <button class="btn btn-secondary mr-2" [routerLink]="['./create']">+ Add User</button>
+    </div>
+  </div>
+</div>
+
+<prx-wsi-card [showHeader]="false">
+  <ideo-table
+    *ngIf="!!columns?.length"
+    #tc
+    [items]="items"
+    [columns]="columns"
+    [buttons]="itemActions"
+    (onLazyLoad)="onLazyLoad($event)"
+    stateKey="partner-users"
+    [totalRecords]="totalRecords"
+    [filters]="filters"
+    [(selection)]="selection"
+    [showFilters]="true"
+    [initSelection]="initSelection"
+    dataKey="partner-users.data"
+    [lazy]="lazy"
+    [fullHeight]="true"
+  >
+  </ideo-table>
+</prx-wsi-card>
+
+<router-outlet></router-outlet>

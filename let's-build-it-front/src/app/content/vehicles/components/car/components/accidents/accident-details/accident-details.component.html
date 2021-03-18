@@ -1,0 +1,167 @@
+<div class="row justify-content-between border my-2 py-2">
+  <div *ngIf="!!accident" class="col d-flex w-100 p-0 align-items-center">
+    <h3 class="m-0">Accident {{ accident.id }}</h3>
+  </div>
+  <div class="col w-100 d-flex justify-content-end align-items-center">
+    <button class="btn btn-secondary mr-2">Book Now</button>
+    <ideo-select [options]="dropdownActions" placeholder="Actions"></ideo-select>
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col">
+    <prx-car-card title="General Info">
+      <div *ngIf="!!accident; else loading">
+        <div class="row">
+          <div class="col-12 d-flex justify-content-between">
+            <div class="d-flex">
+              <span>ID:</span>
+              <span>{{ accident.id }}</span>
+            </div>
+            <div class="d-flex">
+              <span>Date:</span>
+              <span>{{ changesDateFormat(accident.date) }}</span>
+            </div>
+            <div class="d-flex">
+              <span>Type:</span>
+              <span>{{ getAccidentTypeName(accident.type) }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 d-flex">Description:</div>
+          <div class="col-12">
+            {{ accident.comments }}
+          </div>
+        </div>
+      </div>
+    </prx-car-card>
+  </div>
+  <div class="col border m-4">
+    <div>map with accident report location</div>
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col-12">
+    <prx-car-card title="Vehicle">
+      <prx-car-details *ngIf="!!car" [car]="car" styleCss="col-12"></prx-car-details>
+    </prx-car-card>
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col">
+    <prx-car-card title="Contract">
+      <div *ngIf="!!accident; else loading">
+        <div class="row">
+          <div class="col">
+            <ul class="list-unstyled">
+              <li>
+                <span>Contract ID:</span>
+                <span></span>
+              </li>
+              <li>
+                <span>Contract State:</span>
+                <span></span>
+              </li>
+            </ul>
+          </div>
+          <div class="col">
+            <ul class="list-unstyled">
+              <li>
+                <span>Start Date:</span>
+                <span></span>
+              </li>
+              <li>
+                <span>End Date:</span>
+                <span></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </prx-car-card>
+  </div>
+  <div class="col">
+    <prx-car-card title="Customer">
+      <div *ngIf="!!accident; else loading">
+        <div class="row">
+          <div class="col">profile picture</div>
+          <div class="col">
+            <ul class="list-unstyled">
+              <li>Name</li>
+              <li>Email</li>
+              <li>
+                <span>Last login:</span>
+                <span></span>
+              </li>
+              <li>
+                <span>Phone:</span>
+                <span></span>
+              </li>
+            </ul>
+          </div>
+          <div class="col">
+            <ul class="list-unstyled">
+              <li>
+                <span>Age:</span>
+                <span></span>
+              </li>
+              <li>
+                <span>Status:</span>
+                <span></span>
+              </li>
+              <li>
+                <span>Subscription:</span>
+                <span></span>
+              </li>
+              <li>
+                <span>NFC Key:</span>
+                <span></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </prx-car-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <prx-car-card title="Cutomer photos">
+      <div *ngIf="!!accident; else loading" class="d-flex">
+        <div *ngFor="let media of accident.accidentMediaItems; let i = index">
+          <div class="header d-flex justify-content-between align-items-center">
+            <div class="left">
+              <span>{{ getMediaTypeName(media.mediaType) }}</span>
+            </div>
+            <div class="right">
+              <prx-context-menu>
+                <ng-container menu-icon>
+                  <prx-icon icon="more-vertical"></prx-icon>
+                </ng-container>
+
+                <button class="dropdown-item" (click)="openInFullscreen(media)">
+                  <prx-icon icon="fas fa-expand" class="context-menu-icon"></prx-icon>
+                  Preview
+                </button>
+                <button class="dropdown-item" (click)="removeCarAccidentMedia(car.id, media.accidentId, media.mediaId)">
+                  <prx-icon icon="fas fa-expand" class="context-menu-icon"></prx-icon>
+                  Remove
+                </button>
+              </prx-context-menu>
+            </div>
+          </div>
+          <div class="body">
+            <img
+              class="img-thumbnail img-fluid"
+              [src]="media.mediaId | imageId: true"
+              [alt]="getMediaTypeName(media.mediaType)"
+            />
+          </div>
+        </div>
+      </div>
+    </prx-car-card>
+  </div>
+</div>
+<ng-template #loading>
+  <ideo-loader [template]="'product'" [isLoading]="true" [count]="1"></ideo-loader>
+</ng-template>

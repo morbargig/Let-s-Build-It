@@ -1,0 +1,46 @@
+.pick {
+  &.selected {
+    background-color: #f1f4f8;
+    border-radius: 8px;
+    border: 3px solid rgba($color: white, $alpha: 0.5);
+  }
+
+  border: 3px solid transparent;
+}
+
+:host::ng-deep {
+  img {
+    height: 1em;
+  }
+
+  .sticky {
+    position: sticky;
+    top: 0;
+  }
+
+  .context {
+    .response {
+      li {
+        &:not(:first-child) {
+          &::before {
+            content: "";
+            width: 95%;
+            margin: auto;
+            display: block;
+            height: 1px;
+            background-color: #f1f4f8;
+          }
+        }
+      }
+    }
+  }
+}
+
+.pick-img {
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: cover;
+  width: 100%;
+  width: 5.0625rem;
+  height: 2.875rem;
+}
