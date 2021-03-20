@@ -29,7 +29,7 @@ import { BooleanFilterComponent } from '../../../../../../@ideo/components/table
 @Component({
   selector: 'prx-b2-csubscription',
   templateUrl: './b2-csubscription.component.html',
-  styleUrls: ['./b2-csubscription.component.scss']
+  styleUrls: ['./b2-csubscription.component.scss'],
 })
 export class B2CSubscriptionComponent extends TablePageDirective<PartnerB2CSubscriptionModel> implements OnInit {
   public importConfig?: ImportConfig;
@@ -42,7 +42,7 @@ export class B2CSubscriptionComponent extends TablePageDirective<PartnerB2CSubsc
       icon: 'fas fa-edit',
       styleClass: 'btn-outline-primary ml-2',
       click: (item) => {
-        this.router.navigate(['edit', item.id], { relativeTo: this.route })
+        this.router.navigate(['edit', item.id], { relativeTo: this.route });
       },
     },
     {
@@ -61,30 +61,35 @@ export class B2CSubscriptionComponent extends TablePageDirective<PartnerB2CSubsc
       permission: { values: ['DeleteAgencyFleetParkings'] },
       hidden: (item) => !item.isActive && !item.customersCount,
       click: (item) => {
-        this.deleteItem(item, `As '${item.name}' has attached Customers please select another Subscription plan to move all current Customers.`);
+        this.deleteItem(
+          item,
+          `As '${item.name}' has attached Customers please select another Subscription plan to move all current Customers.`
+        );
       },
       styleClass: 'btn-outline-danger ml-2',
-    }
+    },
   ];
   public getDataProvider(evt: LazyLoadEvent, isExport?: boolean): Observable<IPagedList<PartnerB2CSubscriptionModel>> {
     return this.b2CSubscriptionService.getAll(this.sidebarService.entity.id, evt);
   }
   public deleteEntity(item: PartnerB2CSubscriptionModel): Observable<any> {
     if (!!item.customersCount) {
-      this.router.navigate(['assign', item.id], { relativeTo: this.route })
+      this.router.navigate(['assign', item.id], { relativeTo: this.route });
       return of(null);
     } else {
       return this.b2CSubscriptionService.delete(this.sidebarService.entity.id, item.id);
     }
   }
 
-  constructor(modalService: BsModalService,
+  constructor(
+    modalService: BsModalService,
     notificationsService: NotificationsService,
     router: Router,
     private route: ActivatedRoute,
     private partnerFleetsService: FleetsService,
     private b2CSubscriptionService: PartnerB2CSubscriptionService,
-    private sidebarService: SideBarPageService,) {
+    private sidebarService: SideBarPageService
+  ) {
     super(modalService, true, notificationsService, router);
   }
 
@@ -95,34 +100,39 @@ export class B2CSubscriptionComponent extends TablePageDirective<PartnerB2CSubsc
         header: 'Fleet',
         sortable: true,
         permission: { roles: ['Admin', 'PartnerAdmin'] },
-        filter: [{
-          type: MultiselectFilterComponent, permission: { roles: ['Admin', 'PartnerAdmin'] },
-          queryFilters: (query) => {
-            return {
-              "Name": {
-                value: query,
-                matchMode: MatchMode.Contains
-              }
-            } as FilterObject
+        filter: [
+          {
+            type: MultiselectFilterComponent,
+            permission: { roles: ['Admin', 'PartnerAdmin'] },
+            queryFilters: (query) => {
+              return {
+                Name: {
+                  value: query,
+                  matchMode: MatchMode.Contains,
+                },
+              } as FilterObject;
+            },
+            lazyOptions: (evt) => {
+              evt.sorts = ['Name'];
+              evt.sortDirection = 'asc';
+              return this.partnerFleetsService.getAll(this.sidebarService.entity.id, evt).pipe(
+                map((r) => {
+                  let val = {
+                    data: r?.data?.map((a) => {
+                      return {
+                        value: a.id,
+                        label: a.name,
+                        // icon: a.logoImgId,
+                      } as SelectItem;
+                    }),
+                    total: r.total,
+                  };
+                  return val;
+                })
+              );
+            },
           },
-          lazyOptions: (evt) => {
-            evt.sorts = ['Name'];
-            evt.sortDirection = 'asc';
-            return this.partnerFleetsService.getAll(this.sidebarService.entity.id, evt).pipe(map(r => {
-              let val = {
-                data: r?.data?.map((a) => {
-                  return {
-                    value: a.id,
-                    label: a.name,
-                    // icon: a.logoImgId,
-                  } as SelectItem;
-                }),
-                total: r.total
-              };
-              return val;
-            }));
-          }
-        }],
+        ],
       },
       {
         field: 'name',
@@ -145,7 +155,14 @@ export class B2CSubscriptionComponent extends TablePageDirective<PartnerB2CSubsc
       {
         field: 'billingPeriod',
         header: 'Billing Period',
-        filter: [{ name: 'BillingPeriod', type: SelectFilterComponent, placeholder: 'Billing Period', options: asSelectItem(BillingPeriod) }],
+        filter: [
+          {
+            name: 'BillingPeriod',
+            type: SelectFilterComponent,
+            placeholder: 'Billing Period',
+            options: asSelectItem(BillingPeriod),
+          },
+        ],
         parsedData: (val) => {
           return val != null ? BillingPeriod[val] : '';
         },
@@ -176,8 +193,6 @@ export class B2CSubscriptionComponent extends TablePageDirective<PartnerB2CSubsc
         sortable: true,
         filter: null,
       },
-
-    ]
+    ];
   }
-
 }

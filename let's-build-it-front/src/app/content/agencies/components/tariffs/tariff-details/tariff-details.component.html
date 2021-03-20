@@ -9,9 +9,7 @@
       <ng-template #formActions>
         <div class="col-12 d-flex justify-content-end form-btns">
           <button class="btn btn-info" (click)="editMode = false">Cancel</button>
-          <button class="btn btn-primary" [disabled]="!disabled()" (click)="onSubmit()">
-            Save Changes
-          </button>
+          <button class="btn btn-primary" [disabled]="!disabled()" (click)="onSubmit()">Save Changes</button>
         </div>
       </ng-template>
     </div>
@@ -20,28 +18,39 @@
 
 <prx-wsi-card [fullHeight]="true" [editMode]="editMode" title="General">
   <prx-wsi-card [fullHeight]="true">
-    <prx-key-value-pair *ngIf="!!generalControls?.length" [items]="generalControls" [itemsPerRow]="4"
-      [viewType]="'block'">
+    <prx-key-value-pair
+      *ngIf="!!generalControls?.length"
+      [items]="generalControls"
+      [itemsPerRow]="4"
+      [viewType]="'block'"
+    >
     </prx-key-value-pair>
   </prx-wsi-card>
   <prx-wsi-card [fullHeight]="true">
     <div class="row" *ngIf="!!generalArrayControls?.length">
-      <prx-wsi-card class="col-6" [title]="getName(i)" *ngFor="let control of generalArrayControls ;let i = index">
-        <prx-key-value-pair [items]="control" [itemsPerRow]="3" [viewType]="'block'">
-        </prx-key-value-pair>
+      <prx-wsi-card class="col-6" [title]="getName(i)" *ngFor="let control of generalArrayControls; let i = index">
+        <prx-key-value-pair [items]="control" [itemsPerRow]="3" [viewType]="'block'"> </prx-key-value-pair>
       </prx-wsi-card>
     </div>
   </prx-wsi-card>
   <ng-container edit-template>
     <prx-wsi-card [fullHeight]="true">
-      <ideo-dynamic-form-group *ngIf="!!generalControls?.length" [(form)]="generalForm" [config]="generalControls"
-        [showSubmitButton]="false"></ideo-dynamic-form-group>
+      <ideo-dynamic-form-group
+        *ngIf="!!generalControls?.length"
+        [(form)]="generalForm"
+        [config]="generalControls"
+        [showSubmitButton]="false"
+      ></ideo-dynamic-form-group>
     </prx-wsi-card>
     <prx-wsi-card [fullHeight]="true">
       <div class="row" *ngIf="!!generalArrayControls?.length">
-        <prx-wsi-card class="col-6" [title]="getName(i) " *ngFor="let control of generalArrayControls ;let i = index">
-          <ideo-dynamic-form-group *ngIf="!!control?.length" [(form)]="generalArrayForm[i]" [config]="control"
-            [showSubmitButton]="false">
+        <prx-wsi-card class="col-6" [title]="getName(i)" *ngFor="let control of generalArrayControls; let i = index">
+          <ideo-dynamic-form-group
+            *ngIf="!!control?.length"
+            [(form)]="generalArrayForm[i]"
+            [config]="control"
+            [showSubmitButton]="false"
+          >
           </ideo-dynamic-form-group>
         </prx-wsi-card>
       </div>

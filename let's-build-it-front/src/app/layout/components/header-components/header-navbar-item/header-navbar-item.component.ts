@@ -68,5 +68,5 @@ export class HeaderNavbarItemComponent extends BaseComponent implements OnInit {
     super('nav-item');
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 }

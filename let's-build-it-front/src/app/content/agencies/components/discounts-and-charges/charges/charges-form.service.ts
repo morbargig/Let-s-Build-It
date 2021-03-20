@@ -7,11 +7,10 @@ import { ChargesModel } from '../../../../../@shared/models/discounts-and-charge
 import { SymbolModel } from '@app/@shared/models/symbol.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChargesFormService implements IFormGenerator<DynamicFormControl[]> {
-
-  constructor() { }
+  constructor() {}
 
   generate(charges: ChargesModel): DynamicFormControl[] {
     return [
@@ -23,7 +22,7 @@ export class ChargesFormService implements IFormGenerator<DynamicFormControl[]> 
           data: {
             text: `Out of drop
             off zone 
-            parking`
+            parking`,
           },
           styleClass: 'd-flex align-items-center bold col-12 col-md-3 bold-label',
         },
@@ -56,7 +55,7 @@ export class ChargesFormService implements IFormGenerator<DynamicFormControl[]> 
           name: 'null21',
           type: 'text',
           data: {
-            text: `Late drop off`
+            text: `Late drop off`,
           },
           styleClass: 'd-flex align-items-center bold col-12 col-md-3 bold-label',
         },
@@ -71,7 +70,8 @@ export class ChargesFormService implements IFormGenerator<DynamicFormControl[]> 
           value: charges?.lateDropOffChargePerMinute,
           styleClass: 'col-12 col-md-3',
         },
-      }, {
+      },
+      {
         type: FormTextComponent,
         config: {
           name: 'lateDropOffChargeDelayMinutes',
@@ -101,7 +101,7 @@ export class ChargesFormService implements IFormGenerator<DynamicFormControl[]> 
           type: 'text',
           data: {
             text: `Non-fuelled
-            return`
+            return`,
           },
           styleClass: 'd-flex align-items-center bold col-12 col-md-3 bold-label',
         },
@@ -116,7 +116,8 @@ export class ChargesFormService implements IFormGenerator<DynamicFormControl[]> 
           value: charges?.nonFulledReturnCharge,
           styleClass: 'col-12 col-md-3',
         },
-      }, {
+      },
+      {
         type: FormTextComponent,
         config: {
           name: 'nonFulledReturnUnder',
@@ -144,7 +145,7 @@ export class ChargesFormService implements IFormGenerator<DynamicFormControl[]> 
           type: 'text',
           data: {
             text: `Late booking
-            cancellation`
+            cancellation`,
           },
           styleClass: 'd-flex align-items-center bold col-12 col-md-3 bold-label',
         },
@@ -159,7 +160,8 @@ export class ChargesFormService implements IFormGenerator<DynamicFormControl[]> 
           value: charges?.lateBookingCancellationCharge,
           styleClass: 'col-12 col-md-3',
         },
-      }, {
+      },
+      {
         type: FormTextComponent,
         config: {
           name: 'lateBookingCancellationChargeHours',
@@ -178,7 +180,7 @@ export class ChargesFormService implements IFormGenerator<DynamicFormControl[]> 
           styleClass: 'col-12 col-md-3',
         },
       },
-    ]
+    ];
   }
 
   generateTaxes(charges: ChargesModel): DynamicFormControl[] {
@@ -189,7 +191,7 @@ export class ChargesFormService implements IFormGenerator<DynamicFormControl[]> 
           name: 'null12',
           type: 'text',
           data: {
-            text: `Airport taxes`
+            text: `Airport taxes`,
           },
           styleClass: 'd-flex align-items-center bold col-12 col-md-5 bold-label',
         },
@@ -211,7 +213,7 @@ export class ChargesFormService implements IFormGenerator<DynamicFormControl[]> 
           name: 'null22',
           type: 'text',
           data: {
-            text: `City Taxes`
+            text: `City Taxes`,
           },
           styleClass: 'd-flex align-items-center bold col-12 col-md-5 bold-label',
         },
@@ -233,7 +235,7 @@ export class ChargesFormService implements IFormGenerator<DynamicFormControl[]> 
           name: 'null32',
           type: 'text',
           data: {
-            text: `Country Taxes`
+            text: `Country Taxes`,
           },
           styleClass: 'd-flex align-items-center bold col-12 col-md-5 bold-label',
         },
@@ -249,7 +251,7 @@ export class ChargesFormService implements IFormGenerator<DynamicFormControl[]> 
           styleClass: 'col-12 col-md-7',
         },
       },
-    ]
+    ];
   }
   convert?: ModelConverter<DynamicFormControl[], any>;
 }

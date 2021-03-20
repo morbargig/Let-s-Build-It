@@ -11,10 +11,10 @@ import { BaseHttpService } from '@app/@core/base/base-http-service';
 @Injectable({
   providedIn: 'root',
 })
-export class InventoriesService extends BaseHttpService<InventoryModel>{
-  public collationName: string = 'inventories'
+export class InventoriesService extends BaseHttpService<InventoryModel> {
+  public collationName: string = 'inventories';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
 
   public count(filters?: FilterObject): Observable<{ [type: number]: number }> {

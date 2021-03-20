@@ -24,7 +24,7 @@ import { MapService } from '../../../../../@shared/services/map.service';
   selector: 'prx-zone-details',
   templateUrl: './zone-details.component.html',
   styleUrls: ['./zone-details.component.scss'],
-  providers: [MapService]
+  providers: [MapService],
 })
 export class ZoneDetailsComponent implements OnInit, OnDestroy {
   private pointsSetter: Subject<FieldEvent> = new Subject<FieldEvent>();
@@ -44,16 +44,14 @@ export class ZoneDetailsComponent implements OnInit, OnDestroy {
     private mapService: MapService,
     private notificationsService: NotificationsService,
     private partnerZonesService: PartnerZonesService
-  ) {
-  }
+  ) {}
   ngOnDestroy(): void {
     this.endded.next(true);
   }
 
-
   ngOnInit(): void {
     this.sidebarService.setDetailsVisibility(false);
-    this.mapService.overlayCompleted.pipe(takeUntil(this.endded)).subscribe(points => {
+    this.mapService.overlayCompleted.pipe(takeUntil(this.endded)).subscribe((points) => {
       this.pointsSetter.next({ type: 'onPatchValue', value: points });
     });
   }
@@ -61,11 +59,11 @@ export class ZoneDetailsComponent implements OnInit, OnDestroy {
   onMapReady(map: any) {
     this.mapService.map = map;
 
-    this.mapService.zoneEdited.pipe(takeUntil(this.endded)).subscribe(zone => {
+    this.mapService.zoneEdited.pipe(takeUntil(this.endded)).subscribe((zone) => {
       this.zone = zone;
       this.pointsSetter.next({ type: 'onPatchValue', value: [...this.zone.points] });
-    })
-    this.route.params.pipe(take(1)).subscribe(params => {
+    });
+    this.route.params.pipe(take(1)).subscribe((params) => {
       this.sidebarService.breadcrumbs = [
         { label: 'Agencies', url: '../../' },
         { label: this.sidebarService.entity.name, url: './' },
@@ -90,9 +88,9 @@ export class ZoneDetailsComponent implements OnInit, OnDestroy {
             value: this.zone?.name,
             validation: [Validators.required],
             errorMessages: {
-              'required': 'Name is required.'
-            }
-          }
+              required: 'Name is required.',
+            },
+          },
         },
         {
           type: FormTextComponent,
@@ -103,17 +101,17 @@ export class ZoneDetailsComponent implements OnInit, OnDestroy {
             value: null,
             // validation: [Validators.required],
             errorMessages: {
-              'required': 'Station is required.'
-            }
-          }
+              required: 'Station is required.',
+            },
+          },
         },
         {
           type: FormTextComponent,
           config: {
             type: 'hidden',
             value: this.sidebarService.entity.id,
-            name: 'partnerId'
-          }
+            name: 'partnerId',
+          },
         },
         {
           type: ZoneTypeFormComponent,
@@ -123,7 +121,10 @@ export class ZoneDetailsComponent implements OnInit, OnDestroy {
             styleClass: 'col-12',
             value: this.zone?.zoneType,
             optionsArr: asSelectItem(ZoneType),
-            onChange: (evt: { action: 'setDrawingMode' | 'setAddress' | 'undoPoint' | 'clearPoints', data: any }, ctrl) => {
+            onChange: (
+              evt: { action: 'setDrawingMode' | 'setAddress' | 'undoPoint' | 'clearPoints'; data: any },
+              ctrl
+            ) => {
               switch (evt.action) {
                 case 'setDrawingMode':
                   this.mapService.setDrawingMode(evt.data);
@@ -139,20 +140,19 @@ export class ZoneDetailsComponent implements OnInit, OnDestroy {
               if (this.zone?.zoneType != ctrl.value) {
                 this.mapService.clearAllOverlays();
                 this.pointsSetter.next({ type: 'onPatchValue', value: [] });
-
               }
 
               if (ctrl.value == ZoneType.Circular) {
-                radiusSetter.next({ type: 'setVisibility', value: true })
+                radiusSetter.next({ type: 'setVisibility', value: true });
               } else {
-                radiusSetter.next({ type: 'setVisibility', value: false })
+                radiusSetter.next({ type: 'setVisibility', value: false });
               }
             },
             validation: [Validators.required],
             errorMessages: {
-              'required': 'Zone Drawing is required.'
-            }
-          }
+              required: 'Zone Drawing is required.',
+            },
+          },
         },
         {
           type: FormArrayComponent,
@@ -163,11 +163,16 @@ export class ZoneDetailsComponent implements OnInit, OnDestroy {
             value: this.zone?.points,
             styleClass: 'col-12',
             setter: this.pointsSetter,
-            validation: [Validators.required, (ctrl: FormArray) => {
-              return !ctrl.value?.length ? {
-                'points': 'you must select points.'
-              } : null
-            }],
+            validation: [
+              Validators.required,
+              (ctrl: FormArray) => {
+                return !ctrl.value?.length
+                  ? {
+                      points: 'you must select points.',
+                    }
+                  : null;
+              },
+            ],
             data: {
               data: this.zone?.points,
               formConfig: [
@@ -180,8 +185,8 @@ export class ZoneDetailsComponent implements OnInit, OnDestroy {
                     type: 'number',
                     disabled: this.zone?.zoneType == ZoneType.Polygon,
                     disabled$: inputDisabler,
-                    validation: [Validators.required]
-                  }
+                    validation: [Validators.required],
+                  },
                 },
                 {
                   type: FormTextComponent,
@@ -192,25 +197,25 @@ export class ZoneDetailsComponent implements OnInit, OnDestroy {
                     type: 'number',
                     disabled: this.zone?.zoneType == ZoneType.Polygon,
                     disabled$: inputDisabler,
-                    validation: [Validators.required]
-                  }
-                }, {
+                    validation: [Validators.required],
+                  },
+                },
+                {
                   type: FormTextComponent,
                   config: {
                     name: 'radius',
                     label: 'Radius',
                     type: 'number',
                     inputStyleClass: 'form-control-sm',
-                    setter: radiusSetter
-                  }
+                    setter: radiusSetter,
+                  },
                 },
-
-              ]
+              ],
             } as FormArrayData,
             errorMessages: {
-              'required': 'Station is required.'
-            }
-          }
+              required: 'Station is required.',
+            },
+          },
         },
         {
           type: FormSubTextComponent,
@@ -219,69 +224,66 @@ export class ZoneDetailsComponent implements OnInit, OnDestroy {
             label: 'Selected Cars',
             data: {
               text: '0 Zone Vehicles',
-              text$: this.selectedVehiclesCount
-            }
-          }
+              text$: this.selectedVehiclesCount,
+            },
+          },
         },
       ];
 
-
       if ('id' in params) {
-        let id = params.id
-        this.partnerZonesService.get(this.sidebarService.entity.id, id).pipe(take(1)).subscribe(res => {
-          if (!!res) {
-            this.editMode = true;
-            this.zone = res;
-            formControls.patchValue(this.zone);
-            this.formControls = formControls;
-            this.sidebarService.breadcrumbs.push({ label: this.zone.name });
-            switch (this.zone?.zoneType) {
-              case ZoneType.Circular:
-                this.mapService.drawCircleByPoint(this.zone);
-                break;
-              case ZoneType.Polygon:
-                this.mapService.drawPolygonByPoints(this.zone);
-                break;
+        let id = params.id;
+        this.partnerZonesService
+          .get(this.sidebarService.entity.id, id)
+          .pipe(take(1))
+          .subscribe((res) => {
+            if (!!res) {
+              this.editMode = true;
+              this.zone = res;
+              formControls.patchValue(this.zone);
+              this.formControls = formControls;
+              this.sidebarService.breadcrumbs.push({ label: this.zone.name });
+              switch (this.zone?.zoneType) {
+                case ZoneType.Circular:
+                  this.mapService.drawCircleByPoint(this.zone);
+                  break;
+                case ZoneType.Polygon:
+                  this.mapService.drawPolygonByPoints(this.zone);
+                  break;
+              }
             }
-          }
-        })
+          });
       } else {
         this.sidebarService.breadcrumbs.push({ label: 'Create' });
         this.formControls = formControls;
       }
-    },
-    )
-
+    });
   }
-
-
-
 
   public patch(formVal: PartnerZone) {
     if (!this.editMode) {
-      this.partnerZonesService.create(this.sidebarService.entity.id, formVal).toPromise().then(res => {
-        if (!!res) {
-          this.notificationsService.success('Zone created successfully.');
-          this.router.navigate(['../'], { relativeTo: this.route });
-        } else {
-          this.notificationsService.error('Zone creation faield.');
-        }
-      })
+      this.partnerZonesService
+        .create(this.sidebarService.entity.id, formVal)
+        .toPromise()
+        .then((res) => {
+          if (!!res) {
+            this.notificationsService.success('Zone created successfully.');
+            this.router.navigate(['../'], { relativeTo: this.route });
+          } else {
+            this.notificationsService.error('Zone creation faield.');
+          }
+        });
     } else {
-      this.partnerZonesService.update(this.sidebarService.entity.id, this.zone.id, formVal).toPromise().then(res => {
-        if (!!res) {
-          this.notificationsService.success('Zone updated successfully.');
-          this.router.navigate(['../../'], { relativeTo: this.route });
-        } else {
-          this.notificationsService.error('Zone update faield.');
-        }
-      })
-
-
+      this.partnerZonesService
+        .update(this.sidebarService.entity.id, this.zone.id, formVal)
+        .toPromise()
+        .then((res) => {
+          if (!!res) {
+            this.notificationsService.success('Zone updated successfully.');
+            this.router.navigate(['../../'], { relativeTo: this.route });
+          } else {
+            this.notificationsService.error('Zone update faield.');
+          }
+        });
     }
-
   }
-
-
-
 }

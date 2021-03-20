@@ -15,10 +15,12 @@ import { ErrorMessages } from '../../../../../@shared/models/error-messages.mode
   styleUrls: ['./charges.component.scss'],
 })
 export class ChargesComponent implements OnInit, OnDestroy {
+  constructor(
+    private chargesFormService: ChargesFormService,
+    private discountsAndChargesService: DiscountsAndChargesService
+  ) {}
 
-  constructor(private chargesFormService: ChargesFormService, private discountsAndChargesService: DiscountsAndChargesService) { }
-
-  private _endded: EventEmitter<boolean> = new EventEmitter<boolean>();;
+  private _endded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public form: FormGroup;
   public touristForm: FormGroup;
@@ -32,26 +34,41 @@ export class ChargesComponent implements OnInit, OnDestroy {
   public charges: ChargesModel = null;
 
   ngOnInit(): void {
-    this.discountsAndChargesService.getCharges(this.partnerId).pipe(take(1)).subscribe(res => {
-      if (!!res) {
-        this.charges = res
-        if (!!this.chargesControls?.length) {
-          this.chargesControls.patchValue(this.charges)
+    this.discountsAndChargesService
+      .getCharges(this.partnerId)
+      .pipe(take(1))
+      .subscribe((res) => {
+        if (!!res) {
+          this.charges = res;
+          if (!!this.chargesControls?.length) {
+            this.chargesControls.patchValue(this.charges);
+          }
+          if (!!this.touristChargesControls?.length) {
+            this.touristChargesControls.patchValue(this.charges);
+          }
         }
-        if (!!this.touristChargesControls?.length) {
-          this.touristChargesControls.patchValue(this.charges)
-        }
-      }
 
-      if (!this.chargesControls?.length) {
-        this.chargesControls = this.chargesFormService.generate(this.charges);
-      }
-      if (!this.touristChargesControls?.length) {
-        this.touristChargesControls = this.chargesFormService.generateTaxes(this.charges);
-      }
-      this.chargesItems = this.chargesControls.map(i => { return { label: i.config?.label || i.config?.data?.text, styleClass: i.config?.styleClass, value: i?.config?.value } as SelectItem })
-      this.touristChargesItems = this.touristChargesControls.map(i => { return { label: i.config?.label || i.config?.data?.text, styleClass: i.config?.styleClass, value: i?.config?.value } as SelectItem })
-    })
+        if (!this.chargesControls?.length) {
+          this.chargesControls = this.chargesFormService.generate(this.charges);
+        }
+        if (!this.touristChargesControls?.length) {
+          this.touristChargesControls = this.chargesFormService.generateTaxes(this.charges);
+        }
+        this.chargesItems = this.chargesControls.map((i) => {
+          return {
+            label: i.config?.label || i.config?.data?.text,
+            styleClass: i.config?.styleClass,
+            value: i?.config?.value,
+          } as SelectItem;
+        });
+        this.touristChargesItems = this.touristChargesControls.map((i) => {
+          return {
+            label: i.config?.label || i.config?.data?.text,
+            styleClass: i.config?.styleClass,
+            value: i?.config?.value,
+          } as SelectItem;
+        });
+      });
   }
 
   ngOnDestroy(): void {
@@ -63,30 +80,44 @@ export class ChargesComponent implements OnInit, OnDestroy {
     let newTouristCharges = touristForm.getRawValue() as ChargesModel;
     for (let i in newCharges) {
       if (i.includes('null')) {
-        delete newCharges[i]
+        delete newCharges[i];
       }
     }
     for (let i in newTouristCharges) {
       if (i.includes('null')) {
-        delete newTouristCharges[i]
+        delete newTouristCharges[i];
       }
     }
 
     let errorMessages: ErrorMessages = {
       200: 'Update Successfully',
-    }
-    let entityName = 'Charges'
-    this.discountsAndChargesService.updateCharges(this.partnerId, { ...newCharges, ...newTouristCharges }, errorMessages, entityName).toPromise().then(res => {
-      if (!!res) {
-        let charges = this.charges
-        this.charges = { charges, ...res, } as ChargesModel
-        this.chargesControls.patchValue(this.charges)
-        this.touristChargesControls.patchValue(this.charges)
-        this.chargesItems = this.chargesControls.map(i => { return { label: i.config.label || i.config?.data?.text, styleClass: i.config.styleClass, value: i?.config?.value } as SelectItem })
-        this.touristChargesItems = this.touristChargesControls.map(i => { return { label: i.config.label || i.config?.data?.text, styleClass: i.config.styleClass, value: i?.config?.value } as SelectItem })
-        divRef.editMode = false
-      }
-    })
+    };
+    let entityName = 'Charges';
+    this.discountsAndChargesService
+      .updateCharges(this.partnerId, { ...newCharges, ...newTouristCharges }, errorMessages, entityName)
+      .toPromise()
+      .then((res) => {
+        if (!!res) {
+          let charges = this.charges;
+          this.charges = { charges, ...res } as ChargesModel;
+          this.chargesControls.patchValue(this.charges);
+          this.touristChargesControls.patchValue(this.charges);
+          this.chargesItems = this.chargesControls.map((i) => {
+            return {
+              label: i.config.label || i.config?.data?.text,
+              styleClass: i.config.styleClass,
+              value: i?.config?.value,
+            } as SelectItem;
+          });
+          this.touristChargesItems = this.touristChargesControls.map((i) => {
+            return {
+              label: i.config.label || i.config?.data?.text,
+              styleClass: i.config.styleClass,
+              value: i?.config?.value,
+            } as SelectItem;
+          });
+          divRef.editMode = false;
+        }
+      });
   }
-
 }

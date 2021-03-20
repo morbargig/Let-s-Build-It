@@ -10,10 +10,12 @@ import { IdeoValidators } from '../../../../../@forms/@core/validators/ideo.vali
 @Component({
   selector: 'prx-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  public get user(): UserModel { return this.sidebarService.entity }
+  public get user(): UserModel {
+    return this.sidebarService.entity;
+  }
   public profileForm: FormGroup;
   public profileControls: DynamicFormControl[] = [
     {
@@ -29,8 +31,9 @@ export class ProfileComponent implements OnInit {
         errorMessages: {
           required: 'First Name is required',
         },
-      }
-    }, {
+      },
+    },
+    {
       type: FormTextComponent,
       config: {
         name: 'email',
@@ -43,12 +46,13 @@ export class ProfileComponent implements OnInit {
         errorMessages: {
           required: 'Email is required',
         },
-      }
-    }, {
+      },
+    },
+    {
       type: FormTextComponent,
       config: {
         name: 'identityNumber',
-        placeholder: "Identity Number",
+        placeholder: 'Identity Number',
         type: 'number',
         label: 'Identity Number',
 
@@ -58,13 +62,13 @@ export class ProfileComponent implements OnInit {
         errorMessages: {
           required: 'Identity Number is required',
         },
-      }
+      },
     },
     {
       type: FormTextComponent,
       config: {
         name: 'lastName',
-        placeholder: "Last Name",
+        placeholder: 'Last Name',
         type: 'text',
         label: 'Last Name',
         value: this.user?.lastName,
@@ -73,13 +77,13 @@ export class ProfileComponent implements OnInit {
         errorMessages: {
           required: 'Last Name is required',
         },
-      }
+      },
     },
     {
       type: FormTextComponent,
       config: {
         name: 'userName',
-        placeholder: "User Name",
+        placeholder: 'User Name',
         type: 'text',
         label: 'User Name',
         value: this.user?.userName,
@@ -88,13 +92,13 @@ export class ProfileComponent implements OnInit {
         errorMessages: {
           required: 'User Name is required',
         },
-      }
+      },
     },
     {
       type: FormTextComponent,
       config: {
         name: 'phone',
-        placeholder: "Phone Number",
+        placeholder: 'Phone Number',
         type: 'tel',
         value: null, // TODO fill with real data
         label: 'Phone Number',
@@ -103,13 +107,13 @@ export class ProfileComponent implements OnInit {
         errorMessages: {
           required: 'Phone Number is required',
         },
-      }
+      },
     },
     {
       type: FormTextComponent,
       config: {
         name: 'birthday',
-        placeholder: "Birthday",
+        placeholder: 'Birthday',
         value: null, // TODO fill with real data
         type: 'date',
         label: 'Birthday',
@@ -117,19 +121,19 @@ export class ProfileComponent implements OnInit {
         validation: [IdeoValidators.olderThan(18)],
         errorMessages: {
           required: 'Birthday is required',
-          olderThan: 'Birthday must be older than 18 year'
+          olderThan: 'Birthday must be older than 18 year',
         },
-      }
+      },
     },
     {
       type: FormTextComponent,
       config: {
         name: 'address',
-        placeholder: "Address",
+        placeholder: 'Address',
         value: null, // TODO fill with real data
         type: 'date',
         data: {
-          rows: 4
+          rows: 4,
         },
         label: 'Address',
         styleClass: 'col-4',
@@ -137,18 +141,15 @@ export class ProfileComponent implements OnInit {
         errorMessages: {
           required: 'Address is required',
         },
-      }
+      },
     },
   ];
 
   constructor(private sidebarService: SideBarPageService) {
-    this.sidebarService.breadcrumbs = [
-      { label: 'User Management', url: '../../' },
-      { label: this.user.fullName },
-    ]
+    this.sidebarService.breadcrumbs = [{ label: 'User Management', url: '../../' }, { label: this.user.fullName }];
   }
 
   ngOnInit(): void {
-    this.profileControls.patchValue(this.user)
+    this.profileControls.patchValue(this.user);
   }
 }

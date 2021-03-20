@@ -3,7 +3,13 @@
     <h3 class="mb-0">Ancillaries</h3>
   </div>
   <div class="col d-flex align-items-end justify-content-end">
-    <ideo-select [pushOnly]="true" [options]="selectActions" (valueChanged)="selectedClick($event)" placeholder="Actions"> </ideo-select>
+    <ideo-select
+      [pushOnly]="true"
+      [options]="selectActions"
+      (valueChanged)="selectedClick($event)"
+      placeholder="Actions"
+    >
+    </ideo-select>
   </div>
 </div>
 

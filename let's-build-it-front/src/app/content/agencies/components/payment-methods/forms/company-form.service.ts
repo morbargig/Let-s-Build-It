@@ -5,11 +5,10 @@ import { Validators } from '@angular/forms';
 import { FormTextComponent } from '../../../../../@forms/form-fields/form-text/form-text.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CompanyFormService implements IFormGenerator<DynamicFormControl[]> {
-
-  constructor() { }
+  constructor() {}
   generate(...params: any[]): DynamicFormControl[] {
     return [
       {
@@ -42,8 +41,7 @@ export class CompanyFormService implements IFormGenerator<DynamicFormControl[]> 
           },
         },
       },
-  
-    ]
+    ];
   }
   convert?: ModelConverter<DynamicFormControl[], any>;
 }

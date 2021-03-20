@@ -45,7 +45,7 @@ import { faSearch, faEnvelope, faLink } from '@fortawesome/free-solid-svg-icons'
   providedIn: 'root',
 })
 export class NavigationService {
-  constructor() { }
+  constructor() {}
 
   getNavigationItems(): Observable<NavigationOptions[]> {
     return of([

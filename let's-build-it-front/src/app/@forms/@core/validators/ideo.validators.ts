@@ -18,10 +18,10 @@ export class IdeoValidators {
       return !errorName
         ? null
         : {
-          [errorName]: {
-            valid: false,
-          },
-        };
+            [errorName]: {
+              valid: false,
+            },
+          };
     };
   }
 
@@ -31,10 +31,10 @@ export class IdeoValidators {
       return !errorName
         ? null
         : {
-          [errorName]: {
-            valid: false,
-          },
-        };
+            [errorName]: {
+              valid: false,
+            },
+          };
     };
   }
 
@@ -44,10 +44,10 @@ export class IdeoValidators {
       return !!otherControl && !!otherControl.valid
         ? null
         : {
-          [controlName]: {
-            valid: false,
-          },
-        };
+            [controlName]: {
+              valid: false,
+            },
+          };
     };
   }
 
@@ -102,10 +102,11 @@ export class IdeoValidators {
           }
           return inValid
             ? {
-              [controlName]: {
-                valid: false,
+                [controlName]: {
+                  valid: false,
+                },
               }
-            } : null
+            : null;
         }
       }
       return null;
@@ -126,13 +127,13 @@ export class IdeoValidators {
             });
           }
 
-
           return inValid
             ? {
-              [controlName]: {
-                valid: false,
+                [controlName]: {
+                  valid: false,
+                },
               }
-            } : null
+            : null;
         }
       }
       return null;

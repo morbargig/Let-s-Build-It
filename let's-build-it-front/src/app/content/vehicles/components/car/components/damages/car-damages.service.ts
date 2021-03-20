@@ -12,21 +12,29 @@ import { ErrorMessages } from '@app/@shared/models/error-messages.model';
   providedIn: 'root',
 })
 export class CarDamagesService extends BaseParentHttpService<number, CarDamageModel> {
-  public collationName: string =  'Damages'
+  public collationName: string = 'Damages';
   public parentRoute: string = 'Cars';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
- 
-  public bulk:any = null;
+
+  public bulk: any = null;
 
   public deleteDamageMedia(carId: number, damageId: number, mediaId: number) {
     return this.http.delete(`${this.apiUrl(carId)}/${damageId}/MediaItems/${mediaId}`);
   }
 
-  public updateGeneralInfo(carId: number, damageId: number, model: CarDamageGeneralInfoModel, messages?: ErrorMessages, entityName?: string): Observable<CarDamageGeneralInfoModel>{
-    return this.http.patch<CarDamageGeneralInfoModel>(`${this.apiUrl(carId)}/${damageId}`, model, this.getOptions(messages, entityName));
+  public updateGeneralInfo(
+    carId: number,
+    damageId: number,
+    model: CarDamageGeneralInfoModel,
+    messages?: ErrorMessages,
+    entityName?: string
+  ): Observable<CarDamageGeneralInfoModel> {
+    return this.http.patch<CarDamageGeneralInfoModel>(
+      `${this.apiUrl(carId)}/${damageId}`,
+      model,
+      this.getOptions(messages, entityName)
+    );
   }
-
-  
 }

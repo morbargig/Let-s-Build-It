@@ -26,11 +26,7 @@
 
 <div class="row">
   <div class="col-12 col-md-4 d-flex flex-wrap flex-grow">
-    <prx-wsi-card
-      [fullHeight]="true"
-      [editMode]="editMode"
-      title="Bank account"
-    >
+    <prx-wsi-card [fullHeight]="true" [editMode]="editMode" title="Bank account">
       <prx-key-value-pair
         *ngIf="!!bankAccountControls?.length"
         [items]="bankAccountControls"

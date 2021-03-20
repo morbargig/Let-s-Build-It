@@ -1,19 +1,30 @@
 <prx-wsi-card title="Best price & discount">
   <div class="row pt-2">
-
     <div class="col-md-12 col-xl-6">
       <prx-wsi-card title="Limit Discounts">
         <ideo-dynamic-form-group [(form)]="limitForm" [config]="limitControls" [showSubmitButton]="false">
         </ideo-dynamic-form-group>
       </prx-wsi-card>
-      <prx-discount-filler title="Holidays" description="Enable weekends discount" [discountType]="3"
-        [partnerId]="partnerId"></prx-discount-filler>
+      <prx-discount-filler
+        title="Holidays"
+        description="Enable weekends discount"
+        [discountType]="3"
+        [partnerId]="partnerId"
+      ></prx-discount-filler>
     </div>
     <div class="col-md-12 col-xl-6">
-      <prx-discount-filler title="Weekends" description="Enable weekends discount" [discountType]="4"
-        [partnerId]="partnerId"></prx-discount-filler>
-      <prx-discount-filler title="Hourly Discounts" description="Enable hourly discount" [discountType]="1"
-        [partnerId]="partnerId"></prx-discount-filler>
+      <prx-discount-filler
+        title="Weekends"
+        description="Enable weekends discount"
+        [discountType]="4"
+        [partnerId]="partnerId"
+      ></prx-discount-filler>
+      <prx-discount-filler
+        title="Hourly Discounts"
+        description="Enable hourly discount"
+        [discountType]="1"
+        [partnerId]="partnerId"
+      ></prx-discount-filler>
     </div>
   </div>
 </prx-wsi-card>

@@ -7,7 +7,7 @@ import { AncillaryModel } from '../../../@shared/models/ancillaries.model';
 @Component({
   selector: 'prx-booking-dates-form',
   templateUrl: './booking-dates-form.component.html',
-  styleUrls: ['./booking-dates-form.component.scss']
+  styleUrls: ['./booking-dates-form.component.scss'],
 })
 export class BookingDatesFormComponent extends BaseFieldDirective<FormArray> implements OnInit {
   public config: FieldConfig;
@@ -18,10 +18,7 @@ export class BookingDatesFormComponent extends BaseFieldDirective<FormArray> imp
   public startDate: Date;
   public endDate: Date;
 
-  constructor(
-    private cd: ChangeDetectorRef,
-    private fb: FormBuilder
-  ) {
+  constructor(private cd: ChangeDetectorRef, private fb: FormBuilder) {
     super();
   }
 
@@ -42,7 +39,6 @@ export class BookingDatesFormComponent extends BaseFieldDirective<FormArray> imp
     //     }
     //   })
     this.group.controls[this.config.name] = this.fb.group({ startDate: null, endDate: null });
-
   }
 
   // public ancillarySelected(ancillary: AncillaryModel) {
@@ -57,6 +53,6 @@ export class BookingDatesFormComponent extends BaseFieldDirective<FormArray> imp
   // }
 
   toggle() {
-    this.startDate
+    this.startDate;
   }
 }

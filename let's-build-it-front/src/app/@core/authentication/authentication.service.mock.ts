@@ -18,14 +18,12 @@ export class MockAuthenticationService {
       authorized: true,
       email: 'test@user.com',
       fullName: 'Test User',
-      expiresIn: "Date",
+      expiresIn: 'Date',
       accessToken: 'token-123',
       admin: true,
       newUser: false,
     });
   }
-
-
 
   logout(): Observable<boolean> {
     this.credentials = null;

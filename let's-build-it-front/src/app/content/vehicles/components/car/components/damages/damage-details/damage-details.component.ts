@@ -29,10 +29,9 @@ import { ErrorMessages } from '../../../../../../../@shared/models/error-message
   selector: 'prx-damage-details',
   templateUrl: './damage-details.component.html',
   styleUrls: ['./damage-details.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
 export class DamageDetailsComponent implements OnInit {
-
   public get car(): CarModel {
     return this.sideBarSevice.entity;
   }
@@ -59,7 +58,12 @@ export class DamageDetailsComponent implements OnInit {
       },
       value: null,
     },
-    { label: 'Remove', icon: faTrash, click: (val: any) => this.removeCarDamageMedia(this.car?.id, this.carDamage?.id, val), value: null },
+    {
+      label: 'Remove',
+      icon: faTrash,
+      click: (val: any) => this.removeCarDamageMedia(this.car?.id, this.carDamage?.id, val),
+      value: null,
+    },
   ];
 
   public carDamage: CarDamageModel;
@@ -84,7 +88,7 @@ export class DamageDetailsComponent implements OnInit {
     // this.carDamagesService.get(this.car.id, parseInt(routeSnap.paramMap.get('damageId'))).toPromise()
     // .then(carDamage => this.carDamage = carDamage);
 
-    this.route.params.pipe(take(1)).subscribe(params => {
+    this.route.params.pipe(take(1)).subscribe((params) => {
       let dId = params['damageId'];
       this.carDamagesService
         .get(this.car.id, dId)
@@ -95,9 +99,10 @@ export class DamageDetailsComponent implements OnInit {
             { label: 'Cars', url: '../../' },
             {
               label: `${this.sideBarSevice.entity.manufacturer} ${this.sideBarSevice.entity.model}
-             ${this.sideBarSevice.entity.modelYear} | ${this.sideBarSevice.entity.plateNo} `, url: './'
+             ${this.sideBarSevice.entity.modelYear} | ${this.sideBarSevice.entity.plateNo} `,
+              url: './',
             },
-            {label: 'Damages', url: './damages'},
+            { label: 'Damages', url: './damages' },
             { label: `Damage ${this.carDamage?.id}` },
           ];
           this.generalInfoItems = [
@@ -105,9 +110,7 @@ export class DamageDetailsComponent implements OnInit {
             { label: 'Date', value: this.date.transform(this.carDamage?.createDate, 'dd MMM hh:mm a') },
             { label: 'Type', value: DamageType[this.carDamage?.type] },
           ];
-          this.descriptionItem = [
-            { label: 'Description', value: this.carDamage?.additionalInfo },
-          ];
+          this.descriptionItem = [{ label: 'Description', value: this.carDamage?.additionalInfo }];
           this.generalInfoControls = this.damageDetailsFormService.generate(carDamage);
 
           this.contractItems = [
@@ -126,25 +129,23 @@ export class DamageDetailsComponent implements OnInit {
             { label: 'Subscription', value: 'Free' },
             { label: 'Phone', value: '+123456789' },
             { label: 'NFC Key', value: 'card 12345678' },
-
-
-          ]
+          ];
         });
-    })
-
-
+    });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   public onSubmit(generalCard: WsiCardComponent): void {
     let generalInfoValues = this.generalInfoForm.getRawValue();
     let errorMessages: ErrorMessages = {
       200: `General Information of car damage number ${this.carDamage?.id} updated successfully`,
-    }
-    let entityName = "Car Damage"
-    this.carDamagesService.updateGeneralInfo(this.car?.id, this.carDamage?.id, generalInfoValues,errorMessages,entityName).toPromise().then(
-      res => {
+    };
+    let entityName = 'Car Damage';
+    this.carDamagesService
+      .updateGeneralInfo(this.car?.id, this.carDamage?.id, generalInfoValues, errorMessages, entityName)
+      .toPromise()
+      .then((res) => {
         if (!!res) {
           this.carDamage.type = res.type;
           this.carDamage.additionalInfo = res.additionalInfo;
@@ -154,15 +155,10 @@ export class DamageDetailsComponent implements OnInit {
             { label: 'Date', value: this.date.transform(this.carDamage?.createDate, 'dd MMM hh:mm a') },
             { label: 'Type', value: DamageType[this.carDamage?.type] },
           ];
-          this.descriptionItem = [
-            { label: 'Description', value: this.carDamage?.additionalInfo },
-          ];
+          this.descriptionItem = [{ label: 'Description', value: this.carDamage?.additionalInfo }];
         }
-      }
-    )
-   }
-
-
+      });
+  }
 
   public getDamageTypeName(type: number) {
     return DamageType[type];
@@ -182,7 +178,6 @@ export class DamageDetailsComponent implements OnInit {
   }
 
   public openInFullscreen(mediaId: number) {
-    ;
     const carDamageMediaFullScreen = this.modalService.show(FullScreenModalComponent, {
       initialState: { mediaItem: { mediaId: mediaId } },
       class: 'modal-xl modal-dialog-centered',
@@ -199,7 +194,7 @@ export class DamageDetailsComponent implements OnInit {
         this.carDamagesService.deleteDamageMedia(carId, damageId, mediaId).subscribe((res) => {
           this.notificationsService.success(`${!!mediaId ? mediaId : 'Item'} deleted successfully.`);
           let media = this.carDamage.damageMediaItems.find((i) => i.mediaId == mediaId);
-          //TODO: fix reloading media 
+          //TODO: fix reloading media
           this.carDamage.damageMediaItems.splice(this.carDamage.damageMediaItems.indexOf(media), 1);
         });
       }

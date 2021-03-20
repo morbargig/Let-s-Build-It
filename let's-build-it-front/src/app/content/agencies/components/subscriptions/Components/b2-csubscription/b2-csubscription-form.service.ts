@@ -9,11 +9,10 @@ import { UtilsService } from '../../../../../../@core/services/utils.service';
 import { SymbolModel } from '@app/@shared/models/symbol.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class B2CSubscriptionFormService implements IFormGenerator<DynamicFormControl[]>{
-
-  constructor(private utilsService: UtilsService,) { }
+export class B2CSubscriptionFormService implements IFormGenerator<DynamicFormControl[]> {
+  constructor(private utilsService: UtilsService) {}
   generate(isEdit: boolean, b2CSubscription: PartnerB2CSubscriptionModel = null): DynamicFormControl[] {
     let form: DynamicFormControl[] = [];
     form.push(
@@ -108,7 +107,7 @@ export class B2CSubscriptionFormService implements IFormGenerator<DynamicFormCon
         config: {
           name: 'id',
           type: 'hidden',
-          value: b2CSubscription?.id
+          value: b2CSubscription?.id,
         },
       },
       {
@@ -118,7 +117,7 @@ export class B2CSubscriptionFormService implements IFormGenerator<DynamicFormCon
           type: 'hidden',
           value: b2CSubscription?.isActive || true,
         },
-      },
+      }
     );
     return form;
   }

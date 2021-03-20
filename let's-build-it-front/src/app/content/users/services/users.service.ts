@@ -9,10 +9,10 @@ import { BaseHttpService } from '@app/@core/base/base-http-service';
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService extends BaseHttpService<UserModel>{
-  public collationName: string = 'Users'
+export class UsersService extends BaseHttpService<UserModel> {
+  public collationName: string = 'Users';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
   public createCustomer(model: any): Observable<UserModel> {
     return this.http.post<UserModel>(`${environment.serverUrl}/api/Users/Customer`, model);

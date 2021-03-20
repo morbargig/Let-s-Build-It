@@ -5,16 +5,18 @@ import { Observable } from 'rxjs';
 import { CarModel } from '../models/car.model';
 
 @Pipe({
-  name: 'carName'
+  name: 'carName',
 })
 export class CarNamePipe implements PipeTransform {
-
-  constructor(private carsService: CarsService) {
-  }
+  constructor(private carsService: CarsService) {}
 
   transform(carId: number): Promise<string> {
-    return this.carsService.get(carId).pipe(map(x => `${x.model} ${x.modelYear}`), take(1)).toPromise();
-
+    return this.carsService
+      .get(carId)
+      .pipe(
+        map((x) => `${x.model} ${x.modelYear}`),
+        take(1)
+      )
+      .toPromise();
   }
-
 }

@@ -26,7 +26,7 @@ export class GeneralComponent implements OnInit {
     private sidebarPageService: SideBarPageService,
     private modalService: BsModalService,
     protected notificationsService: NotificationsService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.sidebarPageService.breadcrumbs = [
@@ -148,7 +148,8 @@ export class GeneralComponent implements OnInit {
       if (!!deleteIt) {
         this.carsService.deleteCarMedia(carId, mediaId).subscribe((res) => {
           this.notificationsService.success(
-            `${!!mediaItem.carMediaType[mediaItem.carMediaType] ? mediaItem.carMediaType[mediaItem.carMediaType] : 'Item'
+            `${
+              !!mediaItem.carMediaType[mediaItem.carMediaType] ? mediaItem.carMediaType[mediaItem.carMediaType] : 'Item'
             } deleted successfully.`
           );
           let media = this.sidebarPageService.entity.mediaItems.find((i: any) => i.mediaId == mediaId);

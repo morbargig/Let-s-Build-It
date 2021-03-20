@@ -8,7 +8,7 @@ import { FileService } from '../services/file.service';
   providedIn: 'root',
 })
 export class ExportInterceptorService implements HttpInterceptor {
-  constructor(private fileService: FileService) { } //, private notifications: NotificationService) { }
+  constructor(private fileService: FileService) {} //, private notifications: NotificationService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let isExport = req.params.get('export');

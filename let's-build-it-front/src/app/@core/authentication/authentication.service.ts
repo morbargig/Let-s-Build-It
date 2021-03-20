@@ -34,18 +34,17 @@ export class AuthenticationService {
     // Replace by proper authentication call
 
     const request = {
-      username: context.employId,
-      password: context.password,
+      employId: context.employId,
+      pass: context.pass,
     };
-    debugger
     return this.accountService.authenticate(request).pipe(
       tap((x) =>
         this.credentialsService.setCredentials(
           {
             accessToken: x.token,
-            email: x.username,
+            email: x.email,
+            employId: x.employId,
             authorized: true,
-            username: x.username,
             expiresIn: x.validTo,
           } as AuthorizationEntity,
           context.remember
@@ -53,7 +52,6 @@ export class AuthenticationService {
       ),
       switchMap((res) => this.accountService.getUserPermissions())
     );
-
     // this.credentialsService.setCredentials(data, context.remember);
     // return of(data);
   }
@@ -65,18 +63,20 @@ export class AuthenticationService {
    */
   register(context: RegisterContext): Observable<AuthorizationEntity> {
     // Replace by proper registration call
-    const data: AuthorizationEntity = {
-      username: context.username,
-      accessToken: '654321',
-      fullName: '',
-      admin: true,
-      authorized: true,
-      email: '',
-      expiresIn: new Date(),
-      newUser: false,
-    };
-
-    return of(data);
+    return this.accountService.register(context).pipe(
+      tap((x) =>
+        this.credentialsService.setCredentials(
+          {
+            accessToken: x.token,
+            email: x.email,
+            employId: x.employId,
+            authorized: true,
+            expiresIn: x.validTo,
+          } as AuthorizationEntity,
+        )
+      ),
+      switchMap((res) => this.accountService.getUserPermissions())
+    );
   }
 
   /**

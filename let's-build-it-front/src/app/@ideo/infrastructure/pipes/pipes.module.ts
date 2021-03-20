@@ -11,8 +11,18 @@ import { AcronymPipe } from './acronym.pipe';
 import { IconPipe } from './icon.pipe';
 import { PxPipe } from './px.pipe';
 
-
-const PIPES = [PermitPipe, IdeoDatePipe, SubStrPipe, FilterPipe, ImageIdPipe, LogPipe, ColorHashPipe, AcronymPipe, IconPipe, PxPipe];
+const PIPES = [
+  PermitPipe,
+  IdeoDatePipe,
+  SubStrPipe,
+  FilterPipe,
+  ImageIdPipe,
+  LogPipe,
+  ColorHashPipe,
+  AcronymPipe,
+  IconPipe,
+  PxPipe,
+];
 
 @NgModule({
   declarations: [...PIPES],
@@ -20,4 +30,4 @@ const PIPES = [PermitPipe, IdeoDatePipe, SubStrPipe, FilterPipe, ImageIdPipe, Lo
   imports: [CommonModule],
   providers: [...PIPES, DatePipe],
 })
-export class IdeoPipesModule { }
+export class IdeoPipesModule {}

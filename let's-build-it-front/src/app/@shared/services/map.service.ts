@@ -5,22 +5,21 @@ import { config } from 'rxjs';
 import { icon } from '@fortawesome/fontawesome-svg-core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MapService {
-
   constructor(mapsAPILoader: MapsAPILoader, private zone: NgZone) {
     mapsAPILoader.load().then(() => {
       this.managerOptions = {
         drawingControl: true,
         drawingControlOptions: {
-          drawingModes: []
+          drawingModes: [],
         },
         polygonOptions: {
           draggable: true,
           editable: true,
           geodesic: true,
-          clickable: true
+          clickable: true,
         },
         drawingMode: null,
       } as google.maps.drawing.DrawingManagerOptions;
@@ -53,47 +52,58 @@ export class MapService {
       if (event.type === google.maps.drawing.OverlayType.POLYGON) {
         this.overlays.push(typedEvt);
         const overlay = typedEvt.overlay as google.maps.Polygon;
-        let points = overlay.getPath().getArray().map((p: { lat: () => number, lng: () => number }) => { return { lat: p.lat(), long: p.lng() } });
+        let points = overlay
+          .getPath()
+          .getArray()
+          .map((p: { lat: () => number; lng: () => number }) => {
+            return { lat: p.lat(), long: p.lng() };
+          });
         overlaysCnt++;
       }
       if (event.type === google.maps.drawing.OverlayType.CIRCLE) {
         this.overlays.push(typedEvt);
         const overlay = typedEvt.overlay as google.maps.Circle;
         let center = overlay.getCenter() as any;
-        center = { lat: center.lat(), long: center.lng() }
+        center = { lat: center.lat(), long: center.lng() };
         let radius = overlay.getRadius();
         overlaysCnt++;
       }
 
-      let overlayRes = this.overlays.map(x => {
-
+      let overlayRes = this.overlays.map((x) => {
         if (x.type === google.maps.drawing.OverlayType.POLYGON) {
           this.overlays.push(x);
           this.zoneDraws = [];
           const overlay = x.overlay as google.maps.Polygon;
-          this.zoneDraws.push({ zone: null, shape: overlay, })
-          let points = overlay.getPath().getArray().map((p: { lat: () => number, lng: () => number }) => { return { lat: p.lat(), long: p.lng() } });
-          return points.map(p => {
+          this.zoneDraws.push({ zone: null, shape: overlay });
+          let points = overlay
+            .getPath()
+            .getArray()
+            .map((p: { lat: () => number; lng: () => number }) => {
+              return { lat: p.lat(), long: p.lng() };
+            });
+          return points.map((p) => {
             return {
               longitude: p.long,
               latitude: p.lat,
-            } as ZonePoint
-          })
+            } as ZonePoint;
+          });
         }
         if (x.type === google.maps.drawing.OverlayType.CIRCLE) {
           this.overlays.push(x);
           this.zoneDraws = [];
           const overlay = x.overlay as google.maps.Circle;
-          this.zoneDraws.push({ zone: null, shape: overlay, })
+          this.zoneDraws.push({ zone: null, shape: overlay });
           let center = overlay.getCenter() as any;
-          center = { lat: center.lat(), long: center.lng() }
+          center = { lat: center.lat(), long: center.lng() };
           let radius = overlay.getRadius();
 
-          return [{
-            longitude: center.long,
-            latitude: center.lat,
-            radius: radius,
-          } as ZonePoint]
+          return [
+            {
+              longitude: center.long,
+              latitude: center.lat,
+              radius: radius,
+            } as ZonePoint,
+          ];
         }
       });
 
@@ -106,28 +116,29 @@ export class MapService {
   }
 
   clearAllOverlays() {
-    this.zoneDraws?.forEach(zd => {
+    this.zoneDraws?.forEach((zd) => {
       zd.shape.setMap(null);
     });
 
     this.zoneDraws = [];
     this.overlays = [];
-    this.map.overlayMapTypes.setAt(0, null)
+    this.map.overlayMapTypes.setAt(0, null);
   }
 
   drawPolygon(polygon: google.maps.Polygon, disableZoom: boolean = false): google.maps.Polygon {
     var bounds = new google.maps.LatLngBounds();
 
     const changedAction = () => {
-      const zoneDraw = this.zoneDraws.find(x => x.shape === polygon);
+      const zoneDraw = this.zoneDraws.find((x) => x.shape === polygon);
       const zone = zoneDraw.zone;
       zone.points = [];
       polygon.getPaths().forEach((path) =>
         path.forEach((latlng) => {
-          zone.points.push({ latitude: latlng.lat(), longitude: latlng.lng() })
-        }));
+          zone.points.push({ latitude: latlng.lat(), longitude: latlng.lng() });
+        })
+      );
       this.zoneEdited.next(zone);
-    }
+    };
 
     polygon.getPaths().forEach((path) => {
       path.forEach((latlng) => {
@@ -136,24 +147,23 @@ export class MapService {
 
       google.maps.event.addListener(path, 'insert_at', () => {
         console.log('New point');
-        changedAction()
+        changedAction();
       });
 
       google.maps.event.addListener(path, 'remove_at', () => {
         console.log('Point was removed');
-        changedAction()
+        changedAction();
       });
 
       google.maps.event.addListener(path, 'set_at', () => {
         console.log('Point was moved');
-        changedAction()
+        changedAction();
       });
     });
 
-
     google.maps.event.addListener(polygon, 'dragend', () => {
       console.log('Polygon was dragged');
-      changedAction()
+      changedAction();
     });
 
     polygon.setMap(this.map);
@@ -166,30 +176,35 @@ export class MapService {
     return polygon;
   }
 
-  drawPolygonByPoints(zone: PartnerZone, config?: {
-    paths: google.maps.LatLng[],
-    strokeColor: string,
-    strokeOpacity: number,
-    strokeWeight: number,
-    fillColor: string,
-    fillOpacity: number
-  }, disableZoom: boolean = false, editable: boolean = true): google.maps.Polygon {
-    const triangleCoords = zone.points.map(res => new google.maps.LatLng(res.latitude, res.longitude));
+  drawPolygonByPoints(
+    zone: PartnerZone,
+    config?: {
+      paths: google.maps.LatLng[];
+      strokeColor: string;
+      strokeOpacity: number;
+      strokeWeight: number;
+      fillColor: string;
+      fillOpacity: number;
+    },
+    disableZoom: boolean = false,
+    editable: boolean = true
+  ): google.maps.Polygon {
+    const triangleCoords = zone.points.map((res) => new google.maps.LatLng(res.latitude, res.longitude));
 
     config = config || {
       paths: triangleCoords,
-      strokeColor: "#FF0000",
+      strokeColor: '#FF0000',
       strokeOpacity: 0.8,
       strokeWeight: 2,
-      fillColor: "#FF0000",
-      fillOpacity: 0.35
-    }
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+    };
 
     const polygon = new google.maps.Polygon({
       paths: triangleCoords,
       editable: !!editable,
       draggable: !!editable,
-      ...config
+      ...config,
     });
 
     this.zoneDraws.push({ zone: zone, shape: polygon });
@@ -200,28 +215,28 @@ export class MapService {
   public drawCircle(circle: google.maps.Circle, disableZoom: boolean = false): google.maps.Circle {
     circle.setMap(this.map);
     const changedAction = () => {
-      const zoneDraw = this.zoneDraws.find(x => x.shape === circle);
+      const zoneDraw = this.zoneDraws.find((x) => x.shape === circle);
       const zone = zoneDraw.zone;
       zone.points = [];
       let center: google.maps.LatLng = circle.getCenter();
       let radius: number = circle.getRadius();
-      zone.points.push({ latitude: center.lat(), longitude: center.lng(), radius: radius })
+      zone.points.push({ latitude: center.lat(), longitude: center.lng(), radius: radius });
       this.zoneEdited.next(zone);
-    }
+    };
 
     google.maps.event.addListener(circle, 'radius_changed', () => {
       console.log('Radius changed');
-      changedAction()
+      changedAction();
     });
 
     google.maps.event.addListener(circle, 'center_changed', () => {
       console.log('Circle changed');
-      changedAction()
+      changedAction();
     });
 
     google.maps.event.addListener(circle, 'dragend', () => {
       console.log('Circle was dragged');
-      changedAction()
+      changedAction();
     });
 
     if (!disableZoom) {
@@ -233,33 +248,38 @@ export class MapService {
   }
 
   public getPointsCenter(partnerZone: PartnerZone): ZonePoint {
-    let zonePoints = partnerZone.points
+    let zonePoints = partnerZone.points;
     let temp = {
       longitude: 0,
       latitude: 0,
-    }
-    zonePoints?.forEach(i => { temp.latitude += i.latitude; temp.longitude += i.longitude })
-    temp.latitude /= zonePoints.length
-    temp.longitude /= zonePoints.length
-    return temp
+    };
+    zonePoints?.forEach((i) => {
+      temp.latitude += i.latitude;
+      temp.longitude += i.longitude;
+    });
+    temp.latitude /= zonePoints.length;
+    temp.longitude /= zonePoints.length;
+    return temp;
   }
 
-
-  public drawMarkerByPoint(zone: PartnerZone, config?: {
-    iconUrl?: string,
-    title?: string,
-    subTitle?: string,
-  }
-    , disableZoom: boolean = false, editable: boolean = true
+  public drawMarkerByPoint(
+    zone: PartnerZone,
+    config?: {
+      iconUrl?: string;
+      title?: string;
+      subTitle?: string;
+    },
+    disableZoom: boolean = false,
+    editable: boolean = true
   ) {
-    let { longitude, latitude } = this.getPointsCenter(zone)
+    let { longitude, latitude } = this.getPointsCenter(zone);
     const myLatLng = { lat: latitude, lng: longitude };
 
     const marker = new google.maps.Marker({
       position: myLatLng,
-      icon : config.iconUrl,
+      icon: config.iconUrl,
       title: config?.title || zone?.name,
-      label: config?.subTitle
+      label: config?.subTitle,
     });
     this.zoneDraws.push({ zone: zone, shape: marker });
     return this.drawMarker(marker, disableZoom);
@@ -270,45 +290,48 @@ export class MapService {
     if (!disableZoom) {
       setTimeout(() => {
         let bounds = new google.maps.LatLngBounds();
-        bounds.extend(marker.getPosition())
+        bounds.extend(marker.getPosition());
         this.map.fitBounds(bounds);
       });
     }
     return marker;
   }
 
-  public drawCircleByPoint(zone: PartnerZone, config?: {
-    strokeColor: string,
-    strokeOpacity: number,
-    strokeWeight: number,
-    fillColor: string,
-    fillOpacity: number,
-    radius: number
-
-  }, disableZoom: boolean = false, editable: boolean = true): google.maps.Circle {
-    const triangleCoords = zone.points.map(res => new google.maps.LatLng(res.latitude, res.longitude));
+  public drawCircleByPoint(
+    zone: PartnerZone,
+    config?: {
+      strokeColor: string;
+      strokeOpacity: number;
+      strokeWeight: number;
+      fillColor: string;
+      fillOpacity: number;
+      radius: number;
+    },
+    disableZoom: boolean = false,
+    editable: boolean = true
+  ): google.maps.Circle {
+    const triangleCoords = zone.points.map((res) => new google.maps.LatLng(res.latitude, res.longitude));
 
     config = config || {
       radius: zone.points[0].radius,
-      strokeColor: "#FF0000",
+      strokeColor: '#FF0000',
       strokeOpacity: 0.8,
       strokeWeight: 2,
-      fillColor: "#FF0000",
-      fillOpacity: 0.35
-    }
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+    };
 
     const circle = new google.maps.Circle({
       center: triangleCoords[0],
       editable: !!editable,
       draggable: !!editable,
-      ...config
+      ...config,
     });
 
     this.zoneDraws.push({ zone: zone, shape: circle });
 
     return this.drawCircle(circle, disableZoom);
   }
-
 
   public setDrawingMode(type: ZoneType) {
     switch (type) {
@@ -333,13 +356,17 @@ export class MapService {
   }
 
   private overviewBounds: google.maps.LatLngBounds;
-  private zoneDraws: { zone: PartnerZone, shape: google.maps.Circle | google.maps.Polygon | google.maps.Marker }[] = [];
+  private zoneDraws: { zone: PartnerZone; shape: google.maps.Circle | google.maps.Polygon | google.maps.Marker }[] = [];
 
-  draw(zones: PartnerZone[], editable: boolean = true, config?: {
-    iconUrl?: string,
-    title?: string,
-    subTitle?: string,
-  }) {
+  draw(
+    zones: PartnerZone[],
+    editable: boolean = true,
+    config?: {
+      iconUrl?: string;
+      title?: string;
+      subTitle?: string;
+    }
+  ) {
     var bounds = new google.maps.LatLngBounds();
     this.zoneDraws = [];
     const circles: google.maps.Circle[] = [];
@@ -348,13 +375,13 @@ export class MapService {
       const zone = zones[i];
       switch (zone.zoneType) {
         case ZoneType.Marker:
-          let marker = this.drawMarkerByPoint(zone, config, null, editable)
-          bounds.extend(marker.getPosition())
+          let marker = this.drawMarkerByPoint(zone, config, null, editable);
+          bounds.extend(marker.getPosition());
           this.zoneDraws.push({ zone: zone, shape: marker });
-          break
+          break;
         case ZoneType.Circular:
           let circle = this.drawCircleByPoint(zone, null, true, editable);
-          bounds.extend(circle.getBounds().getCenter())
+          bounds.extend(circle.getBounds().getCenter());
           this.zoneDraws.push({ zone: zone, shape: circle });
           break;
         case ZoneType.Polygon:
@@ -367,7 +394,6 @@ export class MapService {
           this.zoneDraws.push({ zone: zone, shape: polygon });
           break;
       }
-
     }
     setTimeout(() => {
       this.overviewBounds = bounds;
@@ -381,7 +407,7 @@ export class MapService {
     switch (zone.zoneType) {
       case ZoneType.Circular:
         let circle = this.drawCircleByPoint(zone, null, false, false);
-        bounds.extend(circle.getBounds().getCenter())
+        bounds.extend(circle.getBounds().getCenter());
         break;
       case ZoneType.Polygon:
         let polygon = this.drawPolygonByPoints(zone, null, false, false);
@@ -406,5 +432,3 @@ export class MapService {
     }
   }
 }
-
-

@@ -7,9 +7,9 @@ import { BaseHttpService } from '@app/@core/base/base-http-service';
 @Injectable({
   providedIn: 'root',
 })
-export class SettingsService extends BaseHttpService<SettingModel>{
-  public collationName: string = 'configuration/settings'
+export class SettingsService extends BaseHttpService<SettingModel> {
+  public collationName: string = 'configuration/settings';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
 }

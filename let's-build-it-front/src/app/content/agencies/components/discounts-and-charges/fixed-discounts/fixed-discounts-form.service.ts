@@ -7,11 +7,10 @@ import { FormSubTextComponent } from '../../../../../@forms/form-fields/form-sub
 import { SymbolModel } from '@app/@shared/models/symbol.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class FixedDiscountsFormService implements IFormGenerator<DynamicFormControl[]>  {
-
-  constructor() { }
+export class FixedDiscountsFormService implements IFormGenerator<DynamicFormControl[]> {
+  constructor() {}
   generate(fixedDiscounts: FixedDiscountsModel): DynamicFormControl[] {
     return [
       {
@@ -20,7 +19,7 @@ export class FixedDiscountsFormService implements IFormGenerator<DynamicFormCont
           name: 'fixLabel',
           type: 'text',
           data: {
-            text: 'Refuelling'
+            text: 'Refuelling',
           },
           styleClass: 'd-flex align-items-center bold col-12 col-md-1 bold-label',
         },
@@ -83,7 +82,7 @@ export class FixedDiscountsFormService implements IFormGenerator<DynamicFormCont
           name: 'fixLabel',
           type: 'text',
           data: {
-            text: 'Car Washing'
+            text: 'Car Washing',
           },
           styleClass: 'd-flex align-items-center bold col-12 col-md-1 bold-label',
         },

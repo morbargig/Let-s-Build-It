@@ -85,4 +85,4 @@ const initializeApp = (_config: ApplicationConfigurationService) => {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

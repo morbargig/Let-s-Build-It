@@ -10,18 +10,19 @@ import { AccountService } from '../../../../@shared/services/account.service';
   styleUrls: ['./header-user-account.component.scss'],
 })
 export class HeaderUserAccountComponent extends BaseComponent implements OnInit {
-  constructor(private authenticationService: AuthenticationService, private router: Router, private accountService: AccountService) {
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router,
+    private accountService: AccountService
+  ) {
     super();
   }
-
 
   public get authenticationResponse(): AuthenticationResponseModel {
     return this.accountService.user;
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   logout() {
     this.authenticationService.logout().subscribe(() => this.redirect());

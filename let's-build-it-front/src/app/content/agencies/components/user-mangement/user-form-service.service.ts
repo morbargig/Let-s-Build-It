@@ -13,16 +13,18 @@ import { IdeoValidators } from '../../../../@forms/@core/validators/ideo.validat
 import { IdeoRegexService } from '../../../../@ideo/infrastructure/services/ideo-regex.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserFormService implements IFormGenerator<DynamicFormControl[]> {
-
-  constructor(private accountService: AccountService) { }
-
+  constructor(private accountService: AccountService) {}
 
   private _unwantedRoles: string[] = ['Customer', 'CarOwner', 'Admin'];
-  public get unwantedRoles(): string[] { return this._unwantedRoles; }
-  public set unwantedRoles(v: string[]) { this._unwantedRoles = v; }
+  public get unwantedRoles(): string[] {
+    return this._unwantedRoles;
+  }
+  public set unwantedRoles(v: string[]) {
+    this._unwantedRoles = v;
+  }
 
   generate(...params: any[]): DynamicFormControl[] {
     return [
@@ -36,7 +38,7 @@ export class UserFormService implements IFormGenerator<DynamicFormControl[]> {
           data: {
             autoUpload: true,
           } as FormFile,
-        }
+        },
       },
       {
         type: FormSelectComponent,
@@ -48,13 +50,15 @@ export class UserFormService implements IFormGenerator<DynamicFormControl[]> {
           validation: [Validators.required],
           optionsArr$: this.accountService.getRoles().pipe(
             map((r) =>
-              r.filter(z => this.unwantedRoles.indexOf(z.name) < 0).map((role) => {
-                return {
-                  label: role.name,
-                  value: role.name,
-                } as SelectItem;
-              })
-            ),
+              r
+                .filter((z) => this.unwantedRoles.indexOf(z.name) < 0)
+                .map((role) => {
+                  return {
+                    label: role.name,
+                    value: role.name,
+                  } as SelectItem;
+                })
+            )
           ),
           errorMessages: {
             required: 'Role is required',
@@ -155,15 +159,19 @@ export class UserFormService implements IFormGenerator<DynamicFormControl[]> {
         config: {
           name: 'password',
           label: 'Password (temporary)',
-          value: '', 
+          value: '',
           type: 'password',
           placeholder: 'Password (temporary)',
           styleClass: 'col-6',
-          validation: [Validators.required, Validators.pattern(IdeoRegexService.strongPassword), Validators.minLength(10)],
+          validation: [
+            Validators.required,
+            Validators.pattern(IdeoRegexService.strongPassword),
+            Validators.minLength(10),
+          ],
           errorMessages: {
             required: 'Password is required',
             pattern: 'Use a mix of letters, numbers & symbols',
-            minlength: 'The password must be between 10 and 20 characters'
+            minlength: 'The password must be between 10 and 20 characters',
           },
         },
       },
@@ -180,7 +188,7 @@ export class UserFormService implements IFormGenerator<DynamicFormControl[]> {
       //     errorMessages: {},
       //   },
       // },
-    ]
+    ];
   }
   convert?: ModelConverter<DynamicFormControl[], any>;
 }

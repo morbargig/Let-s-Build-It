@@ -27,9 +27,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { asSelectItem } from '../../../../prototypes';
 import { faEdit, faHandshake, faLink } from '@fortawesome/free-solid-svg-icons';
 
-
-
-
 @Component({
   selector: 'prx-inventory',
   templateUrl: './inventory.component.html',
@@ -40,54 +37,56 @@ export class InventoryComponent extends TablePageDirective<InventoryModel> imple
   public columns: TableColumn<InventoryModel>[];
   public pageActions: ButtonItem<any>[];
   public filters: TableFilter[];
-  public itemActions: ButtonItem<InventoryModel>[] = [{
-    tooltip: 'Edit',
-    icon: faEdit,
-    styleClass: 'btn-outline-primary ml-2',
-    click: (item) => {
-      this.router.navigate(['edit', item.id], { relativeTo: this.route })
+  public itemActions: ButtonItem<InventoryModel>[] = [
+    {
+      tooltip: 'Edit',
+      icon: faEdit,
+      styleClass: 'btn-outline-primary ml-2',
+      click: (item) => {
+        this.router.navigate(['edit', item.id], { relativeTo: this.route });
+      },
     },
-  },
-  {
-    label: 'Details',
-    icon: faHandshake,
-    styleClass: 'btn-outline-primary ml-2',
-    click: (item) => {
-      this.router.navigate([item.id], { relativeTo: this.route })
+    {
+      label: 'Details',
+      icon: faHandshake,
+      styleClass: 'btn-outline-primary ml-2',
+      click: (item) => {
+        this.router.navigate([item.id], { relativeTo: this.route });
+      },
     },
-  },
-  {
-    tooltip: 'Assign',
-    styleClass: 'btn-outline-primary ml-2',
-    icon: faLink,
-    click: (item) => {
-      this.router.navigate(['assign', item.id], { relativeTo: this.route })
+    {
+      tooltip: 'Assign',
+      styleClass: 'btn-outline-primary ml-2',
+      icon: faLink,
+      click: (item) => {
+        this.router.navigate(['assign', item.id], { relativeTo: this.route });
+      },
     },
-  },];
+  ];
   public selectedClick: (pram: string | any) => void = (pram) => {
-    pram.url ? this.router.navigate(['create', pram?.url], { relativeTo: this.route }) : null
-  }
+    pram.url ? this.router.navigate(['create', pram?.url], { relativeTo: this.route }) : null;
+  };
   public selectActions: SelectItem[] = [
     { label: 'Import Inventory', value: 'import-inventory' },
     { label: 'Export All', value: 'export-all' },
     { label: 'export filtered', value: 'export-filtered' },
-    { label: 'Add IoT Key', value: { url: 'Chip' }, },
+    { label: 'Add IoT Key', value: { url: 'Chip' } },
     { label: 'Add Sim Card', value: { url: 'SimCard' } },
     { label: 'Add Phone Number', value: { url: 'TelephoneLine' } },
   ];
 
-  public totalUnused: number = 0
-  public total: number = 0
+  public totalUnused: number = 0;
+  public total: number = 0;
 
   public stripes: SelectItem[] = [
-    { label: 'Total', value: this.total, icon: 'car', },
+    { label: 'Total', value: this.total, icon: 'car' },
     { label: 'Unused', value: this.totalUnused, icon: 'unused', flag: true },
   ];
 
   public getDataProvider(evt: LazyLoadEvent, isExport?: boolean): Observable<IPagedList<InventoryModel>> {
     evt.filters['PartnerId'] = {
       matchMode: 2000,
-      value: this.sidebarService.entity.id
+      value: this.sidebarService.entity.id,
     };
     return this.inventoriesService.getAll(evt);
   }
@@ -104,37 +103,37 @@ export class InventoryComponent extends TablePageDirective<InventoryModel> imple
     modalService: BsModalService,
     router: Router,
     private route: ActivatedRoute,
-    notificationsService: NotificationsService,
+    notificationsService: NotificationsService
   ) {
-    super(modalService, true, notificationsService, router)
+    super(modalService, true, notificationsService, router);
     forkJoin([
       this.inventoriesService.count({
         PartnerId: {
           value: this.sidebarService.entity.id,
           matchMode: 2000,
         },
-      })
-      ,
+      }),
       this.inventoriesService.count({
         'Car.PartnerId': {
           value: this.sidebarService.entity.id,
           matchMode: 2000,
         },
-      })
+      }),
+    ])
+      .pipe(take(1))
+      .subscribe((res) => {
+        for (let i of Object.keys(res[0])) {
+          this.total += +res[0][i];
+        }
+        (this.stripes.filter((x) => x.label === 'Total') as SelectItem[])[0].value = this.total;
 
-    ]).pipe(take(1)).subscribe(res => {
-      for (let i of Object.keys(res[0])) {
-        this.total += +res[0][i]
-      }
-      (this.stripes.filter(x => x.label === "Total") as SelectItem[])[0].value = this.total
-
-      let usedNum: number = 0
-      for (let i of Object.keys(res[1])) {
-        usedNum += +res[1][i]
-      }
-      this.totalUnused = this.total - usedNum;
-      (this.stripes.filter(x => x.label === "Unused") as SelectItem[])[0].value = this.totalUnused
-    })
+        let usedNum: number = 0;
+        for (let i of Object.keys(res[1])) {
+          usedNum += +res[1][i];
+        }
+        this.totalUnused = this.total - usedNum;
+        (this.stripes.filter((x) => x.label === 'Unused') as SelectItem[])[0].value = this.totalUnused;
+      });
 
     this.sidebarService.breadcrumbs = [
       { label: 'Agencies', url: '../../' },
@@ -228,37 +227,35 @@ export class InventoryComponent extends TablePageDirective<InventoryModel> imple
             styleClass: 'col-xl-3',
             queryFilters: (query) => {
               return {
-                "Model": {
+                Model: {
                   value: query,
-                  matchMode: MatchMode.Contains
-                }
-              } as FilterObject
+                  matchMode: MatchMode.Contains,
+                },
+              } as FilterObject;
             },
             lazyOptions: (evt) => {
               evt.filters = evt.filters || {};
               evt.filters['PartnerId'] = {
                 matchMode: MatchMode.Equals,
-                value: this.sidebarService.entity.id
-              }
-              return this.carsService
-                .getAll(evt)
-                .pipe(
-                  map((r) => {
-                    let val = {
-                      data: r?.data?.map((a) => {
-                        return {
-                          value: a.id,
-                          label: `${a.model} ${a.modelYear}`,
-                          // icon: a.profileImgId,
-                          title: a.plateNo
-                        } as SelectItem;
-                      }),
-                      total: r.total
-                    };
-                    return val;
-                  })
-                )
-            }
+                value: this.sidebarService.entity.id,
+              };
+              return this.carsService.getAll(evt).pipe(
+                map((r) => {
+                  let val = {
+                    data: r?.data?.map((a) => {
+                      return {
+                        value: a.id,
+                        label: `${a.model} ${a.modelYear}`,
+                        // icon: a.profileImgId,
+                        title: a.plateNo,
+                      } as SelectItem;
+                    }),
+                    total: r.total,
+                  };
+                  return val;
+                })
+              );
+            },
           },
         ],
       },

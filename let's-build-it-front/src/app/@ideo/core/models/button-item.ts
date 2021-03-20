@@ -8,7 +8,7 @@ export interface ButtonItem<T = any> {
   hidden?: (item: T) => boolean;
   useOn?: number[];
   styleClass?: string;
-  icon?: IconDefinition | string ;
+  icon?: IconDefinition | string;
   title?: string;
   item?: T;
   type?: string | 'topActions';

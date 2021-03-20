@@ -26,14 +26,14 @@
         [initSelection]="initSelection"
         dataKey="partner-zones.data"
         [lazy]="lazy"
-        [fullHeight]="true">
+        [fullHeight]="true"
+      >
       </ideo-table>
     </prx-wsi-card>
-  </div>  
+  </div>
   <div class="col-12 col-md-4 col-xl-6 flex-wrap d-flex flex-column">
     <prx-wsi-card [showHeader]="false" [fullHeight]="true" [fuller]="true">
-      <agm-map [latitude]="31.771959" [longitude]="35.217018" (mapReady)="onMapReady($event)">
-      </agm-map>
+      <agm-map [latitude]="31.771959" [longitude]="35.217018" (mapReady)="onMapReady($event)"> </agm-map>
     </prx-wsi-card>
   </div>
 </div>

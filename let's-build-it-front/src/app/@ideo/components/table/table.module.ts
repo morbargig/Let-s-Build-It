@@ -44,7 +44,6 @@ import { RouterModule } from '@angular/router';
 
 const featherIcons = allIcons;
 
-
 const EXPORTED = [TableComponent];
 const DIRECTIVES = [SortableDirective, TableCellDirective, TableFilterDirective];
 const COMPONENTS = [
@@ -88,7 +87,7 @@ const COMPONENTS = [
     NgbDatepickerModule,
     BsDropdownModule,
     RouterModule,
-    FeatherModule.pick(featherIcons)
+    FeatherModule.pick(featherIcons),
   ],
   exports: [...EXPORTED],
   providers: [TableService],

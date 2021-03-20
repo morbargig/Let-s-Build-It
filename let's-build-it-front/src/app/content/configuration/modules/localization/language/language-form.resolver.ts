@@ -11,7 +11,7 @@ import { LanguageFormService } from './language-form.service';
   providedIn: 'root',
 })
 export class LanguageFormComponentResolverService implements Resolve<PageFormConfig> {
-  constructor(private languagesService: LanguagesService, private languageFormService: LanguageFormService) { }
+  constructor(private languagesService: LanguagesService, private languageFormService: LanguageFormService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): PageFormConfig {
     let isEdit = !!route.paramMap.get('id') && route.paramMap.get('id') != 'create';

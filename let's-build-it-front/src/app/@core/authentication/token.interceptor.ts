@@ -17,7 +17,7 @@ const log = new Logger('TokenInterceptor');
   providedIn: 'root',
 })
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private _injector: Injector) { }
+  constructor(private _injector: Injector) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const _token = this._injector.get(TokenService);

@@ -6,16 +6,13 @@ import { TabsPageConfig } from './tabs-page.config';
 @Component({
   selector: 'prx-tabs-page',
   templateUrl: './tabs-page.component.html',
-  styleUrls: ['./tabs-page.component.scss']
+  styleUrls: ['./tabs-page.component.scss'],
 })
 export class TabsPageComponent implements OnInit, OnDestroy {
-
   constructor(private router: Router, private route: ActivatedRoute) {
     if (!!route.snapshot.data && !!route.snapshot.data.config) {
       this.config = route.snapshot.data.config;
     }
-
-
   }
 
   private endded: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -25,7 +22,7 @@ export class TabsPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     let urls = this.router.url?.split('/');
     if (!!urls?.length) {
-      this.currentRoute = urls?.[(urls?.length - 1) || 0];
+      this.currentRoute = urls?.[urls?.length - 1 || 0];
     }
 
     this.router.events
@@ -36,8 +33,8 @@ export class TabsPageComponent implements OnInit, OnDestroy {
       .subscribe((res: NavigationEnd) => {
         let urls = res.url?.split('/');
         if (!!urls?.length) {
-          this.currentRoute = urls?.[(urls?.length - 1) || 0];
-          if (!this.config.tabs.find(t => t.value == this.currentRoute)) {
+          this.currentRoute = urls?.[urls?.length - 1 || 0];
+          if (!this.config.tabs.find((t) => t.value == this.currentRoute)) {
             this.currentRoute = this.config.tabs?.[0]?.value;
           }
         }
@@ -47,5 +44,4 @@ export class TabsPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.endded.next(true);
   }
-
 }

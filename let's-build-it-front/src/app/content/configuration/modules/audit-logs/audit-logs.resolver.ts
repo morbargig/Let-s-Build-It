@@ -21,7 +21,7 @@ import { FilterObject } from '../../../../@ideo/components/table/events/lazy-loa
   providedIn: 'root',
 })
 export class AuditLogsResolverService implements Resolve<BasePageConfig<any>> {
-  constructor(private auditLogsService: AuditLogsService, private modalService: BsModalService) { }
+  constructor(private auditLogsService: AuditLogsService, private modalService: BsModalService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): BasePageConfig<AuditLogModel> {
     return new BasePageConfig({
@@ -37,34 +37,32 @@ export class AuditLogsResolverService implements Resolve<BasePageConfig<any>> {
               placeholder: 'Entity',
               queryFilters: (query) => {
                 return {
-                  "NewValues": {
+                  NewValues: {
                     value: query,
                     matchMode: MatchMode.Contains,
-                  }
-                } as FilterObject
+                  },
+                } as FilterObject;
               },
               lazyOptions: (evt) => {
                 evt.sortColumn = 'Created';
                 evt.sortDirection = 'desc';
-                return this.auditLogsService
-                  .getAll(evt)
-                  .pipe(
-                    map((z) => {
-                      let val = {
-                        data: z.data.map((x) => {
-                          return {
-                            label: `${x.entityType} (id: ${x.id})`,
-                            value: x.id,
-                          } as SelectItem;
-                        }),
-                        total: z.total
-                      };
-                      return val;
-                    })
-                  )
+                return this.auditLogsService.getAll(evt).pipe(
+                  map((z) => {
+                    let val = {
+                      data: z.data.map((x) => {
+                        return {
+                          label: `${x.entityType} (id: ${x.id})`,
+                          value: x.id,
+                        } as SelectItem;
+                      }),
+                      total: z.total,
+                    };
+                    return val;
+                  })
+                );
               },
-            }
-          ]
+            },
+          ],
         },
         {
           field: 'entityType',
@@ -167,7 +165,7 @@ export class AuditLogsResolverService implements Resolve<BasePageConfig<any>> {
               initialState: item,
               class: 'modal-lg modal-dialog-centered',
             });
-            (<AuditLogDetailsModalComponent>auditLogDetails.content).onClose.pipe(take(1)).subscribe((res) => { });
+            (<AuditLogDetailsModalComponent>auditLogDetails.content).onClose.pipe(take(1)).subscribe((res) => {});
           },
         },
       ],

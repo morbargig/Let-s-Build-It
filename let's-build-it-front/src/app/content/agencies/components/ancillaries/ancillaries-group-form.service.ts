@@ -5,12 +5,10 @@ import { Validators } from '@angular/forms';
 import { FormTextComponent } from '../../../../@forms/form-fields/form-text/form-text.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AncillariesGroupFormService {
-
-  constructor(
-  ) { }
+  constructor() {}
 
   generate(entity: AncillaryGroupModel = null): DynamicFormControl[] {
     let form: DynamicFormControl[] = [];
@@ -37,7 +35,7 @@ export class AncillariesGroupFormService {
           type: 'hidden',
           value: entity?.id,
         },
-      },
+      }
     );
     return form;
   }

@@ -26,18 +26,22 @@ export class TableFiltersComponent implements AfterViewInit {
   public group: FormGroup = this.fb.group({});
 
   public buttons: ButtonItem[] = [
-    { label: 'Reset Filters', click: () => this.reset(), styleClass: 'btn-static position-relative btn pl-3 pr-4 mr-1', icon: 'fas fa-redo mr-1' },
+    {
+      label: 'Reset Filters',
+      click: () => this.reset(),
+      styleClass: 'btn-static position-relative btn pl-3 pr-4 mr-1',
+      icon: 'fas fa-redo mr-1',
+    },
   ];
 
   public applyBtn: ButtonItem = {
     label: 'Apply Filters',
     styleClass: 'btn-primary position-relative btn px-4 justify-self-end',
     click: () => this.applyFilters(true),
-    disabled: !this.group.valid
+    disabled: !this.group.valid,
+  };
 
-  }
-
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private storageKeysService: StorageKeysService) { }
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private storageKeysService: StorageKeysService) {}
 
   ngAfterViewInit(): void {
     this.filtersDefaultValues = this.group.getRawValue();

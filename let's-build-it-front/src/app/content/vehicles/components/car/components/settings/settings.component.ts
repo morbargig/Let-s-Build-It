@@ -19,18 +19,21 @@ import { FormDateComponent } from '../../../../../../@forms/form-fields/form-dat
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  constructor(private sidebarPageService: SideBarPageService,
+  constructor(
+    private sidebarPageService: SideBarPageService,
     private carsService: CarsService,
-    private notificationsService: NotificationsService,) { 
-      this.sidebarPageService.breadcrumbs = [
-        { label: 'Cars', url: '../../' },
-        {
-          label: `${this.sidebarPageService.entity.manufacturer} ${this.sidebarPageService.entity.model}
-         ${this.sidebarPageService.entity.modelYear} | ${this.sidebarPageService.entity.plateNo} `, url: './'
-        },
-        { label: 'Settings' },
-      ];
-    }
+    private notificationsService: NotificationsService
+  ) {
+    this.sidebarPageService.breadcrumbs = [
+      { label: 'Cars', url: '../../' },
+      {
+        label: `${this.sidebarPageService.entity.manufacturer} ${this.sidebarPageService.entity.model}
+         ${this.sidebarPageService.entity.modelYear} | ${this.sidebarPageService.entity.plateNo} `,
+        url: './',
+      },
+      { label: 'Settings' },
+    ];
+  }
   public generalControls: DynamicFormControl[];
   public serviceControls: DynamicFormControl[];
   public editMode: boolean = false;
@@ -51,15 +54,15 @@ export class SettingsComponent implements OnInit {
             if (!!val) {
               previousValue = ctrl.parent.controls['kmAtInitiate'].value;
               ctrl.parent.controls['kmAtInitiate'].setValue('0');
-              kmAtInitSetter.next({ type: 'setDisabled', value: false })
+              kmAtInitSetter.next({ type: 'setDisabled', value: false });
             } else {
-              kmAtInitSetter.next({ type: 'setDisabled', value: true })
+              kmAtInitSetter.next({ type: 'setDisabled', value: true });
               ctrl.parent.controls['kmAtInitiate'].setValue(previousValue);
             }
           },
           data: {
-            checkboxLabel: 'New vehicle'
-          }
+            checkboxLabel: 'New vehicle',
+          },
         },
       },
       {
@@ -71,7 +74,6 @@ export class SettingsComponent implements OnInit {
           setter: kmAtInitSetter,
           value: this.car.kmAtInitiate,
           styleClass: 'col-3',
-
         },
       },
     ];
@@ -97,7 +99,6 @@ export class SettingsComponent implements OnInit {
           styleClass: 'col-3',
         },
       },
-
     ];
   }
 
@@ -106,26 +107,27 @@ export class SettingsComponent implements OnInit {
     let generalSettingsValues = this.generalForm.getRawValue();
     let serviceGeneralSettings = this.serviceForm.getRawValue();
 
-    this.carsService.updateGeneralSettings(this.car.id, generalSettingsValues).toPromise().then(res => {
-      this.sidebarPageService.entity.kmAtInitiate = res.kmAtInitiate;
-      this.notificationsService.success(`${this.car.manufacturer} ${this.car.model}
+    this.carsService
+      .updateGeneralSettings(this.car.id, generalSettingsValues)
+      .toPromise()
+      .then((res) => {
+        this.sidebarPageService.entity.kmAtInitiate = res.kmAtInitiate;
+        this.notificationsService.success(`${this.car.manufacturer} ${this.car.model}
       ${this.car.modelYear}  details updated successfully`);
-    })
+      });
 
     delete serviceGeneralSettings.serviceTimeInterval;
-    this.carsService.updateServiceSettings(this.car.id, serviceGeneralSettings).toPromise().then(res => {
-      this.sidebarPageService.entity.serviceKmInterval = res.serviceKmInterval;
-      this.notificationsService.success(`${this.car.manufacturer} ${this.car.model}
+    this.carsService
+      .updateServiceSettings(this.car.id, serviceGeneralSettings)
+      .toPromise()
+      .then((res) => {
+        this.sidebarPageService.entity.serviceKmInterval = res.serviceKmInterval;
+        this.notificationsService.success(`${this.car.manufacturer} ${this.car.model}
       ${this.car.modelYear}  details updated successfully`);
-    })
-
-
+      });
   }
 
   public get car(): CarModel {
     return this.sidebarPageService.entity;
   }
-
-
-
 }

@@ -21,7 +21,12 @@ import { ImportConfig } from '@app/@shared/models/import.config';
   styleUrls: ['./tabled-page.component.scss'],
 })
 export class TabledPageComponent<T = any> extends TablePageDirective<T> implements OnInit {
-  constructor(router: Router, private route: ActivatedRoute, modalService: BsModalService, notificationsService: NotificationsService) {
+  constructor(
+    router: Router,
+    private route: ActivatedRoute,
+    modalService: BsModalService,
+    notificationsService: NotificationsService
+  ) {
     super(modalService, true, notificationsService, router);
     // if (!!this.route.snapshot.data && !!this.route.snapshot.data.config) {
     //   this.config = this.route.snapshot.data.config;

@@ -16,7 +16,10 @@ export class TableCellDirective implements OnInit {
   constructor(private resolver: ComponentFactoryResolver, private container: ViewContainerRef) {}
 
   ngOnInit(): void {
-    let cellType: TableColumnType = !!this.col.type || this.col.type === 0 || this.col.type === TableColumnType.StaticImage ? this.col.type : TableColumnType.Default;
+    let cellType: TableColumnType =
+      !!this.col.type || this.col.type === 0 || this.col.type === TableColumnType.StaticImage
+        ? this.col.type
+        : TableColumnType.Default;
     const factory = this.resolver.resolveComponentFactory<TableCell>(TableCellDic[cellType]);
     this.component = this.container.createComponent(factory);
     this.component.instance.col = this.col;

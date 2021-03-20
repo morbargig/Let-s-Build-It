@@ -48,14 +48,14 @@ const routes: Routes = [
           {
             path: 'edit/:id',
             component: ModalPageComponent,
-            resolve: {config: CarDamagesResolver}
+            resolve: { config: CarDamagesResolver },
           },
           {
             path: 'create',
             component: ModalPageComponent,
-            resolve: {config: CarDamagesResolver}
-          }
-        ]
+            resolve: { config: CarDamagesResolver },
+          },
+        ],
       },
       { path: 'damages/:damageId', component: DamageDetailsComponent },
       { path: 'accidents', component: AccidentsComponent },

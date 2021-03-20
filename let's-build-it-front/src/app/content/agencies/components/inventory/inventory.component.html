@@ -4,18 +4,20 @@
   </div>
 </div>
 
-<div class="d-flex row  justify-content-between">
+<div class="d-flex row justify-content-between">
   <div class="justify-content-start col-6">
     <div class="row">
-      <div class="col-6 col-md-6 d-flex  flex-wrap flex-column " *ngFor="let stripe of stripes">
+      <div class="col-6 col-md-6 d-flex flex-wrap flex-column" *ngFor="let stripe of stripes">
         <prx-wsi-card [showHeader]="false" [fullHeight]="true" [alignment]="'center'">
-          <div class="d-flex justify-content-between align-items-center pt-3 pr-3" *ngIf="!stripe.items?.length;">
+          <div class="d-flex justify-content-between align-items-center pt-3 pr-3" *ngIf="!stripe.items?.length">
             <div class="align-self-center">
-              <h2>{{ stripe.value }} <span style="vertical-align: super;">
+              <h2>
+                {{ stripe.value }}
+                <span style="vertical-align: super">
                   <prx-icon *ngIf="!!stripe.flag" [size]="'1x'" icon="flag"></prx-icon>
                 </span>
               </h2>
-              <h5>{{ stripe.label }} </h5>
+              <h5>{{ stripe.label }}</h5>
             </div>
             <prx-icon *ngIf="!!stripe.icon" [size]="'3x'" [icon]="stripe.icon"></prx-icon>
           </div>
@@ -29,12 +31,23 @@
 </div>
 
 <prx-wsi-card [showHeader]="false">
-  <ideo-table #tc [items]="items" [columns]="columns" [buttons]="itemActions" (onLazyLoad)="onLazyLoad($event)"
-    stateKey="agency-inventories-all" [totalRecords]="totalRecords" [filters]="filters" [(selection)]="selection"
-    [showFilters]="true" [initSelection]="initSelection" dataKey="agency-inventories-all.data" [lazy]="lazy"
-    [fullHeight]="false">
+  <ideo-table
+    #tc
+    [items]="items"
+    [columns]="columns"
+    [buttons]="itemActions"
+    (onLazyLoad)="onLazyLoad($event)"
+    stateKey="agency-inventories-all"
+    [totalRecords]="totalRecords"
+    [filters]="filters"
+    [(selection)]="selection"
+    [showFilters]="true"
+    [initSelection]="initSelection"
+    dataKey="agency-inventories-all.data"
+    [lazy]="lazy"
+    [fullHeight]="false"
+  >
   </ideo-table>
 </prx-wsi-card>
-
 
 <router-outlet></router-outlet>

@@ -9,13 +9,13 @@ import { BaseParentHttpService } from '@app/@core/base/base-parent-http-service'
   providedIn: 'root',
 })
 export class AccidentsService extends BaseParentHttpService<number, CarAccidentModel> {
-  public collationName: string =  'accidents'
+  public collationName: string = 'accidents';
   public parentRoute: string = 'cars';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
 
-  public bulk:any = null;
+  public bulk: any = null;
 
   public deleteAccidentMedia(carId: number, id: number, mediaId: number) {
     return this.http.delete(`${environment.serverUrl}/api/cars/${carId}/accidents/${id}/MediaItems/${mediaId}`);

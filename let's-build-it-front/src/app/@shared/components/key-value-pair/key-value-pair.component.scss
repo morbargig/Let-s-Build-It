@@ -6,12 +6,11 @@ ul {
   flex-direction: row;
   flex-wrap: wrap;
 
-
-  >li {
+  > li {
     flex: 0 0 50%;
     margin-bottom: 5px;
 
-    >span {
+    > span {
       color: #001a3e;
 
       &:first-child {
@@ -23,15 +22,14 @@ ul {
           margin-right: 5px;
         }
       }
-
     }
   }
 
   &.view-type-block {
     justify-content: flex-start;
 
-    >li {
-      >span {
+    > li {
+      > span {
         display: block;
         font-size: 0.875rem;
         font-weight: 500;

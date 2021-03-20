@@ -84,9 +84,9 @@ export class FormPagedComponent extends BaseComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
-  ngAfterViewInit(): void { }
+  ngAfterViewInit(): void {}
 
   public submitForm(values: any) {
     this.loading = true;

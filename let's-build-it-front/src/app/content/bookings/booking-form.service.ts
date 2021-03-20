@@ -26,7 +26,7 @@ import { AcronymPipe } from '../../@ideo/infrastructure/pipes/acronym.pipe';
 import { BookingLocationFormComponent } from './booking-location-form/booking-location-form.component';
 import { BookingFinishFormComponent } from './booking-finish-form/booking-finish-form.component';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BookingFormService implements IFormGenerator<DynamicSteppedForm[]> {
   constructor(
@@ -34,10 +34,8 @@ export class BookingFormService implements IFormGenerator<DynamicSteppedForm[]> 
     private ancillariesService: AncillariesService,
     private imageIdPipe: ImageIdPipe,
     private colorHashPipe: ColorHashPipe,
-    private acronymPipe: AcronymPipe,
-  ) {
-
-  }
+    private acronymPipe: AcronymPipe
+  ) {}
   generate(entity?: BookingModel): DynamicSteppedForm[] {
     let form: DynamicSteppedForm[] = [];
     form.push(
@@ -63,23 +61,27 @@ export class BookingFormService implements IFormGenerator<DynamicSteppedForm[]> 
                         name: model.firstName + ' ' + model.lastName,
                         email: model.email,
                         img: model.profileImageId,
-                        userName: model.userName
-                      }
+                        userName: model.userName,
+                      };
                     },
-                    parsedHtmlData: (model: {
-                      name: string,
-                      email: string,
-                      userName: string,
-                      img: number,
-
-                    }) => {
-                      let test = this.colorHashPipe.transform(model.name) // FIXME: need to make sure the color will append the user profile
-                      let img = model.img ? `<img class="rounded-circle user-image"  src="${this.imageIdPipe.transform(model.img, true)}" />` : `<span class="acronym big text-primary" [style]="'background-color: ${this.colorHashPipe.transform(model.userName)};'" >${this.acronymPipe.transform(model.name.split(' '))} </span>`
-                      let html = `<div class="d-flex pl-1 align-items-center" >  ${img}  <div > <h5 class="mb-1">${model.name} </h5> <span class="tex-muted" > ${model.email}</span> </div> </div>`
-                      return html
+                    parsedHtmlData: (model: { name: string; email: string; userName: string; img: number }) => {
+                      let test = this.colorHashPipe.transform(model.name); // FIXME: need to make sure the color will append the user profile
+                      let img = model.img
+                        ? `<img class="rounded-circle user-image"  src="${this.imageIdPipe.transform(
+                            model.img,
+                            true
+                          )}" />`
+                        : `<span class="acronym big text-primary" [style]="'background-color: ${this.colorHashPipe.transform(
+                            model.userName
+                          )};'" >${this.acronymPipe.transform(model.name.split(' '))} </span>`;
+                      let html = `<div class="d-flex pl-1 align-items-center" >  ${img}  <div > <h5 class="mb-1">${model.name} </h5> <span class="tex-muted" > ${model.email}</span> </div> </div>`;
+                      return html;
                     },
                     sortable: true,
-                    filter: [{ name: 'FirstName', type: TextFilterComponent, placeholder: 'First Name' }, { name: 'LastName', type: TextFilterComponent, placeholder: 'Last Name' }],
+                    filter: [
+                      { name: 'FirstName', type: TextFilterComponent, placeholder: 'First Name' },
+                      { name: 'LastName', type: TextFilterComponent, placeholder: 'Last Name' },
+                    ],
                   },
                   {
                     field: 'isLicenceVerified',
@@ -117,10 +119,10 @@ export class BookingFormService implements IFormGenerator<DynamicSteppedForm[]> 
                     sortable: true,
                     filter: null,
                   },
-                ] as TableColumn[]
-              }
+                ] as TableColumn[],
+              },
             },
-          }
+          },
         ],
       },
       {
@@ -134,10 +136,10 @@ export class BookingFormService implements IFormGenerator<DynamicSteppedForm[]> 
               type: 'text',
               styleClass: 'col-12',
               data: {
-                partnerId: 1
-              }
+                partnerId: 1,
+              },
             },
-          }
+          },
         ],
       },
       {
@@ -152,7 +154,7 @@ export class BookingFormService implements IFormGenerator<DynamicSteppedForm[]> 
               type: 'text',
               styleClass: 'col-12',
             },
-          }
+          },
         ],
       },
       {
@@ -169,12 +171,13 @@ export class BookingFormService implements IFormGenerator<DynamicSteppedForm[]> 
                 //     'vehicles': 'you must select last one'
                 //   } : null
                 // },
-                Validators.required],
+                Validators.required,
+              ],
               name: 'vehicles',
               type: 'text',
               styleClass: 'col-12',
               errorMessages: {
-                'vehicles': 'you must select last one'
+                vehicles: 'you must select last one',
               },
               data: {
                 columns: [
@@ -187,36 +190,34 @@ export class BookingFormService implements IFormGenerator<DynamicSteppedForm[]> 
                       return {
                         make: model.manufacturer,
                         model: model.model,
-                        img: model.profileImgId
-                      }
+                        img: model.profileImgId,
+                      };
                     },
-                    parsedHtmlData: (model: {
-                      make: string,
-                      model: string,
-                      img: number
-                    }) => {
-                      let html = `<div class="d-flex pl-1 align-items-center" >  <img class="rounded-circle user-image"  src="${this.imageIdPipe.transform(model.img, true)}" /> <div > <h5 class="mb-1">${model.make + '' + model.model} </h5> </div> </div>`
-                      return html
+                    parsedHtmlData: (model: { make: string; model: string; img: number }) => {
+                      let html = `<div class="d-flex pl-1 align-items-center" >  <img class="rounded-circle user-image"  src="${this.imageIdPipe.transform(
+                        model.img,
+                        true
+                      )}" /> <div > <h5 class="mb-1">${model.make + '' + model.model} </h5> </div> </div>`;
+                      return html;
                     },
                     sortable: true,
-                    filter: [{ name: 'Model', type: TextFilterComponent, placeholder: 'Model' }, { name: 'Manufacturer', type: TextFilterComponent, placeholder: 'Manufacturer' }],
+                    filter: [
+                      { name: 'Model', type: TextFilterComponent, placeholder: 'Model' },
+                      { name: 'Manufacturer', type: TextFilterComponent, placeholder: 'Manufacturer' },
+                    ],
                   },
                   {
                     field: 'model',
                     header: 'MAKE & MODEL',
                     parsedFullData: (model: CarModel) => {
-                      model.fuelType
+                      model.fuelType;
                       return {
                         doors: model.doorsNumber,
                         seats: model.seatsNo,
-                      }
+                      };
                     },
-                    parsedHtmlData: (model: {
-                      doors: number,
-                      seats: number,
-
-                    }) => {
-                      let icon = new IdeoIconModel()
+                    parsedHtmlData: (model: { doors: number; seats: number }) => {
+                      let icon = new IdeoIconModel();
                       let html = `
                       <div class="text-center">
                       ${model.seats}
@@ -225,11 +226,14 @@ export class BookingFormService implements IFormGenerator<DynamicSteppedForm[]> 
                       ${model.doors}
                       <img *ngIf="useIdeo; else useFeather" [class]="'icon-' + size" src="assets/icons/${icon.doors}">
                       </div>
-                      `
-                      return html
+                      `;
+                      return html;
                     },
                     sortable: true,
-                    filter: [{ name: 'DoorsNumber', type: NumericFilterComponent, placeholder: 'doorsNumber' }, { name: 'SeatsNo', type: NumericFilterComponent, placeholder: 'seatsNo' }],
+                    filter: [
+                      { name: 'DoorsNumber', type: NumericFilterComponent, placeholder: 'doorsNumber' },
+                      { name: 'SeatsNo', type: NumericFilterComponent, placeholder: 'seatsNo' },
+                    ],
                   },
                   {
                     field: 'modelYear',
@@ -239,20 +243,30 @@ export class BookingFormService implements IFormGenerator<DynamicSteppedForm[]> 
                   {
                     field: 'transmission',
                     header: 'GEARBOX TYPE',
-                    parsedData: (type: number): string =>
-                      TransmissionType[type]
-                    ,
+                    parsedData: (type: number): string => TransmissionType[type],
                     sortable: true,
-                    filter: [{ name: 'Transmission', type: SelectFilterComponent, placeholder: 'GEARBOX TYPE', options: asSelectItem(TransmissionType) }],
+                    filter: [
+                      {
+                        name: 'Transmission',
+                        type: SelectFilterComponent,
+                        placeholder: 'GEARBOX TYPE',
+                        options: asSelectItem(TransmissionType),
+                      },
+                    ],
                   },
                   {
                     field: 'fuelType',
                     header: 'FUEL',
-                    parsedData: (type: number): string =>
-                      FuelType[type]
-                    ,
+                    parsedData: (type: number): string => FuelType[type],
                     sortable: true,
-                    filter: [{ name: 'FuelType', type: SelectFilterComponent, placeholder: 'FuelType', options: asSelectItem(FuelType) }],
+                    filter: [
+                      {
+                        name: 'FuelType',
+                        type: SelectFilterComponent,
+                        placeholder: 'FuelType',
+                        options: asSelectItem(FuelType),
+                      },
+                    ],
                   },
 
                   {
@@ -267,10 +281,10 @@ export class BookingFormService implements IFormGenerator<DynamicSteppedForm[]> 
                     sortable: true,
                     filter: [{ name: 'Tags', type: TextFilterComponent, placeholder: 'Tags' }],
                   },
-                ] as TableColumn[]
-              }
+                ] as TableColumn[],
+              },
             },
-          }
+          },
         ],
       },
       {
@@ -284,7 +298,7 @@ export class BookingFormService implements IFormGenerator<DynamicSteppedForm[]> 
               type: 'text',
               styleClass: 'col-12',
             },
-          }
+          },
         ],
       },
       {
@@ -295,17 +309,16 @@ export class BookingFormService implements IFormGenerator<DynamicSteppedForm[]> 
             type: BookingFinishFormComponent,
             config: {
               name: 'finish',
-              type : 'text',
+              type: 'text',
               styleClass: 'col-12',
               data: {
-                partnerId: 1
-              }
+                partnerId: 1,
+              },
             },
-          }
+          },
         ],
-      },
-    )
+      }
+    );
     return form;
   }
 }
-

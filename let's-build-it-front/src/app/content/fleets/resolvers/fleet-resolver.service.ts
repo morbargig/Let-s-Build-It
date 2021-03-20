@@ -10,14 +10,18 @@ import { FleetsService } from '../services/fleets.service';
 import { AccountService } from '../../../@shared/services/account.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FleetResolverService implements Resolve<SideBarConfig<PartnerFleetModel>> {
-
-  constructor(private fleetsService: FleetsService, private date: DatePipe, private accountService: AccountService) { }
+  constructor(private fleetsService: FleetsService, private date: DatePipe, private accountService: AccountService) {}
   // constructor(private date: DatePipe) { }
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): SideBarConfig<PartnerFleetModel> | Observable<SideBarConfig<PartnerFleetModel>> | Promise<SideBarConfig<PartnerFleetModel>> {
-
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | SideBarConfig<PartnerFleetModel>
+    | Observable<SideBarConfig<PartnerFleetModel>>
+    | Promise<SideBarConfig<PartnerFleetModel>> {
     return {
       backLink: { label: 'Fleet', value: '../../' },
       breadcrumbs: [],
@@ -36,8 +40,8 @@ export class FleetResolverService implements Resolve<SideBarConfig<PartnerFleetM
           rightValues: [
             { label: 'Status', value: fleet.status ? 'Active' : 'InActive' },
             { label: 'Added', value: this.date.transform(fleet.created, 'mediumDate') },
-          ]
-        } as EntityDetailsModel
+          ],
+        } as EntityDetailsModel;
       },
       sidebarItems: [
         // {
@@ -47,29 +51,44 @@ export class FleetResolverService implements Resolve<SideBarConfig<PartnerFleetM
         //   label: 'Accidents', value: 'accidents', icon: 'accidents'
         // },
         {
-          label: 'Summary', value: 'summary', icon: 'summary'
+          label: 'Summary',
+          value: 'summary',
+          icon: 'summary',
         },
         {
-          label: 'Users Management', value: 'user-management', icon: 'user', permission: { values: ["AccessAgencyUsers"] }
+          label: 'Users Management',
+          value: 'user-management',
+          icon: 'user',
+          permission: { values: ['AccessAgencyUsers'] },
         },
         {
-          label: 'Subscription', value: 'subscriptions', icon: 'subscription', permission: { values: ["AccessAgencyB2BSubsriptions", "AccessAgencyB2CSubsriptions"] }
+          label: 'Subscription',
+          value: 'subscriptions',
+          icon: 'subscription',
+          permission: { values: ['AccessAgencyB2BSubsriptions', 'AccessAgencyB2CSubsriptions'] },
         },
         {
-          label: 'Discounts And Charges', value: 'discounts-and-charges', icon: 'discounts'
+          label: 'Discounts And Charges',
+          value: 'discounts-and-charges',
+          icon: 'discounts',
         },
         {
-          label: 'Ancillaries', value: 'ancillaries', icon: 'ancillaries', permission: { values: ["AccessAgencyAncillaries"] }
+          label: 'Ancillaries',
+          value: 'ancillaries',
+          icon: 'ancillaries',
+          permission: { values: ['AccessAgencyAncillaries'] },
         },
         {
-          label: 'Zones', value: 'zones', icon: 'zones'
+          label: 'Zones',
+          value: 'zones',
+          icon: 'zones',
         },
         {
-          label: 'Reports', value: 'reports', icon: 'reports'
+          label: 'Reports',
+          value: 'reports',
+          icon: 'reports',
         },
-
-      ]
-
-    } as SideBarConfig<PartnerFleetModel>
+      ],
+    } as SideBarConfig<PartnerFleetModel>;
   }
 }

@@ -14,12 +14,11 @@ export class ButtonComponent implements OnInit {
   public defaultClass: string = `btn-primary`;
   public get iconClass(): string | false {
     if (!this.button?.icon) {
-      return ''
+      return '';
+    } else if (typeof this.button?.icon !== 'string') {
+      return this.button.icon.prefix + ' fa-' + this.button.icon.iconName;
     }
-    else if (typeof this.button?.icon !== 'string') {
-      return this.button.icon.prefix + ' fa-' + this.button.icon.iconName
-    }
-    return this.button?.icon
+    return this.button?.icon;
   }
 
   @Input() public set size(val: 'large' | 'default' | 'small') {
@@ -35,7 +34,7 @@ export class ButtonComponent implements OnInit {
     }
   }
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

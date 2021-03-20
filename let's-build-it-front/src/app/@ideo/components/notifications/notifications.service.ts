@@ -7,7 +7,7 @@ import { ErrorMessages } from '../../../@shared/models/error-messages.model';
   providedIn: 'root',
 })
 export class NotificationsService {
-  constructor() { }
+  constructor() {}
 
   private addNotification: Subject<Notification> = new Subject<Notification>();
 
@@ -40,49 +40,49 @@ export class NotificationsService {
   }
 
   public handleError(err: HttpErrorResponse | HttpResponse<any>, entityName?: string, messageObj?: ErrorMessages) {
-    entityName = entityName || ''
-    let message
+    entityName = entityName || '';
+    let message;
     switch (err?.status) {
       case 200:
         // Success
-        message = messageObj?.[err?.status] || (entityName + " Update successfully")
-        if (message !== "false") {
+        message = messageObj?.[err?.status] || entityName + ' Update successfully';
+        if (message !== 'false') {
           this.success(message);
         }
         break;
       case 204:
         // No Content
-        message = messageObj?.[err?.status] || ` No Content of ${entityName} Found`
-        if (message !== "false") {
+        message = messageObj?.[err?.status] || ` No Content of ${entityName} Found`;
+        if (message !== 'false') {
           this.error(message);
         }
         break;
       case 400:
         // "Validation Error
-        message = messageObj?.[err?.status] || "Validation Error"
-        if (message !== "false") {
+        message = messageObj?.[err?.status] || 'Validation Error';
+        if (message !== 'false') {
           this.warning(message);
         }
         break;
       case 403:
         // Forboded
-        message = messageObj?.[err?.status] || "Forboded no Permissions for this ole"
-        if (message !== "false") {
+        message = messageObj?.[err?.status] || 'Forboded no Permissions for this ole';
+        if (message !== 'false') {
           this.warning(message);
         }
         break;
       case 404:
-        // Resource not found 
-        message = messageObj?.[err?.status] || entityName + ' Not Found'
-        if (message !== "false") {
+        // Resource not found
+        message = messageObj?.[err?.status] || entityName + ' Not Found';
+        if (message !== 'false') {
           this.error(message);
         }
         break;
       case 500:
-        // bed url 
+        // bed url
         // coronation id
-        message = messageObj?.[err?.status] || "Bed Url Request"
-        if (message !== "false") {
+        message = messageObj?.[err?.status] || 'Bed Url Request';
+        if (message !== 'false') {
           this.error(message);
         }
         break;

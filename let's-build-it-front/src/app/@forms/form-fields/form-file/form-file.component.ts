@@ -26,13 +26,12 @@ export class FormFileComponent extends BaseFieldDirective implements Field<FormF
       label: 'Delete',
       icon: faTrash,
       click: (id) => {
-        this.uploadImageId = this.uploadImageId.filter((i: number) => i !== id)
-        this.removeFile()
+        this.uploadImageId = this.uploadImageId.filter((i: number) => i !== id);
+        this.removeFile();
         this.cd.markForCheck();
       },
     },
   ];
-
 
   public get label(): string {
     let fileName = 'Choose file';
@@ -57,22 +56,21 @@ export class FormFileComponent extends BaseFieldDirective implements Field<FormF
   }
 
   ngOnInit(): void {
-    this.control.valueChanges.pipe(takeWhile(r => this.isAlive)).subscribe((val) => {
+    this.control.valueChanges.pipe(takeWhile((r) => this.isAlive)).subscribe((val) => {
       if (!!val) {
-        let id
+        let id;
         if (typeof val === 'number') {
-          id = val
-        }
-        else if (typeof val === 'object') id = [val?.[0]?.id | val?.[0]]
+          id = val;
+        } else if (typeof val === 'object') id = [val?.[0]?.id | val?.[0]];
         if (this.config.data.multiple) {
-          this.uploadImageId.push(id)
+          this.uploadImageId.push(id);
         } else {
-          this.uploadImageId = [id]
+          this.uploadImageId = [id];
         }
       }
       this.cd.markForCheck();
     });
-    this.buttons = [...this.buttons, ...this.config?.data?.multiple ? [{}] : [null]].filter(i => !!i)
+    this.buttons = [...this.buttons, ...(this.config?.data?.multiple ? [{}] : [null])].filter((i) => !!i);
     this.cd.markForCheck();
     // TODO: need to fill here dynamic button to assign the image to another label by type enum loop
   }
@@ -89,9 +87,9 @@ export class FormFileComponent extends BaseFieldDirective implements Field<FormF
           .toPromise()
           .then((res) => {
             if (this.config.data.multiple) {
-              this.uploadImageId.push(res.id)
+              this.uploadImageId.push(res.id);
             } else {
-              this.uploadImageId = [res.id]
+              this.uploadImageId = [res.id];
             }
             // let newValue = this.control.value
             // newValue.id = res.id
@@ -100,14 +98,13 @@ export class FormFileComponent extends BaseFieldDirective implements Field<FormF
             this.cd.markForCheck();
           });
       }
-    }
-    else {
+    } else {
       if (this.config.data.multiple) {
-        this.uploadImageId.push(null)
+        this.uploadImageId.push(null);
       } else {
-        this.uploadImageId = []
+        this.uploadImageId = [];
       }
-      this.control.value ? this.control.value[0] = [] : null
+      this.control.value ? (this.control.value[0] = []) : null;
       this.cd.markForCheck();
     }
   }
@@ -130,11 +127,11 @@ export class FormFileComponent extends BaseFieldDirective implements Field<FormF
   }
 
   public iconClass(icon: IconDefinition | string | false): string | false {
-    if (!icon) return ''
+    if (!icon) return '';
     if (typeof icon !== 'string') {
-      let res = (icon.prefix + ' fa-' + icon.iconName)
-      return res
+      let res = icon.prefix + ' fa-' + icon.iconName;
+      return res;
     }
-    return icon
+    return icon;
   }
 }

@@ -26,22 +26,20 @@ import { map, take, debounceTime } from 'rxjs/operators';
 import { asSelectItem } from '../../../prototypes';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CarFormService implements IFormGenerator<DynamicSteppedForm[]> {
-
   private csm$: Subject<SelectItem[]> = new Subject<SelectItem[]>();
   private formInstance: FormGroup = {} as FormGroup;
 
   constructor(
     private csmService: CsmProvidersService,
     private partnersService: PartnersService,
-    private vehiclesService: VehiclesService,
-
-  ) { }
+    private vehiclesService: VehiclesService
+  ) {}
 
   generate(formChanged$: Subject<FormGroup>, isEdit: boolean): DynamicSteppedForm[] {
-    formChanged$.subscribe(form => this.formInstance = form);
+    formChanged$.subscribe((form) => (this.formInstance = form));
     this.csmService
       .getTypes()
       .pipe(
@@ -53,7 +51,7 @@ export class CarFormService implements IFormGenerator<DynamicSteppedForm[]> {
             } as SelectItem;
           })
         ),
-        take(1),
+        take(1)
       )
       .subscribe((res) => setTimeout(() => this.csm$.next(res)));
 
@@ -73,11 +71,14 @@ export class CarFormService implements IFormGenerator<DynamicSteppedForm[]> {
             validation: [Validators.required, Validators.maxLength(64)],
             onChange: (val: string, ctrl: AbstractControl) => {
               if (ctrl.valid) {
-                this.vehiclesService.search(val).toPromise().then(res => {
-                  if (!!res?.total) {
-                    this.vehicleFound(ctrl.parent as FormGroup, res.data[0])
-                  }
-                })
+                this.vehiclesService
+                  .search(val)
+                  .toPromise()
+                  .then((res) => {
+                    if (!!res?.total) {
+                      this.vehicleFound(ctrl.parent as FormGroup, res.data[0]);
+                    }
+                  });
               }
             },
             errorMessages: {
@@ -96,12 +97,14 @@ export class CarFormService implements IFormGenerator<DynamicSteppedForm[]> {
             styleClass: 'col-4',
             onChange: (val: string, ctrl: AbstractControl) => {
               if (ctrl.valid) {
-                this.vehiclesService.search(val).toPromise().then(res => {
-                  if (!!res?.total) {
-                    this.vehicleFound(ctrl.parent as FormGroup, res.data[0])
-                  }
-
-                })
+                this.vehiclesService
+                  .search(val)
+                  .toPromise()
+                  .then((res) => {
+                    if (!!res?.total) {
+                      this.vehicleFound(ctrl.parent as FormGroup, res.data[0]);
+                    }
+                  });
               }
             },
             validation: [Validators.required, Validators.minLength(7), Validators.maxLength(8)],
@@ -177,7 +180,6 @@ export class CarFormService implements IFormGenerator<DynamicSteppedForm[]> {
       title: 'Vehicle Information',
       mode: SteppedFormMode.Tabbed,
       group: [
-
         {
           type: FormSelectComponent,
           config: {
@@ -615,57 +617,59 @@ export class CarFormService implements IFormGenerator<DynamicSteppedForm[]> {
       page: 1,
       pageSize: 5,
       filters: {
-        "TozeretCd": {
+        TozeretCd: {
           matchMode: MatchMode.Equals,
           value: searchResult.tozeret_cd,
         },
-        "DegemCd": {
+        DegemCd: {
           matchMode: MatchMode.Equals,
           value: searchResult.degem_cd,
         },
-        "ShnatYitzur": {
+        ShnatYitzur: {
           matchMode: MatchMode.Equals,
           value: searchResult.shnat_yitzur,
-        }
-      }
+        },
+      },
     };
 
     return this.vehiclesService.getAll(evt);
   }
 
   private vehicleFound(step: FormGroup, vehicleInfo: VehicleModelSearchModel) {
-    const array = this.formInstance.get("forms") as FormArray;
-    this.getVehicleInformation(vehicleInfo).toPromise().then(modelRes => {
-      if (!!modelRes?.total) {
-        let vehicleModel: VehicleModelModel = modelRes.data[0];
+    const array = this.formInstance.get('forms') as FormArray;
+    this.getVehicleInformation(vehicleInfo)
+      .toPromise()
+      .then((modelRes) => {
+        if (!!modelRes?.total) {
+          let vehicleModel: VehicleModelModel = modelRes.data[0];
 
-        let generalInformationStep = array.get("0") as FormGroup;
-        generalInformationStep.controls['vin'].patchValue(vehicleInfo.misgeret);
-        generalInformationStep.controls['plateNo'].patchValue(vehicleInfo.mispar_rechev);
+          let generalInformationStep = array.get('0') as FormGroup;
+          generalInformationStep.controls['vin'].patchValue(vehicleInfo.misgeret);
+          generalInformationStep.controls['plateNo'].patchValue(vehicleInfo.mispar_rechev);
 
-        let vehicleInformationStep = array.get("1") as FormGroup;
-        vehicleInformationStep.controls['fuelType'].setValue(GovFuelTypes[vehicleInfo.sug_delek_nm]);
-        vehicleInformationStep.controls['transmission'].setValue(!vehicleModel.automaticInd ? TransmissionType.Manual : TransmissionType.Auto);
-        vehicleInformationStep.controls['seatsNo'].setValue(vehicleModel.misparMoshavim);
-        vehicleInformationStep.controls['enginePower'].setValue(vehicleModel.koahSus);
-        vehicleInformationStep.controls['doorsNumber'].setValue(vehicleModel.misparDlatot);
-        vehicleInformationStep.controls['engineDisplacement'].setValue(vehicleModel.nefahManoa);
-        // vehicleInformationStep.controls['tankCapacity'].setValue(vehicleModel.nefahManoa);
-        vehicleInformationStep.controls['kmAtInitiate'].setValue(vehicleInfo.horaat_rishum);
+          let vehicleInformationStep = array.get('1') as FormGroup;
+          vehicleInformationStep.controls['fuelType'].setValue(GovFuelTypes[vehicleInfo.sug_delek_nm]);
+          vehicleInformationStep.controls['transmission'].setValue(
+            !vehicleModel.automaticInd ? TransmissionType.Manual : TransmissionType.Auto
+          );
+          vehicleInformationStep.controls['seatsNo'].setValue(vehicleModel.misparMoshavim);
+          vehicleInformationStep.controls['enginePower'].setValue(vehicleModel.koahSus);
+          vehicleInformationStep.controls['doorsNumber'].setValue(vehicleModel.misparDlatot);
+          vehicleInformationStep.controls['engineDisplacement'].setValue(vehicleModel.nefahManoa);
+          // vehicleInformationStep.controls['tankCapacity'].setValue(vehicleModel.nefahManoa);
+          vehicleInformationStep.controls['kmAtInitiate'].setValue(vehicleInfo.horaat_rishum);
 
-        let manufacturerInformationStep = array.get("2") as FormGroup;
-        manufacturerInformationStep.controls['manufacturer'].setValue(vehicleModel.tozar);
-        manufacturerInformationStep.controls['manufacturerCode'].setValue(vehicleInfo.tozeret_cd);
-        manufacturerInformationStep.controls['model'].setValue(vehicleInfo.kinuy_mishari);
-        manufacturerInformationStep.controls['modelCode'].setValue(vehicleInfo.degem_cd);
-        manufacturerInformationStep.controls['modelYear'].setValue(vehicleInfo.shnat_yitzur);
+          let manufacturerInformationStep = array.get('2') as FormGroup;
+          manufacturerInformationStep.controls['manufacturer'].setValue(vehicleModel.tozar);
+          manufacturerInformationStep.controls['manufacturerCode'].setValue(vehicleInfo.tozeret_cd);
+          manufacturerInformationStep.controls['model'].setValue(vehicleInfo.kinuy_mishari);
+          manufacturerInformationStep.controls['modelCode'].setValue(vehicleInfo.degem_cd);
+          manufacturerInformationStep.controls['modelYear'].setValue(vehicleInfo.shnat_yitzur);
 
-        let chipProviderStep = array.get("4") as FormGroup;
-        chipProviderStep.controls['csmModel'].setValue(vehicleInfo.kinuy_mishari);
-        chipProviderStep.controls['csmManufacturer'].setValue(vehicleModel.tozar);
-
-
-      }
-    });
+          let chipProviderStep = array.get('4') as FormGroup;
+          chipProviderStep.controls['csmModel'].setValue(vehicleInfo.kinuy_mishari);
+          chipProviderStep.controls['csmManufacturer'].setValue(vehicleModel.tozar);
+        }
+      });
   }
 }

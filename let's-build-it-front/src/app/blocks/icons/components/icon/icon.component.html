@@ -1,6 +1,6 @@
-<fa-icon *ngIf="useFontAwesome; else  ideo" [icon]="icon" [size]="size"></fa-icon>
+<fa-icon *ngIf="useFontAwesome; else ideo" [icon]="icon" [size]="size"></fa-icon>
 <ng-template #ideo>
-  <img *ngIf="useIdeo; else useFeather" [class]="'icon-' + size" src="assets/icons/{{ideoIcon}}">
+  <img *ngIf="useIdeo; else useFeather" [class]="'icon-' + size" src="assets/icons/{{ ideoIcon }}" />
 </ng-template>
 <ng-template #useFeather>
   <i-feather [name]="icon" [class]="'icon-' + size"></i-feather>

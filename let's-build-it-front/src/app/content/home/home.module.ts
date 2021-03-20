@@ -6,7 +6,6 @@ import { HomeRoutingModule } from './home-routing.module';
 import { WizardsModule } from '@app/blocks/wizards/wizards.module';
 import { HomeComponent } from './components/home/home.component';
 
-
 @NgModule({
   imports: [SharedModule, UtilsModule, WizardsModule, HomeRoutingModule],
   declarations: [HomeComponent],

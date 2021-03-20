@@ -13,18 +13,16 @@ import { take, map } from 'rxjs/operators';
 import { SideBarPageService } from '../../../../@shared/components/side-bar-page/isidibar-service.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AncillariesFormService {
-
-
   constructor(
     private ancillariesGroupService: AncillariesGroupService,
     private sideBarPageService: SideBarPageService
-  ) { }
+  ) {}
 
   generate(entity: AncillaryModel = null): DynamicFormControl[] {
-    let partnerId = this.sideBarPageService.entity.id
+    let partnerId = this.sideBarPageService.entity.id;
     let form: DynamicFormControl[] = [];
     form.push(
       {
@@ -46,9 +44,16 @@ export class AncillariesFormService {
           type: 'text',
           value: entity?.ancillaryGroupId,
           placeholder: 'Select Ancillary Group Name',
-          optionsArr$: this.ancillariesGroupService.getAll(partnerId, { page: 1, pageSize: MAX_INT } as LazyLoadEvent).pipe(take(1), map(
-            (res) => res?.data.map(i => { return { label: i.name, value: i.id } as SelectItem })
-          )),
+          optionsArr$: this.ancillariesGroupService
+            .getAll(partnerId, { page: 1, pageSize: MAX_INT } as LazyLoadEvent)
+            .pipe(
+              take(1),
+              map((res) =>
+                res?.data.map((i) => {
+                  return { label: i.name, value: i.id } as SelectItem;
+                })
+              )
+            ),
           validation: [Validators.required],
           styleClass: 'col-12',
           errorMessages: {
@@ -88,14 +93,13 @@ export class AncillariesFormService {
       {
         type: FormFileComponent,
         config: {
-
           name: 'documents',
           label: 'Options',
           value: entity?.documents,
           placeholder: 'Import Options',
           styleClass: 'col-12',
           data: {
-            autoUpload: true
+            autoUpload: true,
           },
           validation: [],
           errorMessages: {},
@@ -105,7 +109,7 @@ export class AncillariesFormService {
         type: FormTextComponent,
         config: {
           data: {
-            rows: 3
+            rows: 3,
           },
           name: 'description',
           label: 'Description',
@@ -115,7 +119,7 @@ export class AncillariesFormService {
           validation: [],
           errorMessages: {},
         },
-      },
+      }
     );
     return form;
   }

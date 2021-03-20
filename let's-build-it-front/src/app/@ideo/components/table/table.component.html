@@ -21,13 +21,22 @@
       <tr>
         <th style="width: 6em; padding: 0.4rem !important" *ngIf="!!selectionMode">
           <div class="custom-control custom-checkbox d-flex justify-content-center pl-3">
-            <input type="checkbox" class="custom-control-input" [(ngModel)]="selectCurrentPage"
-              id="selectPage-{{ domId }}" (click)="changeAllSelected($event.target.checked)" />
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              [(ngModel)]="selectCurrentPage"
+              id="selectPage-{{ domId }}"
+              (click)="changeAllSelected($event.target.checked)"
+            />
             <label class="custom-control-label" for="selectPage-{{ domId }}"></label>
           </div>
         </th>
-        <th *ngFor="let col of columns | permitted" [hidden]="!!col.hidden"
-          [sortable]="!!col.sortName || (!!col.sortable && col.field)" (sort)="onSort($event)">
+        <th
+          *ngFor="let col of columns | permitted"
+          [hidden]="!!col.hidden"
+          [sortable]="!!col.sortName || (!!col.sortable && col.field)"
+          (sort)="onSort($event)"
+        >
           {{ col.header }}
         </th>
         <th *ngIf="!!buttons && !!buttons.length"></th>
@@ -36,81 +45,122 @@
     <tbody class="">
       <ng-container *ngIf="(!!firstCallOut && !!items?.length) || !(loading || (loading$ | async)); else isLoading">
         <ng-container *ngFor="let item of items; let i = index">
-          <tr style="background-color: #f1f4f8;"
-            *ngIf="!!rowGroup && (i == 0 || item[rowGroup.field] !== items[i - 1][rowGroup.field])" class="row-group ">
-            <td [attr.colspan]="(columns | filter: { hidden: null })?.length ">
-
-              <div class="d-flex justify-content-start align-items-end ">
+          <tr
+            style="background-color: #f1f4f8"
+            *ngIf="!!rowGroup && (i == 0 || item[rowGroup.field] !== items[i - 1][rowGroup.field])"
+            class="row-group"
+          >
+            <td [attr.colspan]="(columns | filter: { hidden: null })?.length">
+              <div class="d-flex justify-content-start align-items-end">
                 <h5>{{ item[rowGroup.field] }} &nbsp;</h5>
-                <h5 style="font-size: 0.9em;" class="font-weight-light text-muted">
-                  {{ item?.ancillaryGroupTotal + " Total"  }}
+                <h5 style="font-size: 0.9em" class="font-weight-light text-muted">
+                  {{ item?.ancillaryGroupTotal + ' Total' }}
                 </h5>
               </div>
             </td>
             <td>
               <div class="d-flex justify-content-center align-items-center">
-
-                <div *ngIf="!!rowGroup?.actions?.length" class="menu-dropdown" dropdown [placement]="'center center'"
-                  [container]="'body'">
+                <div
+                  *ngIf="!!rowGroup?.actions?.length"
+                  class="menu-dropdown"
+                  dropdown
+                  [placement]="'center center'"
+                  [container]="'body'"
+                >
                   <div class="nav-link-content dropdown-toggle" dropdownToggle>
                     <i-feather [name]="'more-horizontal'" [class]="'icon-md'"></i-feather>
                   </div>
-                  <div *dropdownMenu class="dropdown-menu dropdown-menu-right py-2 ">
-                    <button class="dropdown-item" (click)="!!mi.click && mi.click(item)"
-                      [routerLink]="!!mi.href ? mi.href(item) : null" type="button" [hidden]="false"
-                      *ngFor="let mi of rowGroup.actions | permitted">
+                  <div *dropdownMenu class="dropdown-menu dropdown-menu-right py-2">
+                    <button
+                      class="dropdown-item"
+                      (click)="!!mi.click && mi.click(item)"
+                      [routerLink]="!!mi.href ? mi.href(item) : null"
+                      type="button"
+                      [hidden]="false"
+                      *ngFor="let mi of rowGroup.actions | permitted"
+                    >
                       <i class="{{ iconClass(mi?.icon) }} mr-2"></i>
-                      {{ mi.label || mi.title  }}
+                      {{ mi.label || mi.title }}
                     </button>
                   </div>
                 </div>
               </div>
             </td>
           </tr>
-          <tr [ngClass]="{ selected: !!selectionMode && selectedKeys[item[dataKey]] }"
-            (mouseenter)="rowHover(i, item, true)" (mouseleave)="rowHover(i, item, false)">
+          <tr
+            [ngClass]="{ selected: !!selectionMode && selectedKeys[item[dataKey]] }"
+            (mouseenter)="rowHover(i, item, true)"
+            (mouseleave)="rowHover(i, item, false)"
+          >
             <td *ngIf="!!selectionMode">
               <div class="custom-control custom-checkbox d-flex justify-content-center">
-                <input type="checkbox" class="custom-control-input" id="selectionCheckbox-{{ idCheckbox }}-{{ i }}"
-                  (change)="changeSelected($event.target.checked, item)" [checked]="selectedKeys[item[dataKey]]" />
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="selectionCheckbox-{{ idCheckbox }}-{{ i }}"
+                  (change)="changeSelected($event.target.checked, item)"
+                  [checked]="selectedKeys[item[dataKey]]"
+                />
                 <label class="custom-control-label" for="selectionCheckbox-{{ idCheckbox }}-{{ i }}"></label>
               </div>
             </td>
-            <td *ngFor="let col of columns" [hidden]="!!col.hidden" [class]="col.styleClass"
-              [ngClass]="{ 'table-danger': !!autoValidate && !!valid && !valid(item) }">
-              <span *ngIf="
+            <td
+              *ngFor="let col of columns"
+              [hidden]="!!col.hidden"
+              [class]="col.styleClass"
+              [ngClass]="{ 'table-danger': !!autoValidate && !!valid && !valid(item) }"
+            >
+              <span
+                *ngIf="
                   !autoValidate || (!rowEdits[i] && !!autoValidate[col.field] && !!valid && !!valid(item));
                   else errorEdit
-                ">
+                "
+              >
                 <ng-container [tableCell]="col" [item]="item" [isStatic]="col.type == 10"></ng-container>
               </span>
               <ng-template #errorEdit>
                 <span>
-                  <ideo-dynamic-form-control #dyn [dynamicControl]="getControl(col.field, item[col.field], i)"
-                    [mode]="2" [group]="form.get('items').get(i + '')"
-                    (onChange)="setItemValue(item, col.field, $event)">
+                  <ideo-dynamic-form-control
+                    #dyn
+                    [dynamicControl]="getControl(col.field, item[col.field], i)"
+                    [mode]="2"
+                    [group]="form.get('items').get(i + '')"
+                    (onChange)="setItemValue(item, col.field, $event)"
+                  >
                   </ideo-dynamic-form-control>
                 </span>
               </ng-template>
             </td>
-            <td *ngIf="!!buttons && !!buttons.length && buttons.length === 1"
-              class="d-flex justify-content-center border-bottom-0 border-left-0">
-              <ideo-button [hidden]="!!button.hidden && button.hidden(item)" *ngFor="let button of buttons"
-                [button]="button" [item]="item"></ideo-button>
+            <td
+              *ngIf="!!buttons && !!buttons.length && buttons.length === 1"
+              class="d-flex justify-content-center border-bottom-0 border-left-0"
+            >
+              <ideo-button
+                [hidden]="!!button.hidden && button.hidden(item)"
+                *ngFor="let button of buttons"
+                [button]="button"
+                [item]="item"
+              ></ideo-button>
             </td>
             <td *ngIf="!!buttons && !!buttons.length && buttons.length > 1">
               <div class="d-flex justify-content-center align-items-center">
                 <div class="menu-dropdown" dropdown [placement]="'center center'" [container]="'body'">
                   <div class="nav-link-content dropdown-toggle text-center" dropdownToggle>
-                    <i-feather style="background-color: #f1f4f8;
-                border-radius: 50%;
-                padding: 0.1em;
-                " [name]="'more-horizontal'" [class]="'icon-md'"></i-feather>
+                    <i-feather
+                      style="background-color: #f1f4f8; border-radius: 50%; padding: 0.1em"
+                      [name]="'more-horizontal'"
+                      [class]="'icon-md'"
+                    ></i-feather>
                   </div>
-                  <div *dropdownMenu class=" dropdown-menu dropdown-menu-right py-2 ">
-                    <button class="dropdown-item" (click)="!!mi.click && mi.click(item)"
-                      [routerLink]="!!mi.href ? mi.href(item) : null" type="button"
-                      [hidden]="(!!mi.hidden && mi.hidden(item)) || false" *ngFor="let mi of buttons">
+                  <div *dropdownMenu class="dropdown-menu dropdown-menu-right py-2">
+                    <button
+                      class="dropdown-item"
+                      (click)="!!mi.click && mi.click(item)"
+                      [routerLink]="!!mi.href ? mi.href(item) : null"
+                      type="button"
+                      [hidden]="(!!mi.hidden && mi.hidden(item)) || false"
+                      *ngFor="let mi of buttons"
+                    >
                       <i class="{{ iconClass(mi?.icon) }} mr-2"></i>
                       {{ mi.label || mi.title || mi.tooltip }}
                     </button>
@@ -145,15 +195,25 @@
   <div class="">
     <div class="ml-auto d-flex align-items-center page-size-dropdown">
       <label>Show &nbsp;</label>
-      <ideo-select [(ngModel)]="service.pageSize" name="pageSize" [options]="pageSizeOptions" [showClear]="false"
-        placement="top-left">
+      <ideo-select
+        [(ngModel)]="service.pageSize"
+        name="pageSize"
+        [options]="pageSizeOptions"
+        [showClear]="false"
+        placement="top-left"
+      >
       </ideo-select>
       <label>&nbsp; entries</label>
     </div>
   </div>
   <div class="">
-    <ngb-pagination *ngIf="totalRecords" [collectionSize]="totalRecords" [(page)]="service.page"
-      [pageSize]="service.pageSize" [maxSize]="5">
+    <ngb-pagination
+      *ngIf="totalRecords"
+      [collectionSize]="totalRecords"
+      [(page)]="service.page"
+      [pageSize]="service.pageSize"
+      [maxSize]="5"
+    >
       <ng-template ngbPaginationPrevious>
         <i class="fa fa-chevron-left"></i>
       </ng-template>

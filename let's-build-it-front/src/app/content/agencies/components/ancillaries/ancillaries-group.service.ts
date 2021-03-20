@@ -5,12 +5,12 @@ import { QueryBuilderService } from '../../../../@ideo/infrastructure/services/q
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AncillariesGroupService extends BaseParentHttpService<number, AncillaryGroupModel> {
   public collationName: string = `Ancillaries/Groups`;
   public parentRoute: string = `Partners`;
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
 }

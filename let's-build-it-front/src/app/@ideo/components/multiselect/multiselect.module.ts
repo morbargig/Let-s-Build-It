@@ -10,4 +10,4 @@ import { IdeoPipesModule } from '../../infrastructure/pipes/pipes.module';
   imports: [CommonModule, NgbDropdownModule, ScrollingModule, IdeoPipesModule],
   exports: [MultiselectComponent],
 })
-export class MultiselectModule { }
+export class MultiselectModule {}

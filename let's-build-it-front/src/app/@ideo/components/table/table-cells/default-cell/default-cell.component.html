@@ -10,12 +10,14 @@
   }}
 </span>
 <ng-template #html>
-  <span (click)="col?.onClick ?  col.onClick(item) : null" 
-  [innerHTML]="((col.parsedFullData || col.parsedData) ? 
-    (
-    col.parsedFullData ? 
-    col.parsedHtmlData(col.parsedFullData(item))
-    : col.parsedHtmlData(col.parsedData(item[col.field]))
-    )
-    : col.parsedHtmlData(item[col.field])) "></span>
+  <span
+    (click)="col?.onClick ? col.onClick(item) : null"
+    [innerHTML]="
+      col.parsedFullData || col.parsedData
+        ? col.parsedFullData
+          ? col.parsedHtmlData(col.parsedFullData(item))
+          : col.parsedHtmlData(col.parsedData(item[col.field]))
+        : col.parsedHtmlData(item[col.field])
+    "
+  ></span>
 </ng-template>

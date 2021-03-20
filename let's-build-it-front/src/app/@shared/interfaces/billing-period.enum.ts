@@ -1,4 +1,4 @@
-export enum BillingPeriod{
+export enum BillingPeriod {
   Month = 0,
-  Year = 1
+  Year = 1,
 }

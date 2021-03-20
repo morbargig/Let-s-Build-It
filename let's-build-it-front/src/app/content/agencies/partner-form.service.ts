@@ -11,7 +11,7 @@ import { DynamicSteppedForm, SteppedFormMode } from '../../@forms/@core/interfac
   providedIn: 'root',
 })
 export class PartnerFormService implements IFormGenerator<DynamicSteppedForm[]> {
-  constructor() { }
+  constructor() {}
   generate(isEdit: boolean): DynamicSteppedForm[] {
     let form: DynamicSteppedForm[] = [];
     form.push({
@@ -161,7 +161,7 @@ export class PartnerFormService implements IFormGenerator<DynamicSteppedForm[]> 
               data: {
                 autoUpload: true,
               } as FormFile,
-            }
+            },
           },
           {
             type: FormFileComponent,
@@ -172,7 +172,7 @@ export class PartnerFormService implements IFormGenerator<DynamicSteppedForm[]> 
               data: {
                 autoUpload: true,
               } as FormFile,
-            }
+            },
           },
           {
             type: FormFileComponent,
@@ -183,7 +183,7 @@ export class PartnerFormService implements IFormGenerator<DynamicSteppedForm[]> 
               data: {
                 autoUpload: true,
               } as FormFile,
-            }
+            },
           },
           {
             type: FormFileComponent,
@@ -194,13 +194,10 @@ export class PartnerFormService implements IFormGenerator<DynamicSteppedForm[]> 
               data: {
                 autoUpload: true,
               } as FormFile,
-            }
+            },
           },
-        ]
-      }
-      )
-
-
+        ],
+      });
 
     return form;
   }

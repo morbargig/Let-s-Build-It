@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Logger, AuthenticationService } from '@core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons';
 import { finalize } from 'rxjs/operators';
 import { BaseFormComponent } from '@core/base/base-form-component';
+import { RegisterContext } from '../../../@core/authentication/authentication.models';
+import { RedirectService } from '../../../@core/services/redirect.service';
 
 const logger = new Logger('Register');
 
@@ -18,7 +20,7 @@ export class AuthRegisterComponent extends BaseFormComponent implements OnInit {
   longArrowAltRight = faLongArrowAltRight;
 
   constructor(
-    private router: Router,
+    private _redirect: RedirectService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService
@@ -41,10 +43,13 @@ export class AuthRegisterComponent extends BaseFormComponent implements OnInit {
       )
       .subscribe(
         (credentials) => {
-          logger.debug(`${credentials.username} successfully registered`);
+          logger.debug(`${credentials.fullName} successfully registered`);
           this.route.queryParams.subscribe(
-            (params) => logger.debug(`redirecting to the confirmation page`)
-            // redirect here or de whatever you need to do with after registration
+            (params) => {
+              // redirect here or de whatever you need to do with after registration
+              logger.debug(`redirecting to the confirmation page`)
+              this.route.queryParams.subscribe((params) => this.redirect(params));
+            }
           );
         },
         (error) => {
@@ -52,6 +57,14 @@ export class AuthRegisterComponent extends BaseFormComponent implements OnInit {
           this.error = error;
         }
       );
+  }
+
+  redirect(params: Params) {
+    if (params.redirect) {
+      this._redirect.to(params.redirect, { replaceUrl: true });
+    } else {
+      this._redirect.toHome();
+    }
   }
 
   private createForm() {

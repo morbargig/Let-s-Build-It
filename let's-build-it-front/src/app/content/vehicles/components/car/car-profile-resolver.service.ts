@@ -12,7 +12,7 @@ import { faDochub } from '@fortawesome/free-brands-svg-icons';
   providedIn: 'root',
 })
 export class CarProfileResolverService implements Resolve<SideBarConfig<CarModel>> {
-  constructor(private carsService: CarsService, private router: Router) { }
+  constructor(private carsService: CarsService, private router: Router) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
@@ -26,7 +26,7 @@ export class CarProfileResolverService implements Resolve<SideBarConfig<CarModel
         return {
           mediaId: car.profileImgId,
           title: `${car.manufacturer} ${car.model} ${car.modelYear} | ${car.plateNo}`,
-          titleSpan:'',
+          titleSpan: '',
           rightValues: [
             { label: 'Connection level', value: null },
             { label: 'Doors state', value: null },
@@ -51,11 +51,11 @@ export class CarProfileResolverService implements Resolve<SideBarConfig<CarModel
         {
           label: 'Summary',
           value: 'summary',
-          icon: 'summary', 
+          icon: 'summary',
           // permission: {
           //   values: ["AccessAgencyVehicle"]
           // },
-          permission: {values:["AccessAgencyVehicles"]},
+          permission: { values: ['AccessAgencyVehicles'] },
         },
         {
           label: 'General',
@@ -64,8 +64,7 @@ export class CarProfileResolverService implements Resolve<SideBarConfig<CarModel
           // permission: {
           //   values: ["AccessAgencyVehicle"]
           // },
-          permission: {values:["AccessAgencyVehicles"]},
-
+          permission: { values: ['AccessAgencyVehicles'] },
         },
         {
           label: 'Remote Control',
@@ -74,8 +73,7 @@ export class CarProfileResolverService implements Resolve<SideBarConfig<CarModel
           // permission: {
           //   values: ["AccessAgencyVehicle"]
           // },
-          permission: {values:["AccessCarActionsLog"]},
-
+          permission: { values: ['AccessCarActionsLog'] },
         },
         {
           label: 'Settings',
@@ -84,8 +82,7 @@ export class CarProfileResolverService implements Resolve<SideBarConfig<CarModel
           // permission: {
           //   values: ["AccessAgencyVehicle"]
           // },
-          permission: {values:["AccessAgencyVehicles"]},
-
+          permission: { values: ['AccessAgencyVehicles'] },
         },
         {
           label: 'Damages',
@@ -94,8 +91,7 @@ export class CarProfileResolverService implements Resolve<SideBarConfig<CarModel
           // permission: {
           //   values: ["AccessAgencyVehicle"]
           // },
-          permission: {values:["AccessVehicleDamages"]},
-
+          permission: { values: ['AccessVehicleDamages'] },
         },
         {
           label: 'Accidents',
@@ -104,8 +100,7 @@ export class CarProfileResolverService implements Resolve<SideBarConfig<CarModel
           // permission: {
           //   values: ["AccessAgencyVehicle"]
           // },
-          permission: {values:["AccessVehicleAccidents"]},
-
+          permission: { values: ['AccessVehicleAccidents'] },
         },
         {
           label: 'Zones',
@@ -114,8 +109,7 @@ export class CarProfileResolverService implements Resolve<SideBarConfig<CarModel
           // permission: {
           //   values: ["AccessAgencyVehicle"]
           // },
-          permission: {values:["AccessAgencyVehicles"]},
-
+          permission: { values: ['AccessAgencyVehicles'] },
         },
         {
           label: 'Contracts',
@@ -124,8 +118,7 @@ export class CarProfileResolverService implements Resolve<SideBarConfig<CarModel
           // permission: {
           //   values: ["AccessAgencyVehicle"]
           // },
-          permission: {values:["AccessAgencyVehicles"]},
-
+          permission: { values: ['AccessAgencyVehicles'] },
         },
         {
           label: 'Alerts',
@@ -134,8 +127,7 @@ export class CarProfileResolverService implements Resolve<SideBarConfig<CarModel
           // permission: {
           //   values: ["AccessAgencyVehicle"]
           // },
-          permission: {values:["AccessAgencyVehicles"]},
-
+          permission: { values: ['AccessAgencyVehicles'] },
         },
       ],
     } as SideBarConfig<CarModel>;

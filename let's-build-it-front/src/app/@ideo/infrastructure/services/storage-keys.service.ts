@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class StorageKeysService {
-  constructor() { }
+  constructor() {}
 
   public getItem<T>(key: string): T {
     const storageValue = localStorage.getItem(key);

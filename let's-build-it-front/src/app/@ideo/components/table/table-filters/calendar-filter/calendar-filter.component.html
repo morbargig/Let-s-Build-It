@@ -10,7 +10,13 @@
       (change)="!!filter.onChange && filter.onChange(group.controls['value'])"
     />
     <div class="input-group-append">
-      <ideo-select [showPlaceholder]="false" [options]="comparisonOptions" placeholder="Operator" formControlName="matchMode"> </ideo-select>
+      <ideo-select
+        [showPlaceholder]="false"
+        [options]="comparisonOptions"
+        placeholder="Operator"
+        formControlName="matchMode"
+      >
+      </ideo-select>
     </div>
   </div>
 </div>

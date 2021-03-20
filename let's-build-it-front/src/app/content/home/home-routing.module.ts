@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-
 import { extract } from '@app/i18n';
 import { HomeComponent } from './components/home/home.component';
 
@@ -12,4 +11,4 @@ const routes: Routes = [{ path: '', component: HomeComponent, data: { title: ext
   exports: [RouterModule],
   providers: [],
 })
-export class HomeRoutingModule { }
+export class HomeRoutingModule {}

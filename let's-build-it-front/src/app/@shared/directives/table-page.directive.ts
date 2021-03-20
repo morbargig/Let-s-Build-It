@@ -86,19 +86,22 @@ export abstract class TablePageDirective<T = any> extends BaseComponent implemen
     protected modalService: BsModalService,
     private refreshOnAccountChange: boolean = true,
     protected notificationsService: NotificationsService,
-    protected router: Router,
+    protected router: Router
   ) {
     super();
     this.initDataSubject();
     const pageUrl = this.router.url;
-    this.router.events.pipe(
-      takeUntil(this.destroyyed),
-      takeWhile(x => this.isAlive),
-      filter(x => x instanceof NavigationEnd && x.url == pageUrl),
-      debounceTime(100),
-      skip(1)).subscribe((res: NavigationEnd) => {
+    this.router.events
+      .pipe(
+        takeUntil(this.destroyyed),
+        takeWhile((x) => this.isAlive),
+        filter((x) => x instanceof NavigationEnd && x.url == pageUrl),
+        debounceTime(100),
+        skip(1)
+      )
+      .subscribe((res: NavigationEnd) => {
         this.getData();
-      })
+      });
   }
 
   getData() {

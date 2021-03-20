@@ -5,13 +5,13 @@ import { QueryBuilderService } from '@app/@ideo/infrastructure/services/query-bu
 import { PartnerFleetModel } from '@app/@shared/models/partner-fleet.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class FleetsService extends BaseParentHttpService<number, PartnerFleetModel>{
+export class FleetsService extends BaseParentHttpService<number, PartnerFleetModel> {
   public parentRoute: string = 'Partners';
-  public collationName: string = 'Fleets'
+  public collationName: string = 'Fleets';
 
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
 }

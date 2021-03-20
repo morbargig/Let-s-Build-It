@@ -4,7 +4,18 @@ import { CallbackFunction, ChangedCallBack, DynamicFormStepMode, FieldEvent, Sel
 
 export interface FieldConfig<T = any> {
   name: string;
-  type?: 'hidden' | 'text' | 'password' | 'number' | 'datetime-local' | 'date' | 'month' | 'week' | 'time' | 'tel' | 'separator';
+  type?:
+    | 'hidden'
+    | 'text'
+    | 'password'
+    | 'number'
+    | 'datetime-local'
+    | 'date'
+    | 'month'
+    | 'week'
+    | 'time'
+    | 'tel'
+    | 'separator';
   controlType?: 'control' | 'group' | 'array' | 'none';
   autoShowErrors?: boolean;
   disabled?: boolean;

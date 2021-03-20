@@ -42,7 +42,7 @@ export class DynamicFormGroupComponent implements OnInit {
     this.formChange.emit(this._form);
   }
 
-  constructor(private fb: FormBuilder, private ref: ChangeDetectorRef) { }
+  constructor(private fb: FormBuilder, private ref: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.form = this.createGroup();
@@ -52,11 +52,11 @@ export class DynamicFormGroupComponent implements OnInit {
     const group = !!this.form?.controls?.length
       ? this.form
       : this.fb.group(
-        this.config.reduce((prev, curr, i) => {
-          prev[this.config[i].config.name] = this.config[i].config?.value;
-          return prev;
-        }, {})
-      );
+          this.config.reduce((prev, curr, i) => {
+            prev[this.config[i].config.name] = this.config[i].config?.value;
+            return prev;
+          }, {})
+        );
     if (!!this.validation && !!this.validation.length) {
       group.setValidators(this.validation);
     }

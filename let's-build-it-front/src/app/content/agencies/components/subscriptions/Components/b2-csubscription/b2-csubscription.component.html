@@ -9,10 +9,23 @@
   </div>
 </div>
 
-<ideo-table *ngIf="!!columns?.length" #tc [items]="items" [columns]="columns" [buttons]="itemActions"
-  (onLazyLoad)="onLazyLoad($event)" stateKey="b2c-subscription" [totalRecords]="totalRecords" [filters]="filters"
-  [(selection)]="selection" [showFilters]="true" [initSelection]="initSelection" dataKey="b2c-subscription.data"
-  [lazy]="lazy" [fullHeight]="true">
+<ideo-table
+  *ngIf="!!columns?.length"
+  #tc
+  [items]="items"
+  [columns]="columns"
+  [buttons]="itemActions"
+  (onLazyLoad)="onLazyLoad($event)"
+  stateKey="b2c-subscription"
+  [totalRecords]="totalRecords"
+  [filters]="filters"
+  [(selection)]="selection"
+  [showFilters]="true"
+  [initSelection]="initSelection"
+  dataKey="b2c-subscription.data"
+  [lazy]="lazy"
+  [fullHeight]="true"
+>
 </ideo-table>
 
 <router-outlet></router-outlet>

@@ -42,7 +42,6 @@ export class SelectComponent implements OnDestroy, ControlValueAccessor {
   @Input() public buttonStyleClass: string = '';
   @Input() public placement: string = 'bottom-right';
 
-
   @ViewChild(CdkVirtualScrollViewport, { static: false }) viewPort: CdkVirtualScrollViewport;
 
   protected isAlive: boolean = true;
@@ -50,8 +49,8 @@ export class SelectComponent implements OnDestroy, ControlValueAccessor {
   public id: string = `dropdown-${this.stringHelper.randomStr(4)}`;
   public value: any;
 
-  public onChange: any = () => { };
-  public onTouch: any = () => { };
+  public onChange: any = () => {};
+  public onTouch: any = () => {};
 
   protected _disabled: boolean;
   public get disabled(): boolean {
@@ -81,16 +80,20 @@ export class SelectComponent implements OnDestroy, ControlValueAccessor {
       this.options = [];
       this._lazyOptions = lazyOpt;
       this.updateLabel();
-      this.asyncOptions.pipe(tap(arr => {
-        if (arr) {
-          arr.forEach((option) => {
-            this._optionObj[!!this.dataKey ? option.value[this.dataKey] : option.value] = option.label;
-          });
+      this.asyncOptions
+        .pipe(
+          tap((arr) => {
+            if (arr) {
+              arr.forEach((option) => {
+                this._optionObj[!!this.dataKey ? option.value[this.dataKey] : option.value] = option.label;
+              });
 
-          this.options.push(...arr);
-        }
-        return arr;
-      })).subscribe();
+              this.options.push(...arr);
+            }
+            return arr;
+          })
+        )
+        .subscribe();
     }
   }
 
@@ -101,7 +104,7 @@ export class SelectComponent implements OnDestroy, ControlValueAccessor {
   public totalItems: number = 0;
   private currentFetch: Subscription;
 
-  constructor(protected stringHelper: StringHelperService, protected cd: ChangeDetectorRef) { }
+  constructor(protected stringHelper: StringHelperService, protected cd: ChangeDetectorRef) {}
   ngOnDestroy(): void {
     this.isAlive = false;
   }
@@ -137,8 +140,8 @@ export class SelectComponent implements OnDestroy, ControlValueAccessor {
       this.onTouch(val);
       this.valueChanged.emit(val);
     }
-    if (this.options?.filter(i => i.value === val)?.[0]?.click) {
-      this.options?.filter(i => i.value === val)?.[0]?.click(null)
+    if (this.options?.filter((i) => i.value === val)?.[0]?.click) {
+      this.options?.filter((i) => i.value === val)?.[0]?.click(null);
     }
   }
 
@@ -150,11 +153,11 @@ export class SelectComponent implements OnDestroy, ControlValueAccessor {
   }
 
   public fixIcon(icon: IconDefinition | string): string {
-    if (!icon) return ''
+    if (!icon) return '';
     if (typeof icon === 'string') {
-      return icon
+      return icon;
     }
-    return icon?.prefix.toString() + ' fa-' + icon?.iconName.toString()
+    return icon?.prefix.toString() + ' fa-' + icon?.iconName.toString();
   }
 
   public focused() {
@@ -173,14 +176,18 @@ export class SelectComponent implements OnDestroy, ControlValueAccessor {
         this.currentFetch = null;
       }
       this.currentFetch = this.lazyOptions({ page: (!!end ? end / 5 : 0) + 1, pageSize: 5 })
-        .pipe(debounceTime(300), take(1), finalize(() => {
-          this.currentFetch.unsubscribe();
-          this.currentFetch = null;
-        }))
-        .subscribe(res => {
+        .pipe(
+          debounceTime(300),
+          take(1),
+          finalize(() => {
+            this.currentFetch.unsubscribe();
+            this.currentFetch = null;
+          })
+        )
+        .subscribe((res) => {
           this.totalItems = res?.total || 0;
-          this.asyncOptions.next([...this.asyncOptions.value, ...(res?.data || [])].filter(x => !!x))
-        })
+          this.asyncOptions.next([...this.asyncOptions.value, ...(res?.data || [])].filter((x) => !!x));
+        });
     }
   }
 
@@ -192,10 +199,9 @@ export class SelectComponent implements OnDestroy, ControlValueAccessor {
     const end = this.viewPort?.getRenderedRange().end;
     if (!!this.totalItems && !!end && end > 5) {
       setTimeout(() => {
-        this.viewPort?.scrollToIndex(end - 5, 'smooth')
+        this.viewPort?.scrollToIndex(end - 5, 'smooth');
         this.cd.markForCheck();
       });
     }
   }
-
 }

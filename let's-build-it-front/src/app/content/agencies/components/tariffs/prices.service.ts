@@ -5,12 +5,12 @@ import { HttpClient } from '@angular/common/http';
 import { PartnerPriceModel } from '../../../../@shared/models/partner-price.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PricesService extends BaseParentHttpService<number, PartnerPriceModel> {
   public collationName: string = `Prices`;
   public parentRoute: string = `Partners`;
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
 }

@@ -6,14 +6,13 @@ import { environment } from '../../../../../../environments/environment';
 import { QueryBuilderService } from '../../../../../@ideo/infrastructure/services/query-builder.service';
 import { LanguageModel } from '../../../../../@shared/models/language-model';
 
-
 @Injectable({
   providedIn: 'root',
 })
-export class LanguagesService extends BaseHttpService<LanguageModel>{
-  public collationName: string = 'localization/languages'
+export class LanguagesService extends BaseHttpService<LanguageModel> {
+  public collationName: string = 'localization/languages';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
 
   public getCultures(onlyExisting: boolean = false): Observable<string[]> {

@@ -7,7 +7,6 @@ import { PaymentPlansAssignResolverService } from './payment-plans-assign.resolv
 import { FormPagedComponent } from '../../../../@shared/components/form-paged/form-paged.component';
 import { PaymentPlansFormResolverService } from './payment-plans-form.resolver';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -19,7 +18,7 @@ const routes: Routes = [
         component: ModalAssignPageComponent,
         resolve: { config: PaymentPlansAssignResolverService }, // assign Payment Plan
       },
-    ]
+    ],
   },
   {
     path: ':id',
@@ -32,6 +31,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-
-
-export class PaymentPlansRoutingModule { }
+export class PaymentPlansRoutingModule {}

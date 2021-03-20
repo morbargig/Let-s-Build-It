@@ -1,8 +1,13 @@
 <div *ngIf="!config?.data?.newStyle" class="input-group">
   <div class="custom-file">
-
-    <input type="file" #fileInput class="custom-file-input" [id]="id" (change)="fileUploaded($event.target.files)"
-      [disabled]="!!config.disabled || (!!config.disabled$ && (config.disabled$ | async))" />
+    <input
+      type="file"
+      #fileInput
+      class="custom-file-input"
+      [id]="id"
+      (change)="fileUploaded($event.target.files)"
+      [disabled]="!!config.disabled || (!!config.disabled$ && (config.disabled$ | async))"
+    />
     <input type="hidden" [formControl]="group?.controls[config?.name]" />
     <label class="custom-file-label text-truncate" [for]="id">{{ label }}</label>
     <button *ngIf="!!control.value" class="btn btn-default remove-file-btn" (click)="removeFile()">
@@ -11,8 +16,13 @@
   </div>
 
   <div class="input-group-append" *ngIf="!!config.data?.getTemplateUrl">
-    <button class="btn btn-outline-secondary" type="button" id="downloadTemplate{{ id }}"
-      [disabled]="!!config.disabled || (!!config.disabled$ && (config.disabled$ | async))" (click)="downloadTemplate()">
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      id="downloadTemplate{{ id }}"
+      [disabled]="!!config.disabled || (!!config.disabled$ && (config.disabled$ | async))"
+      (click)="downloadTemplate()"
+    >
       Template
     </button>
   </div>
@@ -20,44 +30,60 @@
 
 <div *ngIf="!!config?.data?.newStyle">
   <div *ngIf="!!uploadImageId && !!uploadImageId?.length">
-    <div *ngFor="let i of uploadImageId" class="py-3 px-4 my-image image-background cover"
-      style="border-radius: 8px; background-image: url('{{  imageIdPipe(i)  }}');">
+    <div
+      *ngFor="let i of uploadImageId"
+      class="py-3 px-4 my-image image-background cover"
+      style="border-radius: 8px; background-image: url('{{ imageIdPipe(i) }}');"
+    >
       <!-- <img src="assets/icons/edit-glow-round.svg" alt="" /> -->
-      <div *dropdownMenu class=" dropdown-menu dropdown-menu-right py-2 ">
-
-      </div>
+      <div *dropdownMenu class="dropdown-menu dropdown-menu-right py-2"></div>
       <div class="d-flex justify-content-end align-items-end">
         <div class="menu-dropdown" dropdown [placement]="'center center'" [container]="'body'">
           <div dropdownToggle>
-            <img src="assets/icons/edit-glow-round.svg" style="background-color: #f1f4f8;
-        border-radius: 50%;
-        padding: 0.1em;
-        " [name]="'more-horizontal'" [class]="'icon-md'" />
+            <img
+              src="assets/icons/edit-glow-round.svg"
+              style="background-color: #f1f4f8; border-radius: 50%; padding: 0.1em"
+              [name]="'more-horizontal'"
+              [class]="'icon-md'"
+            />
           </div>
-          <div *dropdownMenu class=" dropdown-menu dropdown-menu-right py-2 ">
-            <button class="dropdown-item" (click)="!!mi.click && mi.click(i)"
-              [hidden]="(!!mi.hidden && mi.hidden(i)) || false" *ngFor="let mi of buttons">
+          <div *dropdownMenu class="dropdown-menu dropdown-menu-right py-2">
+            <button
+              class="dropdown-item"
+              (click)="!!mi.click && mi.click(i)"
+              [hidden]="(!!mi.hidden && mi.hidden(i)) || false"
+              *ngFor="let mi of buttons"
+            >
               <i class="{{ iconClass(mi?.icon) }} mr-2"></i>
-              {{ mi.label  }}
+              {{ mi.label }}
             </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div *ngIf="config?.data.multiple || !!!uploadImageId?.length" class="d-flex flex-wrap justify-content-start align-items-center">
+  <div
+    *ngIf="config?.data.multiple || !!!uploadImageId?.length"
+    class="d-flex flex-wrap justify-content-start align-items-center"
+  >
     <label [for]="id" class="flex-grow">
-      <div class="text-center py-3 px-4 my-image" style="border-radius: 8px; background-color: #f1f4f8;">
+      <div class="text-center py-3 px-4 my-image" style="border-radius: 8px; background-color: #f1f4f8">
         <img src="assets/icons/upload.svg" alt="" />
         <div>
-          {{ config?.data?.title  }}
+          {{ config?.data?.title }}
         </div>
         <div>
-          {{ config?.data?.subTile}}
+          {{ config?.data?.subTile }}
         </div>
       </div>
     </label>
-    <input type="file" #fileInput style="visibility: hidden;" [id]="id" (change)="fileUploaded($event.target.files)"
-      [disabled]="!!config.disabled || (!!config.disabled$ && (config.disabled$ | async))" />
+    <input
+      type="file"
+      #fileInput
+      style="visibility: hidden"
+      [id]="id"
+      (change)="fileUploaded($event.target.files)"
+      [disabled]="!!config.disabled || (!!config.disabled$ && (config.disabled$ | async))"
+    />
   </div>
 </div>

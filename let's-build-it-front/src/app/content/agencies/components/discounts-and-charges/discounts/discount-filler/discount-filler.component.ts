@@ -13,11 +13,13 @@ import { FieldEvent } from '../../../../../../@forms/@core/interfaces/events';
 @Component({
   selector: 'prx-discount-filler',
   templateUrl: './discount-filler.component.html',
-  styleUrls: ['./discount-filler.component.scss']
+  styleUrls: ['./discount-filler.component.scss'],
 })
 export class DiscountFillerComponent implements OnInit {
-
-  constructor(private discountsAndChargesService: DiscountsAndChargesService, private discountFormService: DiscountFormService) { }
+  constructor(
+    private discountsAndChargesService: DiscountsAndChargesService,
+    private discountFormService: DiscountFormService
+  ) {}
 
   public controls: DynamicFormControl[];
   @Input() public title: string;
@@ -26,7 +28,6 @@ export class DiscountFillerComponent implements OnInit {
   public enable: boolean = false;
   @Input() public discountType: DiscountType;
   private ended: EventEmitter<boolean> = new EventEmitter<boolean>();
-
 
   private formValueSnapshot: DiscountsModel[];
 
@@ -37,68 +38,80 @@ export class DiscountFillerComponent implements OnInit {
   public set form(v: FormGroup) {
     if (!!this._form) {
       this._form.valueChanges.pipe(takeUntil(this.ended)).subscribe((res: any) => {
-        if (!res) { this.formValueSnapshot = res; return }
-        let newRes = res?.[Object.keys(res)?.[0]]
+        if (!res) {
+          this.formValueSnapshot = res;
+          return;
+        }
+        let newRes = res?.[Object.keys(res)?.[0]];
         if (newRes && newRes.length) {
           if (this.formValueSnapshot?.length) {
-            if ((this.formValueSnapshot?.length - newRes?.length) === 1) {
-              let itemsIds = newRes.map((i: any) => i.id)
-              let itemToRemoveIds: number[] = this.formValueSnapshot.map((i: any) => i.id)
-              itemToRemoveIds.filter((i: any) => !itemsIds.includes(i))
+            if (this.formValueSnapshot?.length - newRes?.length === 1) {
+              let itemsIds = newRes.map((i: any) => i.id);
+              let itemToRemoveIds: number[] = this.formValueSnapshot.map((i: any) => i.id);
+              itemToRemoveIds.filter((i: any) => !itemsIds.includes(i));
               if (itemToRemoveIds.length) {
-                let entityName = DiscountType?.[this.discountType] + " Discount"
+                let entityName = DiscountType?.[this.discountType] + ' Discount';
                 let errorMessages: ErrorMessages = {
-                  200: `${entityName}  Remove Successfully`
-                }
+                  200: `${entityName}  Remove Successfully`,
+                };
                 if (!!itemToRemoveIds[0]) {
-                  this.discountsAndChargesService.delete(this.partnerId, itemToRemoveIds?.[0], errorMessages, entityName).toPromise()
+                  this.discountsAndChargesService
+                    .delete(this.partnerId, itemToRemoveIds?.[0], errorMessages, entityName)
+                    .toPromise();
                 }
               }
             }
           }
         }
-        this.formValueSnapshot = newRes
-      })
+        this.formValueSnapshot = newRes;
+      });
     }
     this._form = v;
-    this.formValueSnapshot = v?.getRawValue()?.[Object.keys(v?.getRawValue())[0]]
+    this.formValueSnapshot = v?.getRawValue()?.[Object.keys(v?.getRawValue())[0]];
   }
 
   ngOnDestroy(): void {
-    this.ended.next(true)
+    this.ended.next(true);
   }
 
   ngOnInit(): void {
-    this.getAndSetData()
+    this.getAndSetData();
   }
 
   getAndSetData() {
-    this.discountsAndChargesService.getAll(this.partnerId, {
-      page: 1, pageSize: 10, filters: {
-        "Type": {
-          matchMode: MatchMode.Equals,
-          value: this.discountType
-        }
-      }
-    }).toPromise().then(discounts => {
-      this.controls = this.discountFormService.generate(this.discountType, discounts?.data);
-      this.enable = !!discounts?.data?.length
-    })
+    this.discountsAndChargesService
+      .getAll(this.partnerId, {
+        page: 1,
+        pageSize: 10,
+        filters: {
+          Type: {
+            matchMode: MatchMode.Equals,
+            value: this.discountType,
+          },
+        },
+      })
+      .toPromise()
+      .then((discounts) => {
+        this.controls = this.discountFormService.generate(this.discountType, discounts?.data);
+        this.enable = !!discounts?.data?.length;
+      });
   }
 
   onActiveType(): void {
     if (this.form && this.form?.getRawValue() && !!Object.keys(this.form?.getRawValue())?.length && this.enable) {
-      let arr = this.formValueSnapshot?.map((i: any) => i?.id)
-      let entityName = DiscountType?.[this.discountType] + " Discount"
+      let arr = this.formValueSnapshot?.map((i: any) => i?.id);
+      let entityName = DiscountType?.[this.discountType] + ' Discount';
       let errorMessages: ErrorMessages = {
-        200: `All ${entityName} Delete Successfully`
-      }
-      this.discountsAndChargesService.deleteDiscounts(this.partnerId, arr, errorMessages, entityName).toPromise()
-        .then(res => {
+        200: `All ${entityName} Delete Successfully`,
+      };
+      this.discountsAndChargesService
+        .deleteDiscounts(this.partnerId, arr, errorMessages, entityName)
+        .toPromise()
+        .then((res) => {
           (this.controls[0]?.config?.setter as Subject<FieldEvent>).next({ type: 'onPatchValue', value: [] });
-        })
+        });
     }
-    this.enable = !this.enable
+    this.enable = !this.enable;
   }
 
   onSubmit() {
@@ -108,19 +121,31 @@ export class DiscountFillerComponent implements OnInit {
       formVal = formVal[formKeys[0]];
     }
     let values = this.discountFormService.convert(formVal, null, { type: this.discountType });
-    let entityName = DiscountType?.[this.discountType] + " Discount"
+    let entityName = DiscountType?.[this.discountType] + ' Discount';
     let updateErrorMessages: ErrorMessages = {
-      200: `false`
-    }
+      200: `false`,
+    };
     let crateErrorMessages: ErrorMessages = {
-      200: `false`
-    }
-    forkJoin([
-      ...values.filter(x => !!x.id).map(x => this.discountsAndChargesService.update(this.partnerId, x.id, x, updateErrorMessages, entityName).toPromise()),
-      ...values.filter(x => !x.id).map(x => this.discountsAndChargesService.create(this.partnerId, x, crateErrorMessages, entityName).toPromise())
-    ].filter(z => !!z)).pipe(take(1)).subscribe(res => {
-      this.form.markAsPristine()
-      this.form.markAsUntouched()
-    })
+      200: `false`,
+    };
+    forkJoin(
+      [
+        ...values
+          .filter((x) => !!x.id)
+          .map((x) =>
+            this.discountsAndChargesService.update(this.partnerId, x.id, x, updateErrorMessages, entityName).toPromise()
+          ),
+        ...values
+          .filter((x) => !x.id)
+          .map((x) =>
+            this.discountsAndChargesService.create(this.partnerId, x, crateErrorMessages, entityName).toPromise()
+          ),
+      ].filter((z) => !!z)
+    )
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.form.markAsPristine();
+        this.form.markAsUntouched();
+      });
   }
 }

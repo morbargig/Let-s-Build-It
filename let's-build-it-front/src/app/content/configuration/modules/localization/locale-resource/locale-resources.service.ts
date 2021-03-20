@@ -7,9 +7,9 @@ import { BaseHttpService } from '@app/@core/base/base-http-service';
 @Injectable({
   providedIn: 'root',
 })
-export class LocaleResourcesService extends BaseHttpService<LocaleResourceModel>{
-  public collationName: string = 'localization/localeResources'
+export class LocaleResourcesService extends BaseHttpService<LocaleResourceModel> {
+  public collationName: string = 'localization/localeResources';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
 }

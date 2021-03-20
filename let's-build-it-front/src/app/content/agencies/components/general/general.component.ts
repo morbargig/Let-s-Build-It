@@ -25,16 +25,17 @@ import { faExpand, faTrash } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./general.component.scss'],
 })
 export class GeneralComponent implements OnInit {
-
-  constructor(private modalService: BsModalService,
+  constructor(
+    private modalService: BsModalService,
     private sidebarService: SideBarPageService,
     private partnersService: PartnersService,
-    protected notificationsService: NotificationsService,) {
+    protected notificationsService: NotificationsService
+  ) {
     this.sidebarService.breadcrumbs = [
       { label: 'Agencies', url: '../../' },
       { label: this.sidebarService.entity.name, url: './' },
-      { label: 'General', },
-    ]
+      { label: 'General' },
+    ];
   }
 
   public get partner(): PartnerModel {
@@ -120,7 +121,7 @@ export class GeneralComponent implements OnInit {
           type: 'hidden',
         },
       },
-    ]
+    ];
 
     this.settingsControls = [
       {
@@ -142,8 +143,7 @@ export class GeneralComponent implements OnInit {
           type: 'hidden',
           name: 'temp',
           styleClass: 'col-12',
-
-        }
+        },
       },
       {
         type: FormCheckboxComponent,
@@ -151,11 +151,11 @@ export class GeneralComponent implements OnInit {
           name: '2fa',
           styleClass: 'col-2',
           data: {
-            checkboxLabel: 'Two factor auth'
-          }
+            checkboxLabel: 'Two factor auth',
+          },
         },
-      }
-    ]
+      },
+    ];
   }
 
   public patchGeneral(val: any) {
@@ -167,12 +167,14 @@ export class GeneralComponent implements OnInit {
       address: val.address,
     };
 
-    this.partnersService.updateGeneralDetails(this.partner.id, model).toPromise().then(res => {
-      this.partner = res;
-      this.notificationsService.success(`${this.partner.name} details updated successfully`);
-      this.card?.toggleEdit();
-    })
-
+    this.partnersService
+      .updateGeneralDetails(this.partner.id, model)
+      .toPromise()
+      .then((res) => {
+        this.partner = res;
+        this.notificationsService.success(`${this.partner.name} details updated successfully`);
+        this.card?.toggleEdit();
+      });
   }
 
   public getMediaTypeName(type: number) {
@@ -180,7 +182,7 @@ export class GeneralComponent implements OnInit {
   }
 
   public openInFullscreen(mediaItem: PartnerMediaModel) {
-    let name: string = this.mediaItems.find(x => x.value == mediaItem.mediaId)?.label;
+    let name: string = this.mediaItems.find((x) => x.value == mediaItem.mediaId)?.label;
     const carMediaFullScreen = this.modalService.show(FullScreenModalComponent, {
       initialState: { mediaItem: mediaItem, title: name },
       class: 'modal-xl modal-dialog-centered',
@@ -197,20 +199,16 @@ export class GeneralComponent implements OnInit {
     { label: 'Remove', icon: faTrash, click: (val: any) => null, value: null },
   ];
 
-
   private mediaItems: SelectItem[];
   public get docs(): SelectItem[] {
     if (!this.mediaItems?.length) {
-      this.mediaItems = this.partner.mediaItems?.map(media => {
+      this.mediaItems = this.partner.mediaItems?.map((media) => {
         return {
           label: this.getMediaTypeName(media.documentType),
           value: media.mediaId,
-        } as SelectItem
+        } as SelectItem;
       });
     }
     return this.mediaItems;
   }
-
-
-
 }

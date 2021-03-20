@@ -27,7 +27,7 @@ import { NumericFilterComponent } from '../../../../../../@ideo/components/table
 @Component({
   selector: 'prx-b2-bsubscription',
   templateUrl: './b2-bsubscription.component.html',
-  styleUrls: ['./b2-bsubscription.component.scss']
+  styleUrls: ['./b2-bsubscription.component.scss'],
 })
 export class B2BSubscriptionComponent extends TablePageDirective<PartnerB2BSubscriptionModel> implements OnInit {
   public getDataProvider(evt: LazyLoadEvent, isExport?: boolean): Observable<IPagedList<PartnerB2BSubscriptionModel>> {
@@ -40,69 +40,81 @@ export class B2BSubscriptionComponent extends TablePageDirective<PartnerB2BSubsc
   public columns: TableColumn<PartnerB2BSubscriptionModel>[];
   public pageActions: ButtonItem<any>[] = [
     {
-      title: 'Edit subscription', click: () => {
-      }
-    }
+      title: 'Edit subscription',
+      click: () => {},
+    },
   ];
   public filters: TableFilter[];
   public itemActions: ButtonItem<PartnerB2BSubscriptionModel>[];
   public billingItems: SelectItem[];
 
-  constructor(modalService: BsModalService,
+  constructor(
+    modalService: BsModalService,
     notificationsService: NotificationsService,
     private b2BSubscriptionService: PartnerB2BSubscriptionService,
     private sidebarService: SideBarPageService,
     router: Router,
     private partnerFleetsService: FleetsService,
-    private paymentPlansService: PaymentPlansService) {
+    private paymentPlansService: PaymentPlansService
+  ) {
     super(modalService, true, notificationsService, router);
   }
 
   ngOnInit(): void {
-    this.paymentPlansService.getAll({ page: 1, pageSize: 1 }).toPromise().then(res => {
-      this.billingItems = [
-        {
-          label: 'Billing Period', value: res?.data?.[0].selectedPlan == PaymentPlanType.Fixed ?
-            BillingPeriod[res?.data?.[0]?.fixedPaymentBillingPeriod] :
-            BillingPeriod[res?.data?.[0]?.revenueFeesBillingPeriod]
-        } as SelectItem,
-        { label: 'Billing Date', value: this.sidebarService.entity.billingDate } as SelectItem,
-      ];
-    })
+    this.paymentPlansService
+      .getAll({ page: 1, pageSize: 1 })
+      .toPromise()
+      .then((res) => {
+        this.billingItems = [
+          {
+            label: 'Billing Period',
+            value:
+              res?.data?.[0].selectedPlan == PaymentPlanType.Fixed
+                ? BillingPeriod[res?.data?.[0]?.fixedPaymentBillingPeriod]
+                : BillingPeriod[res?.data?.[0]?.revenueFeesBillingPeriod],
+          } as SelectItem,
+          { label: 'Billing Date', value: this.sidebarService.entity.billingDate } as SelectItem,
+        ];
+      });
     this.columns = [
       {
         field: 'fleetId',
         header: 'Fleet',
         sortable: true,
         permission: { roles: ['Admin', 'PartnerAdmin'] },
-        filter: [{
-          type: MultiselectFilterComponent, permission: { roles: ['Admin', 'PartnerAdmin'] },
-          queryFilters: (query) => {
-            return {
-              "Name": {
-                value: query,
-                matchMode: MatchMode.Contains
-              }
-            } as FilterObject
+        filter: [
+          {
+            type: MultiselectFilterComponent,
+            permission: { roles: ['Admin', 'PartnerAdmin'] },
+            queryFilters: (query) => {
+              return {
+                Name: {
+                  value: query,
+                  matchMode: MatchMode.Contains,
+                },
+              } as FilterObject;
+            },
+            lazyOptions: (evt) => {
+              evt.sorts = ['Name'];
+              evt.sortDirection = 'asc';
+              return this.partnerFleetsService.getAll(this.sidebarService.entity.id, evt).pipe(
+                map((r) => {
+                  let val = {
+                    data: r?.data?.map((a) => {
+                      return {
+                        value: a.id,
+                        label: a.name,
+                        // icon: a.logoImgId,
+                      } as SelectItem;
+                    }),
+                    total: r.total,
+                  };
+                  return val;
+                })
+              );
+            },
           },
-          lazyOptions: (evt) => {
-            evt.sorts = ['Name'];
-            evt.sortDirection = 'asc';
-            return this.partnerFleetsService.getAll(this.sidebarService.entity.id, evt).pipe(map(r => {
-              let val = {
-                data: r?.data?.map((a) => {
-                  return {
-                    value: a.id,
-                    label: a.name,
-                    // icon: a.logoImgId,
-                  } as SelectItem;
-                }),
-                total: r.total
-              };
-              return val;
-            }));
-          }
-        }],
+        ],
       },
       {
         field: 'name',
@@ -115,7 +127,6 @@ export class B2BSubscriptionComponent extends TablePageDirective<PartnerB2BSubsc
         header: 'Subscription Fee',
         sortable: true,
         filter: [{ name: 'Fee', type: NumericFilterComponent, placeholder: 'Fee' }],
-
       },
       {
         field: 'discountPrecentage',
@@ -128,12 +139,14 @@ export class B2BSubscriptionComponent extends TablePageDirective<PartnerB2BSubsc
         field: 'revenueRange',
         header: 'Revenue Range',
         sortable: true,
-        filter: [{ name: 'RevenueStart', type: NumericFilterComponent, placeholder: 'Revenue Start' }, { name: 'RevenueEnd', type: NumericFilterComponent, placeholder: 'Revenue End' }],
+        filter: [
+          { name: 'RevenueStart', type: NumericFilterComponent, placeholder: 'Revenue Start' },
+          { name: 'RevenueEnd', type: NumericFilterComponent, placeholder: 'Revenue End' },
+        ],
         parsedFullData: (item: PartnerB2BSubscriptionModel) => {
-          return `${item.revenueStart}-${item.revenueEnd}K`
+          return `${item.revenueStart}-${item.revenueEnd}K`;
         },
       },
-    ]
+    ];
   }
-
 }

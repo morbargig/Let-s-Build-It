@@ -1,4 +1,16 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild, OnDestroy, ElementRef } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  OnDestroy,
+  ElementRef,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SelectItem } from '../table/models/select-item';
 import { StringHelperService } from '../../infrastructure/services/string-helper.service';
@@ -24,8 +36,8 @@ export class MultiselectComponent implements ControlValueAccessor, AfterViewInit
   private _optionObj: { [key: string]: any };
   public selectedKeys: { [key: string]: boolean } = {};
 
-  public onChange: any = () => { };
-  public onTouch: any = () => { };
+  public onChange: any = () => {};
+  public onTouch: any = () => {};
   public id: string = `dropdown-${this.stringHelper.randomStr(4)}`;
   public label: string;
   public value: any[];
@@ -38,7 +50,6 @@ export class MultiselectComponent implements ControlValueAccessor, AfterViewInit
 
   @ViewChild(CdkVirtualScrollViewport, { static: false }) viewPort: CdkVirtualScrollViewport;
   @ViewChild('queryElement', { static: true }) queryElement: ElementRef;
-
 
   private _options: SelectItem[];
   @Input() public set options(arr: SelectItem[]) {
@@ -66,18 +77,20 @@ export class MultiselectComponent implements ControlValueAccessor, AfterViewInit
       this.options = [];
       this._lazyOptions = lazyOpt;
       this.updateLabel();
-      this.asyncOptions.pipe(tap(arr => {
-        if (arr) {
-          arr.forEach((option) => {
-            this._optionObj[!!this.dataKey ? option.value[this.dataKey] : option.value] = option.label;
-          });
+      this.asyncOptions
+        .pipe(
+          tap((arr) => {
+            if (arr) {
+              arr.forEach((option) => {
+                this._optionObj[!!this.dataKey ? option.value[this.dataKey] : option.value] = option.label;
+              });
 
-          this.options.push(...arr);
-        }
-        return arr;
-      })).subscribe();
-
-
+              this.options.push(...arr);
+            }
+            return arr;
+          })
+        )
+        .subscribe();
     }
   }
 
@@ -94,11 +107,11 @@ export class MultiselectComponent implements ControlValueAccessor, AfterViewInit
     return this._disabled;
   }
 
-  constructor(private stringHelper: StringHelperService, protected cd: ChangeDetectorRef) { }
+  constructor(private stringHelper: StringHelperService, protected cd: ChangeDetectorRef) {}
   ngAfterViewInit(): void {
     if (!!this.queryFilters) {
-      this.queryChangedEvt.pipe(debounceTime(300), takeUntil(this.ended)).subscribe(query => {
-        console.log(`${this.lastQuery} | ${query}`)
+      this.queryChangedEvt.pipe(debounceTime(300), takeUntil(this.ended)).subscribe((query) => {
+        console.log(`${this.lastQuery} | ${query}`);
         if (this.lastQuery != query) {
           this.filter = this.queryFilters?.(query);
           this.asyncOptions.next([]);
@@ -109,8 +122,7 @@ export class MultiselectComponent implements ControlValueAccessor, AfterViewInit
             this.nextBatch(0, null, true);
           });
         }
-
-      })
+      });
     }
   }
   ngOnDestroy(): void {
@@ -134,21 +146,24 @@ export class MultiselectComponent implements ControlValueAccessor, AfterViewInit
         this.currentFetch = null;
       }
       this.currentFetch = this.lazyOptions({ page: (!!end ? end / 5 : 0) + 1, pageSize: 5, filters: this.filter })
-        .pipe(debounceTime(300), take(1), finalize(() => {
-          this.currentFetch.unsubscribe();
-          this.currentFetch = null;
-        }))
-        .subscribe(res => {
+        .pipe(
+          debounceTime(300),
+          take(1),
+          finalize(() => {
+            this.currentFetch.unsubscribe();
+            this.currentFetch = null;
+          })
+        )
+        .subscribe((res) => {
           this.totalItems = res?.total || 0;
-          this.asyncOptions.next([...this.asyncOptions.value, ...(res?.data || [])].filter(x => !!x))
-        })
+          this.asyncOptions.next([...this.asyncOptions.value, ...(res?.data || [])].filter((x) => !!x));
+        });
     }
   }
 
   public openChange(open: boolean) {
     this.isOpen = open;
     if (this.queryElement) {
-
       setTimeout(() => {
         this.queryElement.nativeElement.focus();
       }, 50);
@@ -223,15 +238,15 @@ export class MultiselectComponent implements ControlValueAccessor, AfterViewInit
       !!this.value && this.value.length === 1
         ? this._optionObj[!!this.dataKey ? this.value[0][this.dataKey] : this.value[0]]
         : !!this.value && this.value.length > 1
-          ? `${this.value.length} items selected`
-          : this.placeholder;
+        ? `${this.value.length} items selected`
+        : this.placeholder;
   }
 
   public scrollEnd() {
     const end = this.viewPort?.getRenderedRange().end;
     if (!!this.totalItems && !!end && end > 5) {
       setTimeout(() => {
-        this.viewPort?.scrollToIndex(end - 5, 'smooth')
+        this.viewPort?.scrollToIndex(end - 5, 'smooth');
         this.cd.markForCheck();
       });
     }

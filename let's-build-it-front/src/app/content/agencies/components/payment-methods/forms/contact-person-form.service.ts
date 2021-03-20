@@ -4,11 +4,10 @@ import { DynamicFormControl } from '../../../../../@forms/@core/interfaces/dynam
 import { Validators } from '@angular/forms';
 import { FormTextComponent } from '../../../../../@forms/form-fields/form-text/form-text.component';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ContactPersonFormService implements IFormGenerator<DynamicFormControl[]> {
-
-  constructor() { }
+  constructor() {}
   generate(...params: any[]): DynamicFormControl[] {
     return [
       {
@@ -57,6 +56,4 @@ export class ContactPersonFormService implements IFormGenerator<DynamicFormContr
     ];
   }
   convert?: ModelConverter<DynamicFormControl[], any>;
-
-
 }

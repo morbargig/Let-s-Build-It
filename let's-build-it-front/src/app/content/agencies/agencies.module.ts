@@ -39,14 +39,52 @@ import { TariffsComponent } from './components/tariffs/tariffs.component';
 import { TariffDetailsComponent } from './components/tariffs/tariff-details/tariff-details.component';
 
 const EXPORTED_COMPONENTS = [
-  UserMangementComponent, SubscriptionsComponent, DiscountsAndChargesComponent, AncillariesComponent,
-  ZonesComponent, ZoneDetailsComponent, ZoneTypeFormComponent, B2BSubscriptionComponent, B2CSubscriptionComponent,
-  ChargesComponent, FixedDiscountsComponent, DiscountsComponent, DiscountFillerComponent
+  UserMangementComponent,
+  SubscriptionsComponent,
+  DiscountsAndChargesComponent,
+  AncillariesComponent,
+  ZonesComponent,
+  ZoneDetailsComponent,
+  ZoneTypeFormComponent,
+  B2BSubscriptionComponent,
+  B2CSubscriptionComponent,
+  ChargesComponent,
+  FixedDiscountsComponent,
+  DiscountsComponent,
+  DiscountFillerComponent,
 ];
 
 @NgModule({
-  declarations: [...EXPORTED_COMPONENTS, PartnerDetailsComponent, SummaryComponent, GeneralComponent, SettingsComponent, InventoryComponent, PaymentMethodsComponent, PaymentPlanComponent, ReportsComponent, SwitchOverPlanComponent, AgencySelectionComponent, InventoryDetailsComponent, FleetsComponent, TariffsComponent, TariffDetailsComponent,],
+  declarations: [
+    ...EXPORTED_COMPONENTS,
+    PartnerDetailsComponent,
+    SummaryComponent,
+    GeneralComponent,
+    SettingsComponent,
+    InventoryComponent,
+    PaymentMethodsComponent,
+    PaymentPlanComponent,
+    ReportsComponent,
+    SwitchOverPlanComponent,
+    AgencySelectionComponent,
+    InventoryDetailsComponent,
+    FleetsComponent,
+    TariffsComponent,
+    TariffDetailsComponent,
+  ],
   exports: [...EXPORTED_COMPONENTS],
-  imports: [CommonModule, NavigationsModule, AgenciesRoutingModule, TableModule, LoaderModule, IdeoPipesModule, SelectModule, SharedModule, IdeoFormsModule, ButtonModule, AgmCoreModule],
+  imports: [
+    CommonModule,
+    NavigationsModule,
+    AgenciesRoutingModule,
+    TableModule,
+    LoaderModule,
+    IdeoPipesModule,
+    SelectModule,
+    SharedModule,
+    IdeoFormsModule,
+    ButtonModule,
+    AgmCoreModule,
+  ],
 })
-export class AgenciesModule { }
+export class AgenciesModule {}

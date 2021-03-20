@@ -1,30 +1,40 @@
 <div class="row mb-2">
   <div class="col d-flex justify-content-between align-items-center">
-    <h3 class="mb-0">Damage {{carDamage?.id}}</h3>
+    <h3 class="mb-0">Damage {{ carDamage?.id }}</h3>
   </div>
 </div>
 <div class="row h-50">
   <div class="col flex-wrap d-flex flex-column">
-    <prx-wsi-card #generalCard title="General Info" [showEdit]="true" [loading]="!carDamage" [fullHeight]="true" [fuller]="true">
+    <prx-wsi-card
+      #generalCard
+      title="General Info"
+      [showEdit]="true"
+      [loading]="!carDamage"
+      [fullHeight]="true"
+      [fuller]="true"
+    >
       <prx-key-value-pair [items]="generalInfoItems" [itemsPerRow]="3"></prx-key-value-pair>
       <prx-key-value-pair [items]="descriptionItem" [itemsPerRow]="1" [viewType]="'block'"></prx-key-value-pair>
       <div edit-template>
-          <ideo-dynamic-form-group *ngIf="!!generalInfoControls?.length" [config]="generalInfoControls" [showSubmitButton]="false"
-            [(form)]="generalInfoForm">
-          </ideo-dynamic-form-group>
-          <div class="col-12 d-flex justify-content-end form-btns">
-            <button class="btn btn-info" (click)="generalCard.editMode = false">Cancel</button>
-            <button class="btn btn-primary" [disabled]="!generalInfoForm?.valid" (click)="onSubmit(generalCard)">
-              Save Changes
-            </button>
-          </div> 
+        <ideo-dynamic-form-group
+          *ngIf="!!generalInfoControls?.length"
+          [config]="generalInfoControls"
+          [showSubmitButton]="false"
+          [(form)]="generalInfoForm"
+        >
+        </ideo-dynamic-form-group>
+        <div class="col-12 d-flex justify-content-end form-btns">
+          <button class="btn btn-info" (click)="generalCard.editMode = false">Cancel</button>
+          <button class="btn btn-primary" [disabled]="!generalInfoForm?.valid" (click)="onSubmit(generalCard)">
+            Save Changes
+          </button>
+        </div>
       </div>
     </prx-wsi-card>
   </div>
   <div class="col flex-wrap d-flex flex-column">
     <prx-wsi-card [showHeader]="false" [fullHeight]="true" [fuller]="true">
-      <agm-map [latitude]="31.771959" [longitude]="35.217018">
-      </agm-map>
+      <agm-map [latitude]="31.771959" [longitude]="35.217018"> </agm-map>
     </prx-wsi-card>
   </div>
 </div>
@@ -38,7 +48,7 @@
     <prx-wsi-card title="Customer" [loading]="!carDamage" [fullHeight]="true">
       <div class="row">
         <div class="col-3">
-          <img src="assets/img/store/enjoy.jpg" alt="" class="img-fluid rounded-circle">
+          <img src="assets/img/store/enjoy.jpg" alt="" class="img-fluid rounded-circle" />
         </div>
         <div class="col-9">
           <prx-key-value-pair [items]="customerItems" [itemsPerRow]="2"></prx-key-value-pair>

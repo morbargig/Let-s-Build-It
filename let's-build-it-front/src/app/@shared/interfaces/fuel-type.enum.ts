@@ -5,8 +5,8 @@ export enum FuelType {
 }
 
 export const GovFuelTypes = {
-  'בנזין': FuelType.Gasoline,
-  'דיזל': FuelType.Diesel,
+  בנזין: FuelType.Gasoline,
+  דיזל: FuelType.Diesel,
   'חשמל/בנזין': FuelType.Electro,
-  'חשמל': FuelType.Electro,
-}
+  חשמל: FuelType.Electro,
+};

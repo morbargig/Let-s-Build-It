@@ -1,13 +1,13 @@
 <nav class="navbar" [ngClass]="{ 'navbar-dark bg-dark': dark }">
   <div class="container-fluid">
     <a class="toolbar-brand" href="javascript:;" *ngIf="branded">
-      <img src="assets/img/logo.svg" alt="{{'APP_NAME' | translate }}" class="logo" *ngIf="!dark" />
-      <img src="assets/img/logo-light.svg" alt="{{'APP_NAME' | translate }}" class="logo" *ngIf="dark" />
+      <img src="assets/img/logo.svg" alt="{{ 'APP_NAME' | translate }}" class="logo" *ngIf="!dark" />
+      <img src="assets/img/logo-light.svg" alt="{{ 'APP_NAME' | translate }}" class="logo" *ngIf="dark" />
     </a>
 
     <!-- SEARCH FORM -->
     <!-- <prx-header-search [dark]="dark"></prx-header-search> -->
-    <img src="assets/icons/logo.svg" alt="">
+    <img src="assets/icons/logo.svg" alt="" />
 
     <nav class="navbar-nav nav ml-md-auto">
       <prx-menu-toggler

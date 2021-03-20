@@ -71,7 +71,7 @@
             id="multiselctcheckbox-{{ id }}-{{ i }}"
             [checked]="!!selectedKeys[!!dataKey ? option.value[dataKey] : option.value]"
           />
-          <img [src]="option.icon | imageId:true" class="list-icon" *ngIf="!!option.icon" alt="" />
+          <img [src]="option.icon | imageId: true" class="list-icon" *ngIf="!!option.icon" alt="" />
           <label
             class="custom-control-label multi-select-text text-overflow"
             for="multiselctcheckbox-{{ id }}-{{ i }}"

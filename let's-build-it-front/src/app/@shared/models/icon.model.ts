@@ -1,6 +1,5 @@
-import { IdeoIconModel } from "./ideo-icon.model";
+import { IdeoIconModel } from './ideo-icon.model';
 
 export class IconModel {
-    static ideoIcons: keyof IdeoIconModel;
+  static ideoIcons: keyof IdeoIconModel;
 }
-

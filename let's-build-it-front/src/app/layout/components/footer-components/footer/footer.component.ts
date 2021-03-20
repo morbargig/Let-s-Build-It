@@ -9,8 +9,7 @@ import { environment } from '@env/environment';
 export class FooterComponent implements OnInit {
   public date: Date = new Date();
   public version: string = environment.version;
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 }

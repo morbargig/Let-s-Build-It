@@ -8,7 +8,7 @@ export class FormFile {
   }
   public autoUpload: boolean = false;
   public getTemplateUrl?: (form: FormGroup) => string;
-  public newStyle: boolean = false
+  public newStyle: boolean = false;
   public title: string = 'Click here';
   public subTile: string = 'to upload an image';
   public multiple: boolean = false;

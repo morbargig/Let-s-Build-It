@@ -6,15 +6,18 @@ import { PartnerModel } from '../models/partner.model';
 
 @Pipe({
   name: 'partnerName',
-  pure: false
+  pure: false,
 })
 export class PartnerNamePipe implements PipeTransform {
-
-  constructor(private partnersService: PartnersService) {
-  }
+  constructor(private partnersService: PartnersService) {}
 
   transform(carId: number): Promise<string> {
-    return this.partnersService.get(carId).pipe(map(x => x.name), take(1)).toPromise();
+    return this.partnersService
+      .get(carId)
+      .pipe(
+        map((x) => x.name),
+        take(1)
+      )
+      .toPromise();
   }
-
 }

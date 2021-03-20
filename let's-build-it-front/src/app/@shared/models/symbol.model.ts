@@ -1,3 +1,3 @@
 export enum SymbolModel {
-    NIS='₪'
+  NIS = '₪',
 }

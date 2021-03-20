@@ -21,52 +21,49 @@ export class BookingAncillaryFormComponent extends BaseFieldDirective<FormArray>
 
   public selectedByGroup: { [id: number]: number } = {};
   public setAncillaryGroupId(id: number): void {
-    this.ancillaryGroupId = id
+    this.ancillaryGroupId = id;
   }
   public selectedItems: { [id: number]: boolean } = {};
   public evt: LazyLoadEvent;
 
-  constructor(
-    private cd: ChangeDetectorRef,
-    private fb: FormBuilder
-    , private ancillariesService: AncillariesService
-  ) {
+  constructor(private cd: ChangeDetectorRef, private fb: FormBuilder, private ancillariesService: AncillariesService) {
     super();
   }
 
   ngOnInit(): void {
     this.evt = {
       page: 1,
-      pageSize: 50
-    }
+      pageSize: 50,
+    };
     this.evt.sorts = ['AncillaryGroup.Name'];
     // FIXME: need to fix where i get the partner id
-    this.ancillariesService.getAll(1, this.evt).pipe(takeWhile(r => this.isAlive)).subscribe((res: IPagedList<AncillaryModel>) => {
-      if (res?.total) {
-        this.items = res.data;
-        this.selectedByGroup
-        this.selectedItems = this.items.reduce((prev, curr, i) => {
-          prev[curr.id] = false;
-          return prev;
-        }, {})
-        this.cd.markForCheck();
-      }
-    })
+    this.ancillariesService
+      .getAll(1, this.evt)
+      .pipe(takeWhile((r) => this.isAlive))
+      .subscribe((res: IPagedList<AncillaryModel>) => {
+        if (res?.total) {
+          this.items = res.data;
+          this.selectedByGroup;
+          this.selectedItems = this.items.reduce((prev, curr, i) => {
+            prev[curr.id] = false;
+            return prev;
+          }, {});
+          this.cd.markForCheck();
+        }
+      });
     this.group.controls[this.config.name] = this.fb.array([]);
   }
 
   public ancillarySelected(ancillary: AncillaryModel) {
-    let index = (this.control.value as any[])?.findIndex(x => x?.id == ancillary.id);
+    let index = (this.control.value as any[])?.findIndex((x) => x?.id == ancillary.id);
     if (index >= 0) {
-      this.selectedByGroup[ancillary.ancillaryGroupId] = (this.selectedByGroup[ancillary.ancillaryGroupId] || 1) - 1
+      this.selectedByGroup[ancillary.ancillaryGroupId] = (this.selectedByGroup[ancillary.ancillaryGroupId] || 1) - 1;
       this.control.removeAt(index);
       this.selectedItems[ancillary.id] = false;
     } else {
       this.control.push(this.fb.group(ancillary));
       this.selectedItems[ancillary.id] = true;
-      this.selectedByGroup[ancillary.ancillaryGroupId] = (this.selectedByGroup[ancillary.ancillaryGroupId] || 0) + 1
+      this.selectedByGroup[ancillary.ancillaryGroupId] = (this.selectedByGroup[ancillary.ancillaryGroupId] || 0) + 1;
     }
   }
 }
-
-

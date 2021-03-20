@@ -13,19 +13,24 @@ import { UserManamenntService } from './user-manamennt.service';
 import { SideBarPageService } from '../../../../@shared/components/side-bar-page/isidibar-service.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserManagmentResolverService implements Resolve<ModalPageModelConfig> {
   public modalType: string;
   public user: UserManagementModel = null;
   public formControls: DynamicFormControl[];
 
-  constructor(private userManagmentsService: UserManamenntService,
+  constructor(
+    private userManagmentsService: UserManamenntService,
     private sidebarService: SideBarPageService,
     private notificationsService: NotificationsService,
     private location: Location,
-    private userFormService: UserFormService) { }
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): ModalPageModelConfig | Observable<ModalPageModelConfig> | Promise<ModalPageModelConfig> {
+    private userFormService: UserFormService
+  ) {}
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): ModalPageModelConfig | Observable<ModalPageModelConfig> | Promise<ModalPageModelConfig> {
     let formControls$: Subject<DynamicFormControl[]> = new Subject<DynamicFormControl[]>();
     let type$: Subject<ModalMessage> = new Subject<ModalMessage>();
     this.formControls = this.userFormService.generate(this.user);
@@ -33,28 +38,35 @@ export class UserManagmentResolverService implements Resolve<ModalPageModelConfi
       type: type$,
       submit: (user: UserManagementModel) => {
         user.username = user.email;
-        user.profileImageId = ['number', 'string'].indexOf(typeof user.profileImageId) >= 0 ? user.profileImageId : 
-        user.profileImageId?.[0]?.id;
+        user.profileImageId =
+          ['number', 'string'].indexOf(typeof user.profileImageId) >= 0
+            ? user.profileImageId
+            : user.profileImageId?.[0]?.id;
         if (!!user?.id) {
-          this.userManagmentsService.update(this.sidebarService.entity.id, user.id, user).toPromise().then(res => {
-            if (!!res) {
-              this.notificationsService.success("Subscription Updated Successfully");
-              this.location.back();
-            } else {
-              this.notificationsService.error("Subscription Update Failed");
-            }
-          })
+          this.userManagmentsService
+            .update(this.sidebarService.entity.id, user.id, user)
+            .toPromise()
+            .then((res) => {
+              if (!!res) {
+                this.notificationsService.success('Subscription Updated Successfully');
+                this.location.back();
+              } else {
+                this.notificationsService.error('Subscription Update Failed');
+              }
+            });
         } else {
-          this.userManagmentsService.create(this.sidebarService.entity.id,user).toPromise().then(res => {
-            if (!!res) {
-              this.notificationsService.success("Subscription Created Successfully");
-              this.location.back();
-            } else {
-              this.notificationsService.error("Subscription Creation Failed");
-            }
-          })
+          this.userManagmentsService
+            .create(this.sidebarService.entity.id, user)
+            .toPromise()
+            .then((res) => {
+              if (!!res) {
+                this.notificationsService.success('Subscription Created Successfully');
+                this.location.back();
+              } else {
+                this.notificationsService.error('Subscription Creation Failed');
+              }
+            });
         }
-
       },
       getEntityById: (routePrams) => {
         if ('id' in routePrams) {
@@ -69,43 +81,42 @@ export class UserManagmentResolverService implements Resolve<ModalPageModelConfi
                     title: 'Edit User',
                     subTitle: 'Sorry, user not found',
                     message: 'Please make sure you have typed the correct URL',
-                    closeUrl: '../../'
-                  })
-                  return
+                    closeUrl: '../../',
+                  });
+                  return;
                 }
                 type$.next({
                   mode: 'Edit',
                   title: 'Edit User',
-                  closeUrl: '../../'
-                })
+                  closeUrl: '../../',
+                });
                 this.user = user;
-                this.formControls.patchValue(this.user)
-                setTimeout(() => formControls$.next(this.formControls))
+                this.formControls.patchValue(this.user);
+                setTimeout(() => formControls$.next(this.formControls));
+              });
+          } else {
+            setTimeout(() =>
+              type$.next({
+                mode: 'Not Found',
+                title: 'Not Found',
+                subTitle: 'Sorry, page not found',
+                message: 'Please make sure you have typed the correct URL',
+                closeUrl: '../../',
               })
+            );
           }
-          else {
-            setTimeout(() => type$.next({
-              mode: 'Not Found',
-              title: 'Not Found',
-              subTitle: 'Sorry, page not found',
-              message: 'Please make sure you have typed the correct URL',
-              closeUrl: '../../'
-            }))
-          }
-        }
-        else {
+        } else {
           setTimeout(() =>
             type$.next({
               mode: 'Create',
               title: 'Create User',
-              closeUrl: '../'
-            }))
-          formControls$.next(this.formControls)
+              closeUrl: '../',
+            })
+          );
+          formControls$.next(this.formControls);
         }
       },
       formControls: formControls$,
-    } as ModalPageModelConfig
+    } as ModalPageModelConfig;
   }
 }
-
-

@@ -1,5 +1,5 @@
 import { BillingPeriod } from '../interfaces/billing-period.enum';
-export interface PartnerB2CSubscriptionModel{
+export interface PartnerB2CSubscriptionModel {
   id?: number;
   name: string;
   discountPrecentage: number;

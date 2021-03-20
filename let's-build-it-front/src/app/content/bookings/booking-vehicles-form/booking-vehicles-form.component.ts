@@ -12,7 +12,7 @@ import { TableColumn } from '../../../@ideo/components/table/models/table-column
 @Component({
   selector: 'prx-booking-vehicles-form',
   templateUrl: './booking-vehicles-form.component.html',
-  styleUrls: ['./booking-vehicles-form.component.scss']
+  styleUrls: ['./booking-vehicles-form.component.scss'],
 })
 export class BookingVehiclesFormComponent extends BaseFieldDirective<FormArray> implements OnInit {
   public config: FieldConfig;
@@ -23,51 +23,49 @@ export class BookingVehiclesFormComponent extends BaseFieldDirective<FormArray> 
   public selectedItems: { [id: number]: boolean } = {};
   public selectedItemId: string;
   public evt: LazyLoadEvent;
-  constructor(
-    private cd: ChangeDetectorRef,
-    private fb: FormBuilder
-    , private entityService: CarsService
-  ) {
+  constructor(private cd: ChangeDetectorRef, private fb: FormBuilder, private entityService: CarsService) {
     super();
   }
 
   ngOnInit(): void {
-    this.columns = this.config.data.columns
+    this.columns = this.config.data.columns;
     this.columns.push({
       field: 'selected',
       filter: null,
       onClick: (model: CarModel) => {
         if (this.control?.value?.[0] === model) {
-          this.control.setValue(null)
-        }
-        else {
-          this.control.setValue([model])
+          this.control.setValue(null);
+        } else {
+          this.control.setValue([model]);
         }
       },
       parsedFullData: (model: CarModel) => {
-        return this.control?.value?.[0] === model
+        return this.control?.value?.[0] === model;
       },
       parsedHtmlData: (selected: boolean) => {
         if (!selected) {
-          return `<div class="btn btn-primary"> Select</div>`
+          return `<div class="btn btn-primary"> Select</div>`;
         }
-        return `<div class="btn btn-primary"> Remove</div>`
+        return `<div class="btn btn-primary"> Remove</div>`;
       },
-    } as TableColumn)
+    } as TableColumn);
     this.evt = {
       page: 1,
-      pageSize: 50
-    }
-    this.entityService.getAll(this.evt).pipe(takeWhile(r => this.isAlive)).subscribe((res: IPagedList<CarModel>) => {
-      if (res?.total) {
-        this.items = res.data;
-        this.selectedItems = this.items.reduce((prev, curr, i) => {
-          prev[curr.id] = false;
-          return prev;
-        }, {})
-        this.cd.markForCheck();
-      }
-    })
+      pageSize: 50,
+    };
+    this.entityService
+      .getAll(this.evt)
+      .pipe(takeWhile((r) => this.isAlive))
+      .subscribe((res: IPagedList<CarModel>) => {
+        if (res?.total) {
+          this.items = res.data;
+          this.selectedItems = this.items.reduce((prev, curr, i) => {
+            prev[curr.id] = false;
+            return prev;
+          }, {});
+          this.cd.markForCheck();
+        }
+      });
     this.group.controls[this.config.name] = this.fb.control(null, this.config.validation);
   }
 }

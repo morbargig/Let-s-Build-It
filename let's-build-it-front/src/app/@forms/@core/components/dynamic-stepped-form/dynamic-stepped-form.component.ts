@@ -60,7 +60,6 @@ export class DynamicSteppedFormComponent extends CdkStepper implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.form = this.fb.group({
         forms: this.fb.array([
           ...this.config.map((z, i) =>
@@ -73,7 +72,6 @@ export class DynamicSteppedFormComponent extends CdkStepper implements OnInit {
           ),
         ]),
       });
-
     });
 
     this.formValue.pipe(take(2)).subscribe((res) => {

@@ -24,7 +24,7 @@ export class TableFilterDirective implements OnInit {
     private fb: FormBuilder,
     private filterService: TableFiltersService,
     private permissionService: PermissionsService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (this.createFilterFromColumn()) {
@@ -38,17 +38,24 @@ export class TableFilterDirective implements OnInit {
         ? filter
         : [filter]
       : Array.isArray(this.filter)
-        ? this.filter
-        : [this.filter];
+      ? this.filter
+      : [this.filter];
 
     for (let i = 0; i < filters.length; i++) {
       const filter = filters[i];
       const factory = this.resolver.resolveComponentFactory<any>(filter.type);
       this.component = this.container.createComponent(factory);
       if (!this.innerFilter) {
-        ['col-6', 'col-md-4', 'col-lg-3', 'col-xl-2', 'pb-3', !!filter.styleClass ? [...filter.styleClass.split(' ')] : null].filter(x => !!x).forEach((className) =>
-          (this.component.location.nativeElement as HTMLElement).classList.add(className + '')
-        );
+        [
+          'col-6',
+          'col-md-4',
+          'col-lg-3',
+          'col-xl-2',
+          'pb-3',
+          !!filter.styleClass ? [...filter.styleClass.split(' ')] : null,
+        ]
+          .filter((x) => !!x)
+          .forEach((className) => (this.component.location.nativeElement as HTMLElement).classList.add(className + ''));
       } else {
         (this.component.location.nativeElement as HTMLElement).classList.add('w-100');
       }
@@ -76,10 +83,10 @@ export class TableFilterDirective implements OnInit {
           regularParam: this.fb.control(filter.regularParam),
           innerFilter: !!filter.innerFilter
             ? this.fb.group({
-              name: filter.innerFilter.name,
-              value: this.fb.control(null),
-              matchMode: this.fb.control(filter.innerFilter.matchMode || innerDefaultMatchMode),
-            })
+                name: filter.innerFilter.name,
+                value: this.fb.control(null),
+                matchMode: this.fb.control(filter.innerFilter.matchMode || innerDefaultMatchMode),
+              })
             : null,
         })
       );

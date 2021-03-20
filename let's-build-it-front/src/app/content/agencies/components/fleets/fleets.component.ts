@@ -24,29 +24,33 @@ import { FleetsService } from '../../../fleets/services/fleets.service';
 @Component({
   selector: 'prx-fleets',
   templateUrl: './fleets.component.html',
-  styleUrls: ['./fleets.component.scss']
+  styleUrls: ['./fleets.component.scss'],
 })
 export class FleetsComponent extends TablePageDirective<PartnerFleetModel> implements OnInit {
   public importConfig?: ImportConfig;
   public columns: TableColumn<PartnerFleetModel>[];
   public pageActions: ButtonItem<any>[];
   public filters: TableFilter[];
-  public itemActions: ButtonItem<PartnerFleetModel>[] = [{
-    tooltip: 'Edit',
-    icon: faEdit,
-    styleClass: 'btn-outline-primary ml-2',
-    click: (item) => {
-      this.router.navigate(['edit', item.id], { relativeTo: this.route })
+  public itemActions: ButtonItem<PartnerFleetModel>[] = [
+    {
+      tooltip: 'Edit',
+      icon: faEdit,
+      styleClass: 'btn-outline-primary ml-2',
+      click: (item) => {
+        this.router.navigate(['edit', item.id], { relativeTo: this.route });
+      },
     },
-  },
-  {
-    label: 'Details',
-    icon: faHandshake,
-    styleClass: 'btn-outline-primary ml-2',
-    click: (item) => {
-      this.router.navigate(['agencies', this.sidebarService.entity.id, 'fleets', item.id, 'profile'], { relativeTo: this.route.root })
+    {
+      label: 'Details',
+      icon: faHandshake,
+      styleClass: 'btn-outline-primary ml-2',
+      click: (item) => {
+        this.router.navigate(['agencies', this.sidebarService.entity.id, 'fleets', item.id, 'profile'], {
+          relativeTo: this.route.root,
+        });
+      },
     },
-  }];
+  ];
 
   public getDataProvider(evt: LazyLoadEvent, isExport?: boolean): Observable<IPagedList<PartnerFleetModel>> {
     return this.fleetsService.getAll(this.sidebarService.entity.id, evt);
@@ -62,17 +66,15 @@ export class FleetsComponent extends TablePageDirective<PartnerFleetModel> imple
     router: Router,
     private route: ActivatedRoute,
     private fleetsService: FleetsService,
-    notificationsService: NotificationsService,
-
+    notificationsService: NotificationsService
   ) {
-    super(modalService, true, notificationsService, router)
+    super(modalService, true, notificationsService, router);
   }
 
   ngOnInit(): void {
     // this.fleetsService.get()
 
     this.columns = [
-
       {
         field: 'partnerId',
         hidden: true,
@@ -135,5 +137,4 @@ export class FleetsComponent extends TablePageDirective<PartnerFleetModel> imple
       },
     ];
   }
-
 }

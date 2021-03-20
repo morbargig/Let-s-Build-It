@@ -5,9 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class LogPipe implements PipeTransform {
   transform(text: any, debug: boolean): void {
-    console.log(text)
+    console.log(text);
     if (debug) {
-      debugger
+      debugger;
     }
   }
 }

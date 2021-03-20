@@ -9,11 +9,10 @@ import { UtilsService } from '../../../../../../../@core/services/utils.service'
 import { Validators } from '@angular/forms';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class DamageDetailsFormService implements IFormGenerator < DynamicFormControl[] >{
-
-  constructor(private utilsService: UtilsService,) { }
+export class DamageDetailsFormService implements IFormGenerator<DynamicFormControl[]> {
+  constructor(private utilsService: UtilsService) {}
   generate(carDamage: CarDamageModel = null): DynamicFormControl[] {
     return [
       {
@@ -45,7 +44,6 @@ export class DamageDetailsFormService implements IFormGenerator < DynamicFormCon
           },
         },
       },
-    ]
+    ];
   }
-  
 }

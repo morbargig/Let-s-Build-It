@@ -12,12 +12,15 @@ import { IdeoValidators } from '../../../../../../@forms/@core/validators/ideo.v
 import { FormArrayData } from '../../../../../../@forms/form-fields/form-array/form-array';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class B2BSubscriptionFormService implements IFormGenerator<DynamicFormControl[]> {
-
-  constructor() { }
-  generate(isEdit: boolean, partnerId: number, b2bSubscriptions: PartnerB2BSubscriptionModel[] = null): DynamicFormControl[] {
+  constructor() {}
+  generate(
+    isEdit: boolean,
+    partnerId: number,
+    b2bSubscriptions: PartnerB2BSubscriptionModel[] = null
+  ): DynamicFormControl[] {
     let subscriptionSetter: Subject<FieldEvent> = new Subject<FieldEvent>();
 
     return [
@@ -28,11 +31,16 @@ export class B2BSubscriptionFormService implements IFormGenerator<DynamicFormCon
           value: b2bSubscriptions,
           styleClass: 'col-12',
           setter: subscriptionSetter,
-          validation: [Validators.required, (ctrl: FormArray) => {
-            return !ctrl.value?.length ? {
-              'subscriptions': 'you must add subscriptions.'
-            } : null
-          }],
+          validation: [
+            Validators.required,
+            (ctrl: FormArray) => {
+              return !ctrl.value?.length
+                ? {
+                    subscriptions: 'you must add subscriptions.',
+                  }
+                : null;
+            },
+          ],
           data: {
             data: b2bSubscriptions,
             formConfig: [
@@ -44,8 +52,8 @@ export class B2BSubscriptionFormService implements IFormGenerator<DynamicFormCon
                   placeholder: 'Plan Name',
                   inputStyleClass: 'form-control',
                   type: 'text',
-                  validation: [Validators.required]
-                }
+                  validation: [Validators.required],
+                },
               },
               {
                 type: FormTextComponent,
@@ -55,8 +63,8 @@ export class B2BSubscriptionFormService implements IFormGenerator<DynamicFormCon
                   placeholder: 'Subscription Fee',
                   inputStyleClass: 'form-control',
                   type: 'number',
-                  validation: [Validators.required]
-                }
+                  validation: [Validators.required],
+                },
               },
               {
                 type: FormTextComponent,
@@ -66,8 +74,8 @@ export class B2BSubscriptionFormService implements IFormGenerator<DynamicFormCon
                   placeholder: 'Discount (%)',
                   inputStyleClass: 'form-control',
                   type: 'number',
-                  validation: [Validators.required]
-                }
+                  validation: [Validators.required],
+                },
               },
               {
                 type: FormTextComponent,
@@ -77,12 +85,16 @@ export class B2BSubscriptionFormService implements IFormGenerator<DynamicFormCon
                   placeholder: 'Revenue Start',
                   inputStyleClass: 'form-control',
                   type: 'number',
-                  validation: [Validators.required, IdeoValidators.smallerThanOrEquals('revenueEnd'), Validators.min(0)],
+                  validation: [
+                    Validators.required,
+                    IdeoValidators.smallerThanOrEquals('revenueEnd'),
+                    Validators.min(0),
+                  ],
                   errorMessages: {
                     revenueEnd: 'Must be smaller then Revenue End',
                     min: 'Must be greater then 0',
                   },
-                }
+                },
               },
               {
                 type: FormTextComponent,
@@ -92,12 +104,16 @@ export class B2BSubscriptionFormService implements IFormGenerator<DynamicFormCon
                   placeholder: 'Revenue End',
                   inputStyleClass: 'form-control',
                   type: 'number',
-                  validation: [Validators.required, IdeoValidators.greaterThanOrEquals('revenueStart'), Validators.min(0)],
+                  validation: [
+                    Validators.required,
+                    IdeoValidators.greaterThanOrEquals('revenueStart'),
+                    Validators.min(0),
+                  ],
                   errorMessages: {
                     revenueStart: 'Must be greater then Revenue Start',
                     min: 'Must be greater then 0',
                   },
-                }
+                },
               },
               {
                 type: FormTextComponent,
@@ -105,25 +121,24 @@ export class B2BSubscriptionFormService implements IFormGenerator<DynamicFormCon
                   name: 'partnerId',
                   value: partnerId,
                   type: 'hidden',
-                  validation: [Validators.required]
-                }
+                  validation: [Validators.required],
+                },
               },
               {
                 type: FormTextComponent,
                 config: {
                   name: 'id',
                   type: 'hidden',
-                }
-              }
-
-            ]
+                },
+              },
+            ],
           } as FormArrayData,
           errorMessages: {
-            'subscriptions': 'You must specify subscriptions'
-          }
-        }
-      }
-    ] as DynamicFormControl[]
+            subscriptions: 'You must specify subscriptions',
+          },
+        },
+      },
+    ] as DynamicFormControl[];
   }
   convert?: ModelConverter<DynamicFormControl[], any>;
 }

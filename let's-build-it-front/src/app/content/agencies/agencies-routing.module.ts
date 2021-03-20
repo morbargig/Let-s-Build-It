@@ -40,7 +40,6 @@ import { TariffsComponent } from './components/tariffs/tariffs.component';
 import { TariffsResolverService } from './components/tariffs/tariffs-resolver.service';
 import { TariffDetailsComponent } from './components/tariffs/tariff-details/tariff-details.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -65,60 +64,68 @@ const routes: Routes = [
       { path: 'general', component: GeneralComponent },
       { path: 'payment-methods', component: PaymentMethodsComponent },
       {
-        path: 'user-management', component: UserMangementComponent, children: [
+        path: 'user-management',
+        component: UserMangementComponent,
+        children: [
           {
-            path: 'edit/:id', component: ModalPageComponent,
-            resolve: { config: UserManagmentResolverService }
+            path: 'edit/:id',
+            component: ModalPageComponent,
+            resolve: { config: UserManagmentResolverService },
           },
           {
-            path: 'create', component: ModalPageComponent,
-            resolve: { config: UserManagmentResolverService }
-          }
-        ]
+            path: 'create',
+            component: ModalPageComponent,
+            resolve: { config: UserManagmentResolverService },
+          },
+        ],
       },
       { path: 'payment-plan', component: PaymentPlanComponent },
       {
-        path: 'subscriptions', component: TabsPageComponent,
+        path: 'subscriptions',
+        component: TabsPageComponent,
         resolve: {
-          config: SubscriptionsResolverService
+          config: SubscriptionsResolverService,
         },
         children: [
           {
-            path: 'b2b', component: B2BSubscriptionComponent,
+            path: 'b2b',
+            component: B2BSubscriptionComponent,
             children: [
               {
                 path: 'edit/:id',
                 component: ModalPageComponent,
-                resolve: { config: B2BSubScriptionResolverService }
+                resolve: { config: B2BSubScriptionResolverService },
               },
               {
                 path: 'create',
                 component: ModalPageComponent,
-                resolve: { config: B2BSubScriptionResolverService }
+                resolve: { config: B2BSubScriptionResolverService },
               },
-            ]
+            ],
           },
           {
-            path: 'b2c', component: B2CSubscriptionComponent,
+            path: 'b2c',
+            component: B2CSubscriptionComponent,
             children: [
               {
                 path: 'edit/:id',
                 component: ModalPageComponent,
-                resolve: { config: B2CSubscriptionResolver }
+                resolve: { config: B2CSubscriptionResolver },
               },
               {
                 path: 'create',
                 component: ModalPageComponent,
-                resolve: { config: B2CSubscriptionResolver }
+                resolve: { config: B2CSubscriptionResolver },
               },
               {
-                path: 'assign/:id', component: ModalAssignPageComponent,
-                resolve: { config: B2CSubscriptionAssignResolver }
-              }
-            ]
+                path: 'assign/:id',
+                component: ModalAssignPageComponent,
+                resolve: { config: B2CSubscriptionAssignResolver },
+              },
+            ],
           },
-          { path: '**', redirectTo: 'b2c', pathMatch: 'full' }
-        ]
+          { path: '**', redirectTo: 'b2c', pathMatch: 'full' },
+        ],
       },
       { path: 'discounts-and-charges', component: DiscountsAndChargesComponent },
       {
@@ -128,19 +135,19 @@ const routes: Routes = [
           {
             path: 'group/:id',
             component: ModalPageComponent,
-            resolve: { config: AncillariesGroupResolverService }
+            resolve: { config: AncillariesGroupResolverService },
           },
           {
             path: 'assign/:id',
             component: ModalAssignPageComponent,
-            resolve: { config: AncillariesAssignResolverService }
+            resolve: { config: AncillariesAssignResolverService },
           },
           {
             path: 'ancillary/:id',
             component: ModalPageComponent,
-            resolve: { config: AncillariesResolverService }
-          }
-        ]
+            resolve: { config: AncillariesResolverService },
+          },
+        ],
       },
       {
         path: 'tariff',
@@ -152,15 +159,15 @@ const routes: Routes = [
               {
                 path: ':action/:id',
                 component: ModalPageComponent,
-                resolve: { config: TariffsResolverService }
+                resolve: { config: TariffsResolverService },
               },
-            ]
+            ],
           },
           {
             path: ':id',
             component: TariffDetailsComponent,
           },
-        ]
+        ],
       },
       { path: 'settings', component: SettingsComponent },
       {
@@ -170,17 +177,17 @@ const routes: Routes = [
           {
             path: 'create/:type',
             component: ModalPageComponent,
-            resolve: { config: CreateOrEditResolverService }
+            resolve: { config: CreateOrEditResolverService },
           },
           {
             path: 'edit/:id',
             component: ModalPageComponent,
-            resolve: { config: CreateOrEditResolverService }
+            resolve: { config: CreateOrEditResolverService },
           },
           {
             path: 'assign/:id',
             component: ModalAssignPageComponent,
-            resolve: { config: InventoryAssignResolverService }
+            resolve: { config: InventoryAssignResolverService },
           },
 
           { path: '**', redirectTo: 'inventory', pathMatch: 'full' },
@@ -214,11 +221,10 @@ const routes: Routes = [
       { path: '**', redirectTo: 'summary', pathMatch: 'full' },
     ],
   },
-
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AgenciesRoutingModule { }
+export class AgenciesRoutingModule {}

@@ -78,12 +78,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges, Control
   }
 
   public iconClass(icon: IconDefinition | string | false): string | false {
-    if (!icon) return ''
+    if (!icon) return '';
     if (typeof icon !== 'string') {
-      let res = (icon.prefix + ' fa-' + icon.iconName)
-      return res
+      let res = icon.prefix + ' fa-' + icon.iconName;
+      return res;
     }
-    return icon
+    return icon;
   }
 
   @ViewChild('importFile') public importFile: ElementRef<any>;
@@ -112,7 +112,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges, Control
   public selectedKeys: { [id: string]: boolean } = {};
 
   @Output() public onLazyLoad: EventEmitter<LazyLoadEvent> = new EventEmitter<LazyLoadEvent>();
-  @Output() public onRowHover: EventEmitter<{ index: number, item: any, hoverMode: 'enter' | 'leave' }> = new EventEmitter<{ index: number, item: any, hoverMode: 'enter' | 'leave' }>();
+  @Output() public onRowHover: EventEmitter<{
+    index: number;
+    item: any;
+    hoverMode: 'enter' | 'leave';
+  }> = new EventEmitter<{ index: number; item: any; hoverMode: 'enter' | 'leave' }>();
 
   private _items: any[];
   @Input() public set items(val: any[]) {
@@ -232,7 +236,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges, Control
     this.onTouch = fn;
   }
 
-  public setDisabledState?(isDisabled: boolean): void { }
+  public setDisabledState?(isDisabled: boolean): void {}
 
   public updateForm() {
     let selected = [...this.selection.map((s) => s[this.dataKey]), ...this.initSelection];

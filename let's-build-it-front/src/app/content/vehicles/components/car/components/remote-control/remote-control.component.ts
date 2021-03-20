@@ -9,7 +9,7 @@ import { ImportConfig } from '@app/@shared/models/import.config';
 import { IPagedList } from '@app/@shared/models/paged-list.response';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import {ActionType} from '../../../../../../@shared/interfaces/action-type.enum';
+import { ActionType } from '../../../../../../@shared/interfaces/action-type.enum';
 import { BooleanFilterComponent } from '../../../../../../@ideo/components/table/table-filters/boolean-filter/boolean-filter.component';
 import { MultiselectFilterComponent } from '@app/@ideo/components/table/table-filters/multiselect-filter/multiselect-filter.component';
 import { UtilsService } from '@app/@core/services/utils.service';
@@ -23,7 +23,6 @@ import { CarActionLogModel } from '../../../../../../@shared/models/car-action-l
 import { CalendarFilterComponent } from '@app/@ideo/components/table/table-filters/calendar-filter/calendar-filter.component';
 import { TableComponent } from '../../../../../../@ideo/components/table/table.component';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'prx-remote-control',
@@ -44,109 +43,135 @@ export class RemoteControlComponent extends TablePageDirective<CarActionLogModel
   public dropdownActions: SelectItem[] = [{ label: 'Damage Report', value: 'Damage-Report' }];
   public controlButtons: ButtonItem[] = [
     {
-      label: 'Lock Doors', item: ActionType.lock_doors, click: (item: ActionType) =>
-      {
-        this.carsService.SendAction(this.car.id, item).toPromise().then(res => {
-          if (res == true) {
-            this.notificationsService.success("action was sent successfully");
-          }
-          else { 
-            this.notificationsService.error("action failed");   
-          }
+      label: 'Lock Doors',
+      item: ActionType.lock_doors,
+      click: (item: ActionType) => {
+        this.carsService
+          .SendAction(this.car.id, item)
+          .toPromise()
+          .then((res) => {
+            if (res == true) {
+              this.notificationsService.success('action was sent successfully');
+            } else {
+              this.notificationsService.error('action failed');
+            }
 
-          this.tc.getData();
-      }) }
-      , styleClass: 'btn-outline-secondary flex-grow w-100'
+            this.tc.getData();
+          });
+      },
+      styleClass: 'btn-outline-secondary flex-grow w-100',
     },
     {
-      label: 'Allow Start Engine', item: ActionType.allow_start_engine, click: (item: ActionType) =>
-      { 
-        this.carsService.SendAction(this.car.id, item).toPromise().then(res => {
-          if (res == true) {
-            this.notificationsService.success("action was sent successfully");
-          }
-          else {
-            this.notificationsService.error("action failed");
-          }
-          this.tc.getData();
-             
-        })
-      }, styleClass: 'btn-outline-secondary flex-grow w-100'
+      label: 'Allow Start Engine',
+      item: ActionType.allow_start_engine,
+      click: (item: ActionType) => {
+        this.carsService
+          .SendAction(this.car.id, item)
+          .toPromise()
+          .then((res) => {
+            if (res == true) {
+              this.notificationsService.success('action was sent successfully');
+            } else {
+              this.notificationsService.error('action failed');
+            }
+            this.tc.getData();
+          });
+      },
+      styleClass: 'btn-outline-secondary flex-grow w-100',
     },
     {
-      label: 'Reboot Modem', item: ActionType.reboot_modem, click: (item: ActionType) =>
-      { 
-        this.carsService.SendAction(this.car.id, item).toPromise().then(res => {
-          if (res == true) {
-            this.notificationsService.success("action was sent successfully");
-          }
-          else{
-            this.notificationsService.error("action failed");
-          }
-          this.tc.getData();
-        })
-      }, styleClass: 'btn-outline-secondary flex-grow w-100'
+      label: 'Reboot Modem',
+      item: ActionType.reboot_modem,
+      click: (item: ActionType) => {
+        this.carsService
+          .SendAction(this.car.id, item)
+          .toPromise()
+          .then((res) => {
+            if (res == true) {
+              this.notificationsService.success('action was sent successfully');
+            } else {
+              this.notificationsService.error('action failed');
+            }
+            this.tc.getData();
+          });
+      },
+      styleClass: 'btn-outline-secondary flex-grow w-100',
     },
     { label: 'Blink car lights', click: (item) => {}, styleClass: 'btn-outline-secondary flex-grow w-100' },
     {
-      label: 'Unlock Doors', item: ActionType.unlock_doors, click: (item: ActionType) =>
-      { 
-        this.carsService.SendAction(this.car.id, item).toPromise().then(res => {
-          if (res == true) {
-            this.notificationsService.success("action was sent successfully");
-          }
-          else {
-            this.notificationsService.error("action failed"); 
-          }
-          this.tc.getData();
-        })  
-      }, styleClass: 'btn-outline-secondary flex-grow w-100'
-    },
-    {
-      label: 'Unlock & Allow Start', item: ActionType.unlock_doors_and_allow_start, click: (item: ActionType) =>
-      { 
-        this.carsService.SendAction(this.car.id, item).toPromise().then(res => {
-          if (res == true) {
-            this.notificationsService.success("action was sent successfully");
-          }
-          else {
-            this.notificationsService.error("action failed"); 
-          }
-            
-          this.tc.getData();
-      })
-      }, styleClass: 'btn-outline-secondary flex-grow w-100'
-    },
-    {
-      label: 'Reboot All', item: ActionType.reboot_all,click: (item: ActionType) =>
-      { 
-        this.carsService.SendAction(this.car.id, item).toPromise().then(res => {
-          if (res == true) {
-            this.notificationsService.success("action was sent successfully");
-          }
-          else {
-            this.notificationsService.error("action failed"); 
-          }
-          this.tc.getData(); 
-      })
+      label: 'Unlock Doors',
+      item: ActionType.unlock_doors,
+      click: (item: ActionType) => {
+        this.carsService
+          .SendAction(this.car.id, item)
+          .toPromise()
+          .then((res) => {
+            if (res == true) {
+              this.notificationsService.success('action was sent successfully');
+            } else {
+              this.notificationsService.error('action failed');
+            }
+            this.tc.getData();
+          });
       },
-      styleClass: 'btn-outline-secondary flex-grow w-100'
+      styleClass: 'btn-outline-secondary flex-grow w-100',
+    },
+    {
+      label: 'Unlock & Allow Start',
+      item: ActionType.unlock_doors_and_allow_start,
+      click: (item: ActionType) => {
+        this.carsService
+          .SendAction(this.car.id, item)
+          .toPromise()
+          .then((res) => {
+            if (res == true) {
+              this.notificationsService.success('action was sent successfully');
+            } else {
+              this.notificationsService.error('action failed');
+            }
+
+            this.tc.getData();
+          });
+      },
+      styleClass: 'btn-outline-secondary flex-grow w-100',
+    },
+    {
+      label: 'Reboot All',
+      item: ActionType.reboot_all,
+      click: (item: ActionType) => {
+        this.carsService
+          .SendAction(this.car.id, item)
+          .toPromise()
+          .then((res) => {
+            if (res == true) {
+              this.notificationsService.success('action was sent successfully');
+            } else {
+              this.notificationsService.error('action failed');
+            }
+            this.tc.getData();
+          });
+      },
+      styleClass: 'btn-outline-secondary flex-grow w-100',
     },
   ];
- 
+
   public controlRefresh: ButtonItem = {
-    label: 'Refresh', item: ActionType.refresh_data, click: (item: ActionType) =>
-    { 
-      this.carsService.SendAction(this.car.id, item).toPromise().then(res => {
-        if (res == true) {
-          this.notificationsService.success("action was sent successfully");
-        }
-        else {
-          this.notificationsService.error("action failed");   
-        }
-        this.tc.getData(); 
-    })
-    }, styleClass: 'btn-secondary'
+    label: 'Refresh',
+    item: ActionType.refresh_data,
+    click: (item: ActionType) => {
+      this.carsService
+        .SendAction(this.car.id, item)
+        .toPromise()
+        .then((res) => {
+          if (res == true) {
+            this.notificationsService.success('action was sent successfully');
+          } else {
+            this.notificationsService.error('action failed');
+          }
+          this.tc.getData();
+        });
+    },
+    styleClass: 'btn-secondary',
   };
 
   public get car(): CarModel {

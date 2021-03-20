@@ -7,14 +7,14 @@ import { StringHelperService } from './string-helper.service';
   providedIn: 'root',
 })
 export class QueryBuilderService {
-  constructor(private stringHelper: StringHelperService, private http: HttpClient) { }
+  constructor(private stringHelper: StringHelperService, private http: HttpClient) {}
 
   public query(url: string, evt: LazyLoadEvent, params: any = null): string {
-    let newEvt = {}
+    let newEvt = {};
     Object.keys(evt?.filters || {}).forEach(function (key) {
-      newEvt[key.charAt(0).toUpperCase() + key.slice(1)] = evt.filters[key]
-    })
-    evt.filters = newEvt
+      newEvt[key.charAt(0).toUpperCase() + key.slice(1)] = evt.filters[key];
+    });
+    evt.filters = newEvt;
     let isExport = !!evt && !!evt.exportType;
     let isAll = !!evt && evt.exportType == 'All';
     let queryParamsUrl = !!evt ? `?${this.getQueryParams(evt)}` : '';
@@ -104,13 +104,13 @@ export class QueryBuilderService {
         params = filters[filterKey].regularParam
           ? this.appendParam(params, filterKey, filters[filterKey].value)
           : this.appendFilter(
-            params,
-            filterIndex++,
-            filterKey,
-            filters[filterKey].value,
-            filters[filterKey].matchMode,
-            filterObjName
-          );
+              params,
+              filterIndex++,
+              filterKey,
+              filters[filterKey].value,
+              filters[filterKey].matchMode,
+              filterObjName
+            );
       } else if (filters[filterKey].innerFilter) {
         let innerKeys = Object.keys(filters[filterKey]);
         for (let i = 0; i < innerKeys.length; i++) {

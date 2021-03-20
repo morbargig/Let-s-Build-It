@@ -29,8 +29,8 @@ export class CalendarComponent implements OnInit, ControlValueAccessor {
   @Input() public type: 'time' | 'datetime-local' | 'month' | 'date' = 'datetime-local';
   @Input() public inputClass: string;
 
-  public onChange: any = () => { };
-  public onTouch: any = () => { };
+  public onChange: any = () => {};
+  public onTouch: any = () => {};
   public id: string = `calendar-${this.stringHelper.randomStr(4)}`;
   public disabled: boolean;
   private _utcValue: string;
@@ -40,9 +40,9 @@ export class CalendarComponent implements OnInit, ControlValueAccessor {
     private stringHelper: StringHelperService,
     // private timezoneService: TimezoneService,
     private cd: ChangeDetectorRef
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   public writeValue(date: string): void {
     if (new Date(date).getFullYear() === 1) {

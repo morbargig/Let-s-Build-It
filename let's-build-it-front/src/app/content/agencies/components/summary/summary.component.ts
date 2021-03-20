@@ -9,15 +9,13 @@ import { SideBarPageService } from '../../../../@shared/components/side-bar-page
   styleUrls: ['./summary.component.scss'],
 })
 export class SummaryComponent implements OnInit {
-
   constructor(private sidebarService: SideBarPageService) {
     this.sidebarService.breadcrumbs = [
       { label: 'Agencies', url: '../../' },
       { label: this.sidebarService.entity.name, url: './' },
-      { label: 'Summary', },
-    ]
-   }
+      { label: 'Summary' },
+    ];
+  }
 
   ngOnInit(): void {}
-
 }

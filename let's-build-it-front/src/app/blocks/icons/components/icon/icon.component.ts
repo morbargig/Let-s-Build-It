@@ -22,24 +22,24 @@ export class IconComponent extends BaseComponent implements OnInit {
   }
 
   get iconStr(): string {
-    return this.icon as string
+    return this.icon as string;
   }
 
   get ideoIcon(): string {
-    return IconComponent.ideoIconModel[this.iconStr]
+    return IconComponent.ideoIconModel[this.iconStr];
   }
 
-  static ideoIconModel = new IdeoIconModel()
+  static ideoIconModel = new IdeoIconModel();
 
   get useIdeo(): boolean {
-    return Object.keys(IconComponent.ideoIconModel)?.some(x => x === this.icon);
+    return Object.keys(IconComponent.ideoIconModel)?.some((x) => x === this.icon);
   }
 
   constructor() {
     super();
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   isFontAwesome(icon: IconDefinition | string): icon is IconDefinition {
     return !!icon && !!(icon as IconDefinition)?.prefix;

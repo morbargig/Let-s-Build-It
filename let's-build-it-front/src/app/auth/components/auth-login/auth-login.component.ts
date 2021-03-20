@@ -28,8 +28,8 @@ export class AuthLoginComponent extends BaseFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
-    private authenticationService: AuthenticationService
-    , private tokenService: TokenService
+    private authenticationService: AuthenticationService,
+    private tokenService: TokenService
   ) {
     super();
     this.isLoading = false;
@@ -38,7 +38,7 @@ export class AuthLoginComponent extends BaseFormComponent implements OnInit {
 
   ngOnInit() {
     if (this.tokenService.isTokenActive()) {
-      this.router.navigate(['/home'])
+      this.router.navigate(['/home']);
     }
   }
 
@@ -60,7 +60,7 @@ export class AuthLoginComponent extends BaseFormComponent implements OnInit {
         )
         .subscribe(
           (credentials) => {
-            log.debug(`${credentials.username} successfully logged in`);
+            log.debug(`${credentials.firstName + credentials.lastName} successfully logged in`);
             this.route.queryParams.subscribe((params) => this.redirect(params));
           },
           (error) => {

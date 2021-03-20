@@ -26,7 +26,6 @@ export class SideBarPageComponent implements OnInit, OnDestroy {
       this.showDetails = !route.snapshot.data['hideDetails'];
 
       this.route.params.pipe(takeUntil(this.endded)).subscribe((params) => {
-
         return this.getEntityById(params['id'], params)
           .toPromise()
           .then((entity) => {
@@ -36,11 +35,8 @@ export class SideBarPageComponent implements OnInit, OnDestroy {
             }
           })
           .finally(() => (this.loading = false));
-      }
-
-      );
+      });
     });
-
 
     router.events
       .pipe(
@@ -79,7 +75,7 @@ export class SideBarPageComponent implements OnInit, OnDestroy {
 
   public get showDetails(): boolean {
     return this.sidebarPageService.detailsVisible;
-  };
+  }
 
   public set showDetails(v: boolean) {
     this.sidebarPageService.detailsVisible = v;

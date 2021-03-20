@@ -1,4 +1,4 @@
-export interface CarActionLogModel{
+export interface CarActionLogModel {
   id?: number;
   carId: number;
   userId?: number;
@@ -10,5 +10,4 @@ export interface CarActionLogModel{
   comments: string;
   createDate?: Date;
   updateDate?: Date;
-
 }

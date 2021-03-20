@@ -53,7 +53,7 @@ export class DamagesComponent extends TablePageDirective<CarDamageModel> impleme
       icon: 'fas fa-edit',
       styleClass: 'btn-outline-primary ml-2',
       click: (item) => {
-        this.router.navigate(['edit', item.id], { relativeTo: this.route })
+        this.router.navigate(['edit', item.id], { relativeTo: this.route });
       },
     },
     {
@@ -63,8 +63,7 @@ export class DamagesComponent extends TablePageDirective<CarDamageModel> impleme
       hidden: () => false,
       click: (item) => this.deleteItem(item),
       styleClass: 'btn-outline-danger ml-2',
-    }
-    
+    },
   ];
 
   public dropdownActions: SelectItem[] = [
@@ -91,7 +90,8 @@ export class DamagesComponent extends TablePageDirective<CarDamageModel> impleme
       { label: 'Cars', url: '../../' },
       {
         label: `${this.sidebarPageService.entity.manufacturer} ${this.sidebarPageService.entity.model}
-       ${this.sidebarPageService.entity.modelYear} | ${this.sidebarPageService.entity.plateNo} `, url: './'
+       ${this.sidebarPageService.entity.modelYear} | ${this.sidebarPageService.entity.plateNo} `,
+        url: './',
       },
       { label: 'Damages' },
     ];
@@ -133,8 +133,8 @@ export class DamagesComponent extends TablePageDirective<CarDamageModel> impleme
             placeholder: 'Damage Side',
             type: MultiselectFilterComponent,
             options: asSelectItem(DamageSideType),
-          }
-        ]
+          },
+        ],
       },
       {
         field: 'position',
@@ -151,7 +151,7 @@ export class DamagesComponent extends TablePageDirective<CarDamageModel> impleme
             placeholder: 'Damage Position',
             type: MultiselectFilterComponent,
             options: asSelectItem(DamagePositionType),
-          }
+          },
         ],
       },
       {
@@ -169,9 +169,8 @@ export class DamagesComponent extends TablePageDirective<CarDamageModel> impleme
             placeholder: 'Damage Type',
             type: MultiselectFilterComponent,
             options: asSelectItem(DamageType),
-          }
+          },
         ],
-
       },
       {
         field: 'description',

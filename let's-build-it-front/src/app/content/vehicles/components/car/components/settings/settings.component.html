@@ -9,8 +9,7 @@
       <ng-template #formActions>
         <div class="col-12 d-flex justify-content-end form-btns">
           <button class="btn btn-info" (click)="editMode = false">Cancel</button>
-          <button class="btn btn-primary" [disabled]="
-              !generalForm?.valid || !serviceForm?.valid" (click)="onSubmit()">
+          <button class="btn btn-primary" [disabled]="!generalForm?.valid || !serviceForm?.valid" (click)="onSubmit()">
             Save Changes
           </button>
         </div>
@@ -22,25 +21,31 @@
 <div class="row">
   <div class="col-12">
     <prx-wsi-card [editMode]="editMode" title="General" [loading]="!car">
-
-      <prx-key-value-pair [items]="generalControls" [itemsPerRow]="1" [viewType]="'block'">
-      </prx-key-value-pair>
+      <prx-key-value-pair [items]="generalControls" [itemsPerRow]="1" [viewType]="'block'"> </prx-key-value-pair>
 
       <div edit-template>
-        <ideo-dynamic-form-group *ngIf="!!generalControls?.length" [config]="generalControls" [showSubmitButton]="false"
-          [(form)]="generalForm"> </ideo-dynamic-form-group>
+        <ideo-dynamic-form-group
+          *ngIf="!!generalControls?.length"
+          [config]="generalControls"
+          [showSubmitButton]="false"
+          [(form)]="generalForm"
+        >
+        </ideo-dynamic-form-group>
       </div>
     </prx-wsi-card>
   </div>
   <div class="col-12">
     <prx-wsi-card [editMode]="editMode" title="Maintenance parameters" [loading]="!car">
-
-      <prx-key-value-pair [items]="serviceControls" [itemsPerRow]="2" [viewType]="'block'">
-      </prx-key-value-pair>
+      <prx-key-value-pair [items]="serviceControls" [itemsPerRow]="2" [viewType]="'block'"> </prx-key-value-pair>
 
       <div edit-template>
-        <ideo-dynamic-form-group *ngIf="!!serviceControls?.length" [config]="serviceControls" [showSubmitButton]="false"
-          [(form)]="serviceForm"> </ideo-dynamic-form-group>
+        <ideo-dynamic-form-group
+          *ngIf="!!serviceControls?.length"
+          [config]="serviceControls"
+          [showSubmitButton]="false"
+          [(form)]="serviceForm"
+        >
+        </ideo-dynamic-form-group>
       </div>
     </prx-wsi-card>
   </div>

@@ -14,6 +14,5 @@ export class ImageCellComponent implements OnInit, TableCell {
 
   constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

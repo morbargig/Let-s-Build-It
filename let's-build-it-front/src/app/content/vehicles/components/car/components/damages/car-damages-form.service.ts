@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { IFormGenerator, ModelConverter } from '../../../../../../@forms/@core/models/form-generator';
 import { DynamicFormControl } from '../../../../../../@forms/@core/interfaces/dynamic-form-control';
-import { CarDamageModel, DamageDateType, DamagePositionType, DamageSideType, DamageType } from '../../../../../../@shared/models/car-damage.model';
+import {
+  CarDamageModel,
+  DamageDateType,
+  DamagePositionType,
+  DamageSideType,
+  DamageType,
+} from '../../../../../../@shared/models/car-damage.model';
 import { FormSelectComponent } from '../../../../../../@forms/form-fields/form-select/form-select.component';
 import { FormDateComponent } from '../../../../../../@forms/form-fields/form-date/form-date.component';
 import { UtilsService } from '../../../../../../@core/services/utils.service';
@@ -10,13 +16,11 @@ import { Validators } from '@angular/forms';
 import { FormFileComponent } from '../../../../../../@forms/form-fields/form-file/form-file.component';
 import { FormFile } from '../../../../../../@forms/form-fields/form-file/form-file';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class CarDamagesFormService implements IFormGenerator < DynamicFormControl[] > {
-
-  constructor(private utilsService: UtilsService,) { }
+export class CarDamagesFormService implements IFormGenerator<DynamicFormControl[]> {
+  constructor(private utilsService: UtilsService) {}
   generate(isEdit: boolean, carDamage: CarDamageModel = null): DynamicFormControl[] {
     let form: DynamicFormControl[] = [];
     form.push(
@@ -125,11 +129,10 @@ export class CarDamagesFormService implements IFormGenerator < DynamicFormContro
         config: {
           name: 'id',
           type: 'hidden',
-          value: carDamage?.id
+          value: carDamage?.id,
         },
-      },
+      }
     );
     return form;
   }
-  
 }

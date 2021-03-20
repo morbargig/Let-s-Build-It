@@ -18,33 +18,31 @@ import { LazyLoadEvent } from '../../../../../../@ideo/components/table/events/l
   providedIn: 'root',
 })
 export class RolesResolverService implements Resolve<BasePageConfig<any>> {
-  constructor(private rolesService: RolesService, private router: Router) { }
+  constructor(private rolesService: RolesService, private router: Router) {}
 
   private roles: SelectItem[] = [];
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): BasePageConfig<RoleModel> {
-
     const rolesEmitter: Subject<IPagedList<SelectItem>> = new Subject<IPagedList<SelectItem>>();
     const rolesAction: (evt: LazyLoadEvent) => Observable<IPagedList<SelectItem>> = (evt) => {
       evt.sortColumn = 'Name';
       evt.sortDirection = 'asc';
 
-      return this.rolesService
-        .getAll(evt)
-        .pipe(
-          map((z) => {
-            let val = {
-              data: z.data.map((x) => {
-                return {
-                  label: x.name,
-                  value: x.id,
-                } as SelectItem;
-              }),
-              total: z.total
-            };
-            return val;
-          }),
-          take(1))
+      return this.rolesService.getAll(evt).pipe(
+        map((z) => {
+          let val = {
+            data: z.data.map((x) => {
+              return {
+                label: x.name,
+                value: x.id,
+              } as SelectItem;
+            }),
+            total: z.total,
+          };
+          return val;
+        }),
+        take(1)
+      );
     };
 
     return new BasePageConfig({

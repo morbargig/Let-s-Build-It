@@ -9,7 +9,7 @@ import { environment } from '../../../../environments/environment';
 export class FilesService {
   private readonly serverUrl: string = environment.serverUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public uploadFile(file: File, action: string = 'Media'): Observable<any> {
     const headers = new HttpHeaders();

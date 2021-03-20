@@ -12,14 +12,11 @@ import { BillingPeriod } from '../../../../@shared/interfaces/billing-period.enu
 import { SymbolModel } from '../../../../@shared/models/symbol.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PaymentFormService implements IFormGenerator<DynamicFormControl[]> {
-  constructor
-    (
-      // private symbolModel: SymbolModel
-    ) {
-  }
+  constructor() // private symbolModel: SymbolModel
+  {}
   generate(): DynamicFormControl[] {
     let form: DynamicFormControl[] = [];
     let trialSubject: Subject<FieldEvent> = new Subject<FieldEvent>();
@@ -37,7 +34,7 @@ export class PaymentFormService implements IFormGenerator<DynamicFormControl[]> 
           styleClass: 'col-12 col-md-6 col-xl-4',
           validation: [Validators.required],
           errorMessages: {
-            'required': 'Selected Plan is required'
+            required: 'Selected Plan is required',
           },
         },
       },
@@ -61,7 +58,7 @@ export class PaymentFormService implements IFormGenerator<DynamicFormControl[]> 
           styleClass: 'col-12 col-md-6 col-xl-4',
           validation: [Validators.required],
           errorMessages: {
-            'required': 'Trial Period End is required'
+            required: 'Trial Period End is required',
           },
         },
       },
@@ -84,8 +81,8 @@ export class PaymentFormService implements IFormGenerator<DynamicFormControl[]> 
           styleClass: 'col-12 col-md-6 col-xl-4',
           validation: [Validators.required, Validators.min(0)],
           errorMessages: {
-            'required': 'Fixed Payment Amount is required',
-            'min': 'value must be grater than 0'
+            required: 'Fixed Payment Amount is required',
+            min: 'value must be grater than 0',
           },
         },
       },
@@ -100,7 +97,7 @@ export class PaymentFormService implements IFormGenerator<DynamicFormControl[]> 
           optionsArr: asSelectItem(BillingPeriod),
           validation: [Validators.required],
           errorMessages: {
-            required: 'Fixed Payment Billing Period is required'
+            required: 'Fixed Payment Billing Period is required',
           },
         },
       },
@@ -124,7 +121,7 @@ export class PaymentFormService implements IFormGenerator<DynamicFormControl[]> 
           optionsArr: asSelectItem(BillingPeriod),
           validation: [Validators.required],
           errorMessages: {
-            required: 'Revenue Fees Payment Billing Period is required'
+            required: 'Revenue Fees Payment Billing Period is required',
           },
         },
       },
@@ -140,7 +137,7 @@ export class PaymentFormService implements IFormGenerator<DynamicFormControl[]> 
           validation: [Validators.required, Validators.min(0)],
           errorMessages: {
             required: 'Vehicle Base Rent Fees is required',
-            'min': 'value must be grater than 0'
+            min: 'value must be grater than 0',
           },
         },
       },
@@ -156,7 +153,7 @@ export class PaymentFormService implements IFormGenerator<DynamicFormControl[]> 
           validation: [Validators.required, Validators.min(0)],
           errorMessages: {
             required: 'Vehicle Extra Fees is required',
-            'min': 'value must be grater than 0'
+            min: 'value must be grater than 0',
           },
         },
       },
@@ -172,7 +169,7 @@ export class PaymentFormService implements IFormGenerator<DynamicFormControl[]> 
           validation: [Validators.required, Validators.min(0)],
           errorMessages: {
             required: 'Ancillaries is required',
-            'min': 'value must be grater than 0'
+            min: 'value must be grater than 0',
           },
         },
       },
@@ -188,7 +185,7 @@ export class PaymentFormService implements IFormGenerator<DynamicFormControl[]> 
           validation: [Validators.required, Validators.min(0)],
           errorMessages: {
             required: 'B2B Fees is required',
-            'min': 'value must be grater than 0'
+            min: 'value must be grater than 0',
           },
         },
       },
@@ -204,9 +201,9 @@ export class PaymentFormService implements IFormGenerator<DynamicFormControl[]> 
           validation: [Validators.required, Validators.min(0)],
           errorMessages: {
             required: 'B2C Fees is required',
-            'min': 'value must be grater than 0'
+            min: 'value must be grater than 0',
           },
-        }
+        },
       },
       {
         type: FormTextComponent,
@@ -215,9 +212,8 @@ export class PaymentFormService implements IFormGenerator<DynamicFormControl[]> 
           type: 'hidden',
           styleClass: 'hidden',
         },
-      },
+      }
     );
     return form;
   }
 }
-

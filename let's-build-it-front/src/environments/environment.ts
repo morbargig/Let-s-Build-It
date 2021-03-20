@@ -14,7 +14,7 @@ export const environment = {
   production: false,
   hmr: true,
   version: env.npm_package_version + '-dev',
-  serverUrl: 'http://130.61.26.101',
+  serverUrl: 'http://localhost:3000',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'es-ES'],
   tinyMceApiKey: 'xs34uc83ejdugllrfp1o684c1u86wz1u758ot4yixm7rn4b2',

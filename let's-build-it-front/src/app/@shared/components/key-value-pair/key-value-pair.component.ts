@@ -11,13 +11,11 @@ import { ChangedCallBack } from '../../../@forms/@core/interfaces/callbacks';
   styleUrls: ['./key-value-pair.component.scss'],
 })
 export class KeyValuePairComponent implements OnInit {
-  constructor() { }
+  constructor() {}
 
   @Input() public items: (SelectItem | DynamicFormControl | any)[];
   @Input() public itemsPerRow: number = 2;
   @Input() public viewType: 'inline' | 'block' = 'inline';
-
-
 
   ngOnInit(): void {
     if (!!this.items?.length) {
@@ -31,7 +29,7 @@ export class KeyValuePairComponent implements OnInit {
             if (!!prevAction) {
               prevAction(curr, ctrl);
             }
-          }
+          };
         }
       }
     }

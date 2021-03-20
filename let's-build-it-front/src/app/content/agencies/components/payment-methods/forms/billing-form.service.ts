@@ -6,11 +6,10 @@ import { FormTextComponent } from '../../../../../@forms/form-fields/form-text/f
 import { FormDateComponent } from '../../../../../@forms/form-fields/form-date/form-date.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BillingFormService implements IFormGenerator<DynamicFormControl[]> {
-
-  constructor() { }
+  constructor() {}
   generate(...params: any[]): DynamicFormControl[] {
     return [
       {
@@ -28,8 +27,7 @@ export class BillingFormService implements IFormGenerator<DynamicFormControl[]> 
           },
         },
       },
-  
-  
+
       {
         type: FormDateComponent,
         config: {

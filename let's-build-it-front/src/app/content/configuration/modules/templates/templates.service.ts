@@ -9,15 +9,15 @@ import { BaseHttpService } from '@app/@core/base/base-http-service';
 @Injectable({
   providedIn: 'root',
 })
-export class TemplatesService extends BaseHttpService<TemplateModel>{
-  public collationName: string = 'configuration/templates'
+export class TemplatesService extends BaseHttpService<TemplateModel> {
+  public collationName: string = 'configuration/templates';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
-  public create:any = null;
-  public bulk:any = null;
-  public delete:any = null;
-  public update:any = null;
+  public create: any = null;
+  public bulk: any = null;
+  public delete: any = null;
+  public update: any = null;
 
   public getFields(id: number): Observable<TemplateField[]> {
     return this.http.get<TemplateField[]>(`${environment.serverUrl}/api/configuration/templates/${id}/fields`);

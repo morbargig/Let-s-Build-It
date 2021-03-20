@@ -17,8 +17,7 @@ import { FieldEvent } from '../../../../../../@forms/@core/interfaces/events';
   providedIn: 'root',
 })
 export class DiscountFormService implements IFormGenerator<DynamicFormControl[]> {
-
-  constructor(private date: DatePipe) { }
+  constructor(private date: DatePipe) {}
   generate(type: DiscountType, items: DiscountsModel[]): DynamicFormControl[] {
     switch (type) {
       case DiscountType.Weekend:
@@ -37,13 +36,13 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
       case DiscountType.Hourly:
         return this.convertHourly(values);
       case DiscountType.Holiday:
-        return this.convertHoliday(values)
+        return this.convertHoliday(values);
     }
     return null;
   }
 
   convertHourly(items: any[]): DiscountsModel[] {
-    return items.map(x => {
+    return items.map((x) => {
       x.type = DiscountType.Hourly;
       x.start = this.hoursCount(x.start);
       x.end = this.hoursCount(x.end);
@@ -62,7 +61,7 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
   }
 
   convertWeekend(items: any[]): DiscountsModel[] {
-    return items.map(x => {
+    return items.map((x) => {
       x.type = DiscountType.Weekend;
       x.start = this.weekendCalc(x.start);
       x.end = x.start;
@@ -71,7 +70,7 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
   }
 
   convertHoliday(items: any[]): DiscountsModel[] {
-    return items.map(x => {
+    return items.map((x) => {
       x.type = DiscountType.Holiday;
       x.end = x.start;
       return x as DiscountsModel;
@@ -84,12 +83,12 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
       let currDay = date.getDay();
       let daysCnt = 0;
       if (currDay > val) {
-        while (currDay > (val + daysCnt)) {
+        while (currDay > val + daysCnt) {
           daysCnt++;
         }
         date.setDate(date.getDate() - daysCnt);
       } else {
-        while (currDay < (val - daysCnt)) {
+        while (currDay < val - daysCnt) {
           daysCnt++;
         }
         date.setDate(date.getDate() + daysCnt);
@@ -99,8 +98,6 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
     return val;
   }
 
-
-
   generateWeekend(items: DiscountsModel[]): DynamicFormControl[] {
     // items = items.map(x => {
     //   x.start = this.date.transform(x.start, 'hh:mm');
@@ -108,15 +105,15 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
     //   return x;
     // })
     const dayVal = {
-      'Thursday': 4,
-      'Friday': 5,
-      'Saturday': 6
-    }
+      Thursday: 4,
+      Friday: 5,
+      Saturday: 6,
+    };
     let setter: Subject<FieldEvent> = new Subject<FieldEvent>();
-    items.forEach(x => {
+    items.forEach((x) => {
       x.start = dayVal[this.date.transform(x.start, 'EEEE')];
       x.end = dayVal[this.date.transform(x.start || x.end, 'EEEE')];
-    })
+    });
     return [
       {
         type: FormArrayComponent,
@@ -135,9 +132,13 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
                   name: 'start',
                   label: 'Weekends Day',
                   placeholder: 'Select Day',
-                  optionsArr: [{ label: "Thursday", value: 4 }, { label: "Friday", value: 5 }, { label: "Saturday", value: 6 }],
-                  validation: [Validators.required]
-                }
+                  optionsArr: [
+                    { label: 'Thursday', value: 4 },
+                    { label: 'Friday', value: 5 },
+                    { label: 'Saturday', value: 6 },
+                  ],
+                  validation: [Validators.required],
+                },
               },
               {
                 type: FormTextComponent,
@@ -146,26 +147,25 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
                   label: 'Discount (%)',
                   placeholder: 'Discount',
                   type: 'number',
-                  validation: [Validators.max(100), Validators.min(0)]
-                  , errorMessages: {
+                  validation: [Validators.max(100), Validators.min(0)],
+                  errorMessages: {
                     max: 'Discount must be smaller then 100%',
-                    min: 'Discount must be grater then 0%'
-                  }
-                }
+                    min: 'Discount must be grater then 0%',
+                  },
+                },
               },
-            ]
+            ],
           } as FormArrayData,
-
-        }
+        },
       },
     ];
   }
 
   generateHourly(items: DiscountsModel[]): DynamicFormControl[] {
-    items.forEach(x => {
+    items.forEach((x) => {
       x.start = this.date.transform(x.start, 'hh:mm');
-      x.end = this.date.transform(x.end, 'hh:mm')
-    })
+      x.end = this.date.transform(x.end, 'hh:mm');
+    });
     let setter: Subject<FieldEvent> = new Subject<FieldEvent>();
     return [
       {
@@ -187,8 +187,8 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
                   type: 'time',
                   placeholder: 'Select Hour',
                   // validation: [Validators.required, IdeoValidators.smallerThanOrEquals('end')]
-                  validation: [Validators.required]
-                }
+                  validation: [Validators.required],
+                },
               },
               {
                 type: FormDateComponent,
@@ -198,8 +198,8 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
                   label: 'End Hour',
                   placeholder: 'Select Hour',
                   // validation: [Validators.required, IdeoValidators.greaterThanOrEquals('start')]
-                  validation: [Validators.required]
-                }
+                  validation: [Validators.required],
+                },
               },
               {
                 type: FormTextComponent,
@@ -211,23 +211,22 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
                   validation: [Validators.max(100), Validators.min(0)],
                   errorMessages: {
                     max: 'Discount must be smaller then 100%',
-                    min: 'Discount must be grater then 0%'
-                  }
-                }
+                    min: 'Discount must be grater then 0%',
+                  },
+                },
               },
-            ]
+            ],
           } as FormArrayData,
-
-        }
+        },
       },
     ];
   }
 
   generateHoliday(items: DiscountsModel[]): DynamicFormControl[] {
-    items.forEach(x => {
+    items.forEach((x) => {
       x.start = (x.start as string).slice(0, 10);
       x.end = (x.end as string).slice(0, 10);
-    })
+    });
     let setter: Subject<FieldEvent> = new Subject<FieldEvent>();
     return [
       {
@@ -241,7 +240,6 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
             data: items,
             addLabel: 'Add',
 
-
             formConfig: [
               {
                 type: FormTextComponent,
@@ -250,8 +248,8 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
                   label: 'Name',
                   placeholder: 'Name',
                   type: 'text',
-                  validation: [Validators.required]
-                }
+                  validation: [Validators.required],
+                },
               },
               {
                 type: FormDateComponent,
@@ -259,8 +257,8 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
                   name: 'start',
                   label: 'Date',
                   type: 'date',
-                  validation: [Validators.required]
-                }
+                  validation: [Validators.required],
+                },
               },
               {
                 type: FormTextComponent,
@@ -269,23 +267,18 @@ export class DiscountFormService implements IFormGenerator<DynamicFormControl[]>
                   label: 'Discount (%)',
                   type: 'number',
                   placeholder: 'Discount',
-                  validation: [Validators.max(100), Validators.min(0)]
+                  validation: [Validators.max(100), Validators.min(0)],
                   // setter: radiusSetter
-                  , errorMessages: {
+                  errorMessages: {
                     max: 'Discount must be smaller then 100%',
-                    min: 'Discount must be grater then 0%'
-                  }
-                }
+                    min: 'Discount must be grater then 0%',
+                  },
+                },
               },
-
-            ]
+            ],
           } as FormArrayData,
-        }
+        },
       },
     ];
   }
-
-
-
-
 }

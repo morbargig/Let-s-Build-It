@@ -21,8 +21,11 @@
     </ng-template>
   </div>
   <div class="row" [ngClass]="{ 'flex-grow': fuller }">
-    <div *ngIf="!loading; else loadingTemplate" class="col-12 body d-flex flex-column"
-      [ngClass]="{ 'flex-grow': fullHeight }">
+    <div
+      *ngIf="!loading; else loadingTemplate"
+      class="col-12 body d-flex flex-column"
+      [ngClass]="{ 'flex-grow': fullHeight }"
+    >
       <div [hidden]="!!editMode" [ngClass]="{ 'flex-grow': fullHeight }">
         <ng-content></ng-content>
       </div>

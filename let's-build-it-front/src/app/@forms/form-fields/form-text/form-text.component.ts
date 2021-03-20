@@ -20,7 +20,7 @@ export class FormTextComponent extends BaseFieldDirective<FormControl> implement
   }
   ngOnInit(): void {
     if (this.config.disabled) {
-      this.control.disable()
+      this.control.disable();
     }
   }
 
@@ -34,7 +34,6 @@ export class FormTextComponent extends BaseFieldDirective<FormControl> implement
       .subscribe((evt) => {
         this.cd.markForCheck();
       });
-
   }
 
   public onChange(val: string) {

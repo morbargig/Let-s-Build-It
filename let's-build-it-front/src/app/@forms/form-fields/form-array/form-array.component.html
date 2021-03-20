@@ -12,13 +12,19 @@
           <th *ngFor="let field of config.data.formConfig | notHidden as ctrls" class="input-column">
             {{ field.config.label }}
           </th>
-          <th *ngIf="!config.data?.disableAddAndRemoveMode" style="max-width: 40em"
-            class="d-flex pr-0 justify-content-end align-item-center">
+          <th
+            *ngIf="!config.data?.disableAddAndRemoveMode"
+            style="max-width: 40em"
+            class="d-flex pr-0 justify-content-end align-item-center"
+          >
             <div class="btn-group">
-              <button *ngIf="!config.data?.showAddingMode" class="btn btn-secondary btn-sm" (click)="addConfig()"
+              <button
+                *ngIf="!config.data?.showAddingMode"
+                class="btn btn-secondary btn-sm"
+                (click)="addConfig()"
                 type="button"
-                [disabled]="!!config.data?.disabled || (!!config.data?.disabled$ && (config.data?.disabled$ | async))">
-
+                [disabled]="!!config.data?.disabled || (!!config.data?.disabled$ && (config.data?.disabled$ | async))"
+              >
                 <span *ngIf="config.data?.addLabel as label; else iconTmpl">
                   {{ label }}
                 </span>
@@ -26,8 +32,12 @@
                   <i class="ml-auto fas fa-plus"></i>
                 </ng-template>
               </button>
-              <button class="btn btn-sm" *ngIf="!config.data?.addLabel" (click)="folded = !folded"
-                [ngClass]="{ 'btn-danger': !folded, 'btn-info': !!folded }">
+              <button
+                class="btn btn-sm"
+                *ngIf="!config.data?.addLabel"
+                (click)="folded = !folded"
+                [ngClass]="{ 'btn-danger': !folded, 'btn-info': !!folded }"
+              >
                 <i class="ml-auto fas fa-minus" [ngClass]="{ 'fa-plus': !!folded }"></i>
               </button>
             </div>
@@ -41,8 +51,11 @@
               <ideo-dynamic-form-control [mode]="2" [dynamicControl]="field" [group]="ctrl">
               </ideo-dynamic-form-control>
             </td>
-            <td *ngIf="!config.data?.disableAddAndRemoveMode"
-              class="px-0 d-flex justify-content-center align-items-center" style="max-width: 40em">
+            <td
+              *ngIf="!config.data?.disableAddAndRemoveMode"
+              class="px-0 d-flex justify-content-center align-items-center"
+              style="max-width: 40em"
+            >
               <button class="btn btn-danger btn-md" (click)="removeConfig(i)" type="button">
                 <i class="fas fa-minus"></i>
               </button>
@@ -60,20 +73,23 @@
             </td>
           </tr>
           <tr *ngIf="!ctrl.valid && config?.data?.groupValidations?.length">
-            <td class="px-0 pb-1 border-0 group-validation-wrapper"
-              [colSpan]="(config.data.formConfig | notHidden).length">
+            <td
+              class="px-0 pb-1 border-0 group-validation-wrapper"
+              [colSpan]="(config.data.formConfig | notHidden).length"
+            >
               <ideo-validation-messages [control]="ctrl" [messages]="config?.data?.errorMessages" [takeOne]="true">
               </ideo-validation-messages>
             </td>
           </tr>
 
-
           <ng-container *ngIf="config.data.nestedConfig">
             <tr [ngClass]="{ 'table-secondary': !!config?.data?.isRoot && !!odd }">
               <td></td>
-              <td *ngFor="let field of config.data.nestedConfig"
+              <td
+                *ngFor="let field of config.data.nestedConfig"
                 [ngClass]="{ 'd-none': field.config?.type == 'hidden' }"
-                [colSpan]="(config.data.formConfig | notHidden).length">
+                [colSpan]="(config.data.formConfig | notHidden).length"
+              >
                 <ideo-dynamic-form-control [mode]="2" [dynamicControl]="field" [group]="ctrl">
                 </ideo-dynamic-form-control>
               </td>
@@ -81,11 +97,15 @@
           </ng-container>
           <!-- dynamic array -->
           <ng-container *ngIf="!!config.data.dynamicConfig">
-            <tr *ngFor="let item of config.data.data; let i = index"
-              [ngClass]="{ 'table-secondary': !!config?.data?.isRoot && !!odd }">
-              <td *ngFor="let field of config.data.dynamicConfig(i,item)"
+            <tr
+              *ngFor="let item of config.data.data; let i = index"
+              [ngClass]="{ 'table-secondary': !!config?.data?.isRoot && !!odd }"
+            >
+              <td
+                *ngFor="let field of config.data.dynamicConfig(i, item)"
                 [ngClass]="{ 'd-none': field.config?.type == 'hidden' }"
-                [colSpan]="(config.data.formConfig | notHidden).length">
+                [colSpan]="(config.data.formConfig | notHidden).length"
+              >
                 <ideo-dynamic-form-control [mode]="2" [dynamicControl]="field" [group]="ctrl">
                   <!-- {{ 0 | log : true}} -->
                 </ideo-dynamic-form-control>

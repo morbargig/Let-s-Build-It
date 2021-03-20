@@ -20,8 +20,20 @@
           <tbody *ngIf="!!items?.length">
             <tr *ngFor="let item of items">
               <td style="max-width: 10em">{{ item.property }}</td>
-              <td class="text-truncate" style="max-width: 20em" [ngClass]="{'text-warning': item.oldValue !== item.newValue}">{{ item.oldValue }}</td>
-              <td class="text-truncate" style="max-width: 20em" [ngClass]="{'text-primary': item.oldValue !== item.newValue}">{{ item.newValue }}</td>
+              <td
+                class="text-truncate"
+                style="max-width: 20em"
+                [ngClass]="{ 'text-warning': item.oldValue !== item.newValue }"
+              >
+                {{ item.oldValue }}
+              </td>
+              <td
+                class="text-truncate"
+                style="max-width: 20em"
+                [ngClass]="{ 'text-primary': item.oldValue !== item.newValue }"
+              >
+                {{ item.newValue }}
+              </td>
             </tr>
           </tbody>
         </table>

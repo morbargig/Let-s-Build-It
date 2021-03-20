@@ -5,13 +5,13 @@ import { UserManagementModel } from '../../../../@shared/models/user-management.
 import { BaseParentHttpService } from '@app/@core/base/base-parent-http-service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserManamenntService extends BaseParentHttpService<number, UserManagementModel> {
-  public collationName: string =  'Users'
+  public collationName: string = 'Users';
   public parentRoute: string = 'Partners';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
   public bulk: any = null;
 }

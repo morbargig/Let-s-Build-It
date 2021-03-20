@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ChangeDetectorRef, OnDestroy, EventEmitter } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectorRef,
+  OnDestroy,
+  EventEmitter,
+} from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { SelectItem } from '../../interfaces';
 import { takeUntil } from 'rxjs/operators';
@@ -18,21 +26,21 @@ export class ValidationMessagesComponent implements OnInit, OnDestroy {
   @Input() public set messages(msgObj: { [error: string]: string }) {
     if (!!msgObj) {
       this.errorMessages = [...this.getErrorMessages(msgObj)];
-      setTimeout(() => this.cd.detectChanges())
+      setTimeout(() => this.cd.detectChanges());
     }
   }
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(private cd: ChangeDetectorRef) {}
   ngOnDestroy(): void {
     this.endded.next(true);
   }
 
   ngOnInit(): void {
-    this.control.valueChanges.pipe(takeUntil(this.endded)).subscribe(res => {
-      if (this.errorMessages?.some(x => x.value == 'pattern')) {
+    this.control.valueChanges.pipe(takeUntil(this.endded)).subscribe((res) => {
+      if (this.errorMessages?.some((x) => x.value == 'pattern')) {
       }
-      setTimeout(() => this.cd.detectChanges())
-    })
+      setTimeout(() => this.cd.detectChanges());
+    });
   }
 
   private getErrorMessages(msgObj: { [error: string]: string }): SelectItem[] {

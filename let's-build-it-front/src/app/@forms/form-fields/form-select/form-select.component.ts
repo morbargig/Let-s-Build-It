@@ -29,8 +29,8 @@ export class FormSelectComponent extends BaseFieldDirective implements Field, On
         })
       );
     }
-    if (this.config.disabled){
-      this.control.disable()
+    if (this.config.disabled) {
+      this.control.disable();
     }
   }
 }

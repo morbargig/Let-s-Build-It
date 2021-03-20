@@ -106,7 +106,7 @@ $mz-sidenav-progress-bar-bg-color: $white;
 // [ ARROWS - for background edges ]
 $arrow-size: 30px;
 $arrow-size-gap-size: 2px;
-$arrow-pos: (-$arrow-size / 2)+$arrow-size-gap-size;
+$arrow-pos: (-$arrow-size / 2) + $arrow-size-gap-size;
 
 // [DROPDOWNS]
 $dropdown-heading-padding-x: 1rem;
@@ -119,8 +119,7 @@ $dropdown-body-max-height: 380px;
 $dropdown-bg-color: $white;
 $dropdown-nav-min-width: 350px;
 $dropdown-box-shadow-color: rgba($color-dark, 0.2);
-$dropdown-box-shadow: 0 0 15px 1px $dropdown-box-shadow-color,
-0 0 1px rgba(0, 0, 0, 0.2);
+$dropdown-box-shadow: 0 0 15px 1px $dropdown-box-shadow-color, 0 0 1px rgba(0, 0, 0, 0.2);
 
 //
 $input-hover-border-color: $gray-500;
@@ -149,19 +148,21 @@ $placeholder-bar--margin-top: 0.55rem !default;
 $placeholder-title--height: 12px;
 $placeholder-bolt--width: 70px;
 $placeholder-bolt--bg-color: $gray-100;
-$placeholder-bolt--bg-image: linear-gradient(90deg,
+$placeholder-bolt--bg-image: linear-gradient(
+  90deg,
   $placeholder-bar--bg-color,
   $placeholder-bolt--bg-color,
-  $placeholder-bar--bg-color);
+  $placeholder-bar--bg-color
+);
 
 // CARDS
 $card-box-shadow: 0 0.75rem 1.5rem rgba($black, 0.03);
 
 // TIME LINE
 $time-line-color: $border-color;
-$time-line-top-pos: $checkbox-size+8; // use the checkbox size as the basis for the top pos
+$time-line-top-pos: $checkbox-size + 8; // use the checkbox size as the basis for the top pos
 $time-line-time-width: 32px;
-$time-line-left-pos: $time-line-time-width+$checkbox-size - 1;
+$time-line-left-pos: $time-line-time-width + $checkbox-size - 1;
 
 // NOUI SLIDER
 $nouislider-handle-size: 16px;
@@ -215,19 +216,19 @@ $chart-sparkline-height: 35px !default;
 $chart-legend-margin-top: 2.5rem !default;
 $chart-legend-font-size: $font-size-sm !default;
 $chart-legend-color: $text-muted !default;
-$chart-legend-height: $chart-legend-margin-top+$chart-legend-font-size * $line-height-base !default;
+$chart-legend-height: $chart-legend-margin-top + $chart-legend-font-size * $line-height-base !default;
 
 // CARDS
 $card-fade-height: 300px;
 
-$Mobile:"(max-width: 991px)";
-$Desktop:"(min-width: 992px)";
+$Mobile: "(max-width: 991px)";
+$Desktop: "(min-width: 992px)";
 
 // Site Information
-$MobileWidth : 375px;
-$DeskTopWidth : 1920px;
+$MobileWidth: 375px;
+$DeskTopWidth: 1920px;
 
-$DesktopOnePix : calc(0vw + (100 * (1 / $DeskTopWidth)));
-$MobileOnePix : calc(0vw + (100 * (1 / $MobileWidth)));
+$DesktopOnePix: calc(0vw + (100 * (1 / $DeskTopWidth)));
+$MobileOnePix: calc(0vw + (100 * (1 / $MobileWidth)));
 
-$Px : $DesktopOnePix;
+$Px: $DesktopOnePix;

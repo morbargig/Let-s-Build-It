@@ -6,11 +6,10 @@ import { Validators } from '@angular/forms';
 import { FormTextComponent } from '../../../../../@forms/form-fields/form-text/form-text.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BankAccountFormService implements IFormGenerator<DynamicFormControl[]> {
-
-  constructor() { }
+  constructor() {}
   generate(...params: any[]): DynamicFormControl[] {
     return [
       {
@@ -94,7 +93,7 @@ export class BankAccountFormService implements IFormGenerator<DynamicFormControl
           name: 'id',
           type: 'hidden',
           value: params?.[1]?.id,
-        }
+        },
       },
       {
         type: FormTextComponent,
@@ -102,19 +101,17 @@ export class BankAccountFormService implements IFormGenerator<DynamicFormControl
           name: 'partnerId',
           type: 'hidden',
           value: params?.[0]?.id,
-
-        }
+        },
       },
       {
         type: FormTextComponent,
         config: {
           name: 'isDefault',
           type: 'hidden',
-          value: true
-        }
-      }
-
-    ] as DynamicFormControl[]
+          value: true,
+        },
+      },
+    ] as DynamicFormControl[];
   }
   convert?: ModelConverter<DynamicFormControl[], any>;
 }

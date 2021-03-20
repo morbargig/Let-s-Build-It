@@ -63,5 +63,5 @@ export enum TableColumnType {
   Default,
   Link,
   SubStr,
-  StaticImage
+  StaticImage,
 }

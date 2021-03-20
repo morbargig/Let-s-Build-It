@@ -6,7 +6,7 @@
     </button>
   </div>
 
-  <div class="modal-body" >
+  <div class="modal-body">
     <ng-container *ngIf="!message; else customMessage">
       Are you sure you would like to delete '{{ modalRef.content?.name || modalRef.content?.id || 'this entity' }}'?
     </ng-container>

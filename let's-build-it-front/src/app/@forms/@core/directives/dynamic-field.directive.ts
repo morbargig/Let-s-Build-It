@@ -46,7 +46,7 @@ export class DynamicFieldDirective implements Field, OnInit, OnChanges, OnDestro
     private resolver: ComponentFactoryResolver,
     private container: ViewContainerRef,
     private fb: FormBuilder
-  ) { }
+  ) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.component) {

@@ -1,4 +1,4 @@
-import { InventoryModel } from "./inventory.model";
+import { InventoryModel } from './inventory.model';
 import { PartnerMediaModel } from './partner-media.model';
 
 export interface PartnerModel {

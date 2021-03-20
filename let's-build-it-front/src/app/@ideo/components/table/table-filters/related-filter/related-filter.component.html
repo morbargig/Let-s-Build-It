@@ -18,7 +18,13 @@
     </ng-container>
 
     <div class="input-group-append" *ngIf="!filter.innerFilter">
-      <ideo-select [showPlaceholder]="false" [options]="innerComparisonOptions" placeholder="Operator" formControlName="matchMode"> </ideo-select>
+      <ideo-select
+        [showPlaceholder]="false"
+        [options]="innerComparisonOptions"
+        placeholder="Operator"
+        formControlName="matchMode"
+      >
+      </ideo-select>
     </div>
   </div>
 </div>

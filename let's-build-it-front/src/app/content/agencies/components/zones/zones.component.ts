@@ -24,11 +24,10 @@ import { SelectItem } from '@app/@forms/@core/interfaces';
 import { MultiselectFilterComponent } from '@app/@ideo/components/table/table-filters/multiselect-filter/multiselect-filter.component';
 import { FleetsService } from '../../../fleets/services/fleets.service';
 
-
 @Component({
   selector: 'prx-zones',
   templateUrl: './zones.component.html',
-  styleUrls: ['./zones.component.scss']
+  styleUrls: ['./zones.component.scss'],
 })
 export class ZonesComponent extends TablePageDirective<PartnerZone> implements OnInit {
   public importConfig?: ImportConfig;
@@ -39,10 +38,8 @@ export class ZonesComponent extends TablePageDirective<PartnerZone> implements O
 
   public managerOptions: any = null;
 
-
-
-
-  constructor(modalService: BsModalService,
+  constructor(
+    modalService: BsModalService,
     notificationsService: NotificationsService,
     private sidebarService: SideBarPageService,
     router: Router,
@@ -51,7 +48,7 @@ export class ZonesComponent extends TablePageDirective<PartnerZone> implements O
     private mapsAPILoader: MapsAPILoader,
     private partnerFleetsService: FleetsService,
     private partnerZonesService: PartnerZonesService
-    ) {
+  ) {
     super(modalService, true, notificationsService, router);
 
     this.sidebarService.breadcrumbs = [
@@ -59,7 +56,6 @@ export class ZonesComponent extends TablePageDirective<PartnerZone> implements O
       { label: this.sidebarService.entity.name, url: './' },
       { label: 'Zones' },
     ];
-
   }
 
   ngOnInit(): void {
@@ -79,8 +75,8 @@ export class ZonesComponent extends TablePageDirective<PartnerZone> implements O
         hidden: () => false,
         click: (item) => this.deleteItem(item),
         styleClass: 'btn-outline-danger ml-2',
-      }
-    ]
+      },
+    ];
 
     this.columns = [
       {
@@ -88,34 +84,39 @@ export class ZonesComponent extends TablePageDirective<PartnerZone> implements O
         header: 'Fleet',
         sortable: true,
         permission: { roles: ['Admin', 'PartnerAdmin'] },
-        filter: [{
-          type: MultiselectFilterComponent, permission: { roles: ['Admin', 'PartnerAdmin'] },
-          queryFilters: (query) => {
-            return {
-              "Name": {
-                value: query,
-                matchMode: MatchMode.Contains
-              }
-            } as FilterObject
+        filter: [
+          {
+            type: MultiselectFilterComponent,
+            permission: { roles: ['Admin', 'PartnerAdmin'] },
+            queryFilters: (query) => {
+              return {
+                Name: {
+                  value: query,
+                  matchMode: MatchMode.Contains,
+                },
+              } as FilterObject;
+            },
+            lazyOptions: (evt) => {
+              evt.sorts = ['Name'];
+              evt.sortDirection = 'asc';
+              return this.partnerFleetsService.getAll(this.sidebarService.entity.id, evt).pipe(
+                map((r) => {
+                  let val = {
+                    data: r?.data?.map((a) => {
+                      return {
+                        value: a.id,
+                        label: a.name,
+                        // icon: a.logoImgId,
+                      } as SelectItem;
+                    }),
+                    total: r.total,
+                  };
+                  return val;
+                })
+              );
+            },
           },
-          lazyOptions: (evt) => {
-            evt.sorts = ['Name'];
-            evt.sortDirection = 'asc';
-            return this.partnerFleetsService.getAll(this.sidebarService.entity.id, evt).pipe(map(r => {
-              let val = {
-                data: r?.data?.map((a) => {
-                  return {
-                    value: a.id,
-                    label: a.name,
-                    // icon: a.logoImgId,
-                  } as SelectItem;
-                }),
-                total: r.total
-              };
-              return val;
-            }));
-          }
-        }],
+        ],
       },
       {
         field: 'zoneType',
@@ -123,9 +124,17 @@ export class ZonesComponent extends TablePageDirective<PartnerZone> implements O
         sortable: true,
         type: TableColumnType.StaticImage,
         parsedFullData: (item) => {
-          return 'assets/icons/' + (item.zoneType == ZoneType.Circular ? 'radius.svg' : 'polygon.svg')
+          return 'assets/icons/' + (item.zoneType == ZoneType.Circular ? 'radius.svg' : 'polygon.svg');
         },
-        filter: [{ name: 'ZoneType', type: SelectFilterComponent, styleClass: 'col-12 col-md-4', placeholder: 'Zone Type', options: asSelectItem(ZoneType) }],
+        filter: [
+          {
+            name: 'ZoneType',
+            type: SelectFilterComponent,
+            styleClass: 'col-12 col-md-4',
+            placeholder: 'Zone Type',
+            options: asSelectItem(ZoneType),
+          },
+        ],
       },
       {
         field: 'name',
@@ -144,7 +153,9 @@ export class ZonesComponent extends TablePageDirective<PartnerZone> implements O
         header: 'Created',
         type: TableColumnType.DateTime,
         sortable: true,
-        filter: [{ name: 'Created', type: CalendarFilterComponent, styleClass: 'col-12 col-md-4', placeholder: 'Create Date' }],
+        filter: [
+          { name: 'Created', type: CalendarFilterComponent, styleClass: 'col-12 col-md-4', placeholder: 'Create Date' },
+        ],
       },
     ];
     this.mapsAPILoader.load().then(() => {
@@ -152,13 +163,18 @@ export class ZonesComponent extends TablePageDirective<PartnerZone> implements O
         drawingControl: true,
 
         drawingControlOptions: {
-          drawingModes: [google.maps.drawing.OverlayType.POLYGON, google.maps.drawing.OverlayType.POLYLINE, google.maps.drawing.OverlayType.CIRCLE, google.maps.drawing.OverlayType.RECTANGLE]
+          drawingModes: [
+            google.maps.drawing.OverlayType.POLYGON,
+            google.maps.drawing.OverlayType.POLYLINE,
+            google.maps.drawing.OverlayType.CIRCLE,
+            google.maps.drawing.OverlayType.RECTANGLE,
+          ],
         },
         polygonOptions: {
           draggable: true,
           editable: true,
           geodesic: true,
-          clickable: true
+          clickable: true,
         },
         drawingMode: google.maps.drawing.OverlayType.POLYGON,
       } as google.maps.drawing.DrawingManagerOptions;
@@ -167,19 +183,20 @@ export class ZonesComponent extends TablePageDirective<PartnerZone> implements O
 
   public getDataProvider(evt: LazyLoadEvent, isExport?: boolean): Observable<IPagedList<PartnerZone>> {
     return this.partnerZonesService.getAll(this.sidebarService.entity.id, evt).pipe(
-      tap(res => {
+      tap((res) => {
         if (!!res?.data) {
           this.mapService.clearAllOverlays();
           this.mapService.draw(res.data, false);
           return res;
         }
-      }))
+      })
+    );
   }
   public deleteEntity(item: PartnerZone): Observable<any> {
     return this.partnerZonesService.delete(this.sidebarService.entity.id, item.id);
   }
 
-  public onRowHover(evt: { index: number, item: any, hoverMode: 'enter' | 'leave' }) {
+  public onRowHover(evt: { index: number; item: any; hoverMode: 'enter' | 'leave' }) {
     switch (evt?.hoverMode) {
       case 'enter':
         this.mapService.zoomTo(evt?.item as PartnerZone);
@@ -193,5 +210,4 @@ export class ZonesComponent extends TablePageDirective<PartnerZone> implements O
   onMapReady(map: any) {
     this.mapService.map = map;
   }
-
 }

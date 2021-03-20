@@ -35,7 +35,6 @@
 </div>
 
 <prx-wsi-card [showHeader]="false" [loading]="!inventory">
-  <ideo-table *ngIf="!!inventory" [items]="[inventory]"
-   [columns]="columns" [lazy]="false" [showFilters]="false">
+  <ideo-table *ngIf="!!inventory" [items]="[inventory]" [columns]="columns" [lazy]="false" [showFilters]="false">
   </ideo-table>
 </prx-wsi-card>

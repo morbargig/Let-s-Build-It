@@ -1,3 +1,3 @@
 export enum KEY_CODE {
-    ESC = 'Escape',
+  ESC = 'Escape',
 }

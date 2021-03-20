@@ -11,10 +11,10 @@ import { BaseHttpService } from '@app/@core/base/base-http-service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuditLogsService extends BaseHttpService<AuditLogModel>{
-  public collationName: string = 'AuditLogs'
+export class AuditLogsService extends BaseHttpService<AuditLogModel> {
+  public collationName: string = 'AuditLogs';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
 
   // public getAll(evt: LazyLoadEvent): Observable<IPagedList<AuditLogModel>> {

@@ -153,7 +153,7 @@ export class ImportComponent implements OnInit, OnDestroy {
                   if (!isNaN(numeric)) {
                     item[f?.field] = numeric;
                   }
-                } catch (error) { }
+                } catch (error) {}
               }
 
               if (!!f?.field && item[f?.field] == '') {
@@ -200,7 +200,7 @@ export class ImportComponent implements OnInit, OnDestroy {
     return (this.form.controls['items'] as FormArray).controls[index + ''] as FormGroup;
   }
 
-  public lazy(evt: LazyLoadEvent) { }
+  public lazy(evt: LazyLoadEvent) {}
 
   public downloadTemplate(evt: Event) {
     evt.stopImmediatePropagation();

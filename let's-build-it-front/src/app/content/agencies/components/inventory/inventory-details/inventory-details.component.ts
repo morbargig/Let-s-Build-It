@@ -14,7 +14,7 @@ import { PartnerNamePipe } from '../../../../../@shared/pipes/partner-name.pipe'
   selector: 'prx-inventory-details',
   templateUrl: './inventory-details.component.html',
   styleUrls: ['./inventory-details.component.scss'],
-  providers: [CarNamePipe, PartnerNamePipe]
+  providers: [CarNamePipe, PartnerNamePipe],
 })
 export class InventoryDetailsComponent implements OnInit {
   public columns: TableColumn<InventoryModel>[];
@@ -47,7 +47,6 @@ export class InventoryDetailsComponent implements OnInit {
         validation: [Validators.required],
         errorMessages: {
           required: 'Partner Id is required',
-
         },
       },
     },
@@ -63,7 +62,6 @@ export class InventoryDetailsComponent implements OnInit {
         validation: [Validators.required],
         errorMessages: {
           required: 'H/W number is required',
-
         },
       },
     },
@@ -92,20 +90,24 @@ export class InventoryDetailsComponent implements OnInit {
     this._inventory = v;
   }
 
-
-
-  constructor(private inventoriesService: InventoriesService, private route: ActivatedRoute, private partnerName: PartnerNamePipe, private carName: CarNamePipe) {
-    this.route.params.pipe(take(1)).subscribe(
-      params => {
-        if ('id' in params) {
-          let id = params.id
-          this.inventoriesService.get(id).pipe(take(1)).subscribe(res => {
+  constructor(
+    private inventoriesService: InventoriesService,
+    private route: ActivatedRoute,
+    private partnerName: PartnerNamePipe,
+    private carName: CarNamePipe
+  ) {
+    this.route.params.pipe(take(1)).subscribe((params) => {
+      if ('id' in params) {
+        let id = params.id;
+        this.inventoriesService
+          .get(id)
+          .pipe(take(1))
+          .subscribe((res) => {
             this.inventory = res;
             this.generalControls.patchValue(this.inventory);
-          })
-        }
-      },
-    )
+          });
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -124,7 +126,7 @@ export class InventoryDetailsComponent implements OnInit {
             carsObs = this.carName.transform(carId);
           }
           return carsObs;
-        }
+        },
       },
       {
         field: 'partnerId',
@@ -138,17 +140,10 @@ export class InventoryDetailsComponent implements OnInit {
             partnersObs = this.partnerName.transform(partnerId);
           }
           return partnersObs;
-        }
-      }
-    ]
+        },
+      },
+    ];
   }
 
-  patchGeneral(formValues: object): void {
-
-  }
-
+  patchGeneral(formValues: object): void {}
 }
-
-
-
-

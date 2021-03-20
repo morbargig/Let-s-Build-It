@@ -7,7 +7,7 @@ import { SideBarPageService } from '@app/@shared/components/side-bar-page/isidib
   styleUrls: ['./subscriptions.component.scss'],
 })
 export class SubscriptionsComponent implements OnInit {
-  constructor(private sidebarService: SideBarPageService,) {
+  constructor(private sidebarService: SideBarPageService) {
     this.sidebarService.breadcrumbs = [
       { label: 'Agencies', url: '../../' },
       { label: this.sidebarService.entity.name, url: './' },

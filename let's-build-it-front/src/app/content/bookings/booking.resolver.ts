@@ -9,11 +9,10 @@ import { BookingModel } from '../../@shared/models/booking.model';
   providedIn: 'root',
 })
 export class BookingResolverService implements Resolve<BasePageConfig<any>> {
-  constructor(
-    // private router: Router,
-  ) { }
+  constructor() // private router: Router,
+  {}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): BasePageConfig<BookingModel> {
-    return null
+    return null;
     //   const columns: TableColumn[] = [
     //     {
     //       field: 'inventoryType',

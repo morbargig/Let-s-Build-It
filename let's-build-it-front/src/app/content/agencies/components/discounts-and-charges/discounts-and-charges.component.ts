@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { DynamicFormControl } from '../../../../@forms/@core/interfaces/dynamic-form-control';
 import { FormTextComponent } from '../../../../@forms/form-fields/form-text/form-text.component';
-import { FixedDiscountsModel, ChargesModel, DiscountsModel, DiscountType } from '../../../../@shared/models/discounts-and-charges.model';
+import {
+  FixedDiscountsModel,
+  ChargesModel,
+  DiscountsModel,
+  DiscountType,
+} from '../../../../@shared/models/discounts-and-charges.model';
 import { FormGroup, Validators } from '@angular/forms';
 import { DiscountsAndChargesService } from './discounts-and-charges.service';
 import { SideBarPageService } from '../../../../@shared/components/side-bar-page/isidibar-service.interface';
@@ -28,17 +33,13 @@ export class DiscountsAndChargesComponent {
   private _partnerId: number;
   public get partnerId() {
     if (!this._partnerId) {
-      this._partnerId = this.sidebarService.entity.id
+      this._partnerId = this.sidebarService.entity.id;
     }
-    return this._partnerId
+    return this._partnerId;
   }
 
   constructor(
     private discountsAndChargesService: DiscountsAndChargesService,
-    private sidebarService: SideBarPageService,
-  ) {
-
-  }
-
-
+    private sidebarService: SideBarPageService
+  ) {}
 }

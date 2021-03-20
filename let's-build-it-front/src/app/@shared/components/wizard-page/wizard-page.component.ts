@@ -82,7 +82,7 @@ export class WizardPageComponent extends BaseComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   public formChanged(form: FormGroup) {
     this.formInstance = form;

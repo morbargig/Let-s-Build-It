@@ -6,7 +6,7 @@ import { CarModel } from '../../../@shared/models/car.model';
 import { ActionType } from '@app/@shared/interfaces/action-type.enum';
 import { CarActionLogModel } from '../../../@shared/models/car-action-log.model';
 
-import { BaseHttpService } from "@app/@core/base/base-http-service";
+import { BaseHttpService } from '@app/@core/base/base-http-service';
 import { HttpClient } from '@angular/common/http';
 import { QueryBuilderService } from '@app/@ideo/infrastructure/services/query-builder.service';
 import { Observable } from 'rxjs';
@@ -14,10 +14,10 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class CarsService extends BaseHttpService<CarModel>{
-  public collationName: string = 'cars'
+export class CarsService extends BaseHttpService<CarModel> {
+  public collationName: string = 'cars';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
 
   public deleteCarMedia(id: number, mediaId: number) {

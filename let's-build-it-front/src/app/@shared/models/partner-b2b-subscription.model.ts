@@ -1,4 +1,4 @@
-export interface PartnerB2BSubscriptionModel{
+export interface PartnerB2BSubscriptionModel {
   id?: number;
   name: string;
   fee: number;

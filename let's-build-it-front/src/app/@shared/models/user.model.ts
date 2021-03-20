@@ -14,5 +14,7 @@ export class UserModel {
   public teudatZehut?: number;
   public phone?: number;
   public selectedSubscriptionId?: number;
-  public get fullName(): string { return `${this.firstName} ${this.lastName}` }
+  public get fullName(): string {
+    return `${this.firstName} ${this.lastName}`;
+  }
 }

@@ -1,25 +1,27 @@
 export interface LoginContext {
-  employId?: string;
-  username: string;
-  password: string;
+  employId: number;
+  pass: string;
   remember?: boolean;
 }
 
 export interface RegisterContext {
-  fullName: string;
-  username: string;
+  employId: number;
+  firstName: string;
+  lastName: string;
+  class: string;
+  job: string;
   email: string;
-  password: string;
-  confirmPassword: string;
+  pass: string;
+  phone: number
 }
 
 export interface AuthorizationEntity {
-  username?: string;
+  employId: number;
   authorized: boolean;
   email: string;
   fullName: string;
   expiresIn: Date | string;
   accessToken: string;
-  admin: boolean;
-  newUser: boolean;
+  admin?: boolean;
+  newUser?: boolean;
 }

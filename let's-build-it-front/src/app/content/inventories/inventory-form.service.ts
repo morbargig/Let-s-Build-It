@@ -25,7 +25,7 @@ export class InventoryFormService implements IFormGenerator<DynamicFormControl[]
     private carsService: CarsService,
     private partnersService: PartnersService,
     private csmService: CsmProvidersService
-  ) { }
+  ) {}
 
   private partners$: BehaviorSubject<SelectItem[]> = new BehaviorSubject<SelectItem[]>([]);
   private cars$: BehaviorSubject<SelectItem[]> = new BehaviorSubject<SelectItem[]>([]);

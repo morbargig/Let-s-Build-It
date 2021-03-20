@@ -9,14 +9,10 @@ import { BookingFormService } from './booking-form.service';
 import { FormGroup } from '@angular/forms';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BookingFormResolverService implements Resolve<WizardFormConfig> {
-  constructor(
-    private entityFormService: BookingFormService,
-    private entityService: BookingService,
-
-  ) { }
+  constructor(private entityFormService: BookingFormService, private entityService: BookingService) {}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): WizardFormConfig {
     let isEdit = route.paramMap.get('id') != 'create';
     const titleEmitter: Subject<string> = new Subject<string>();
@@ -31,9 +27,9 @@ export class BookingFormResolverService implements Resolve<WizardFormConfig> {
       },
       submit: (formObj: { forms: any[] }) => {
         let modelToPost: BookingModel = {} as BookingModel;
-        let formValues = formObj.forms
-        let ancillaryFormValue = formValues[0]
-        debugger
+        let formValues = formObj.forms;
+        let ancillaryFormValue = formValues[0];
+        debugger;
         // modelToPost.mediaItems = [];
         // if (!!model.forms[1]?.logoImgId || !!model.forms[1]?.logoImgId?.length) {
         //   modelToPost.logoImgId = !!model.forms[1]?.logoImgId?.length ? model.forms[1].logoImgId[0].id : model.forms[1]?.logoImgId;
@@ -76,4 +72,3 @@ export class BookingFormResolverService implements Resolve<WizardFormConfig> {
     return pageConfig;
   }
 }
-

@@ -7,6 +7,7 @@ import { RoleModel } from '../models/role.model';
 import { startWith, switchMap, tap, map } from 'rxjs/operators';
 import { CacheKeys, StorageKeysService } from '@app/@ideo/infrastructure/services/storage-keys.service';
 import { IPagedList } from '../models/paged-list.response';
+import { RegisterContext } from '../../@core/authentication/authentication.models';
 
 @Injectable({
   providedIn: 'root',
@@ -45,7 +46,6 @@ export class AccountService {
     return !!currentUser ? currentUser.roles : [];
   }
 
-
   public get partnerId(): number {
     let currentUser = this.user;
     return !!currentUser?.partnerId ? currentUser.partnerId : null;
@@ -73,8 +73,16 @@ export class AccountService {
     return this.loginState.pipe(startWith(currentState));
   }
 
-  public authenticate(model: { username: string; password: string }): Observable<AuthenticationResponseModel> {
+  public authenticate(model: { employId: number; pass: string }): Observable<AuthenticationResponseModel> {
     return this.http.post<AuthenticationResponseModel>(`${environment.serverUrl}/api/Account/Authenticate`, model).pipe(
+      tap((u) => {
+        this.user = u;
+      })
+    );
+  }
+
+  public register(model: RegisterContext): Observable<AuthenticationResponseModel> {
+    return this.http.post<AuthenticationResponseModel>(`${environment.serverUrl}/api/Account/Register`, model).pipe(
       tap((u) => {
         this.user = u;
       })

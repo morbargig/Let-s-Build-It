@@ -37,7 +37,7 @@ export interface TableFilter {
   showWeek?: boolean;
   appendToBody?: string;
   asyncOptions?: Observable<SelectItem[]>;
-  queryFilters?: (query: string) => FilterObject,
+  queryFilters?: (query: string) => FilterObject;
   lazyOptions?: (evt: LazyLoadEvent) => Observable<IPagedList<SelectItem>>;
   isFictive?: boolean;
   displayField?: string;

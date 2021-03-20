@@ -36,16 +36,20 @@ const routes: Routes = [
       { path: 'summary', component: SummaryComponent },
       { path: 'general', component: GeneralComponent },
       {
-        path: 'user-management', component: UserMangementComponent, children: [
+        path: 'user-management',
+        component: UserMangementComponent,
+        children: [
           {
-            path: 'edit/:id', component: ModalPageComponent,
-            resolve: { config: UserManagmentResolverService }
+            path: 'edit/:id',
+            component: ModalPageComponent,
+            resolve: { config: UserManagmentResolverService },
           },
           {
-            path: 'create', component: ModalPageComponent,
-            resolve: { config: UserManagmentResolverService }
-          }
-        ]
+            path: 'create',
+            component: ModalPageComponent,
+            resolve: { config: UserManagmentResolverService },
+          },
+        ],
       },
 
       { path: 'damages', component: FleetDamagesComponent },
@@ -57,45 +61,48 @@ const routes: Routes = [
         path: 'subscriptions',
         component: TabsPageComponent,
         resolve: {
-          config: SubscriptionsResolverService
+          config: SubscriptionsResolverService,
         },
         children: [
           {
-            path: 'b2b', component: B2BSubscriptionComponent,
+            path: 'b2b',
+            component: B2BSubscriptionComponent,
             children: [
               {
                 path: 'edit/:id',
                 component: ModalPageComponent,
-                resolve: { config: B2BSubScriptionResolverService }
+                resolve: { config: B2BSubScriptionResolverService },
               },
               {
                 path: 'create',
                 component: ModalPageComponent,
-                resolve: { config: B2BSubScriptionResolverService }
+                resolve: { config: B2BSubScriptionResolverService },
               },
-            ]
+            ],
           },
           {
-            path: 'b2c', component: B2CSubscriptionComponent,
+            path: 'b2c',
+            component: B2CSubscriptionComponent,
             children: [
               {
                 path: 'edit/:id',
                 component: ModalPageComponent,
-                resolve: { config: B2CSubscriptionResolver }
+                resolve: { config: B2CSubscriptionResolver },
               },
               {
                 path: 'create',
                 component: ModalPageComponent,
-                resolve: { config: B2CSubscriptionResolver }
+                resolve: { config: B2CSubscriptionResolver },
               },
               {
-                path: 'assign/:id', component: ModalAssignPageComponent,
-                resolve: { config: B2CSubscriptionAssignResolver }
-              }
-            ]
+                path: 'assign/:id',
+                component: ModalAssignPageComponent,
+                resolve: { config: B2CSubscriptionAssignResolver },
+              },
+            ],
           },
-          { path: '**', redirectTo: 'b2c', pathMatch: 'full' }
-        ]
+          { path: '**', redirectTo: 'b2c', pathMatch: 'full' },
+        ],
       },
       { path: 'discounts-and-charges', component: DiscountsAndChargesComponent },
       {
@@ -105,30 +112,30 @@ const routes: Routes = [
           {
             path: 'group/:id',
             component: ModalPageComponent,
-            resolve: { config: AncillariesGroupResolverService }
+            resolve: { config: AncillariesGroupResolverService },
           },
           {
             path: 'assign/:id',
             component: ModalAssignPageComponent,
-            resolve: { config: AncillariesAssignResolverService }
+            resolve: { config: AncillariesAssignResolverService },
           },
           {
             path: 'ancillary/:id',
             component: ModalPageComponent,
-            resolve: { config: AncillariesResolverService }
-          }
-          // TODO fill here assign component and edit/create ancillaries or ancillaries group 
-        ]
-      },      { path: 'payment-plan', component: PaymentPlanComponent },
+            resolve: { config: AncillariesResolverService },
+          },
+          // TODO fill here assign component and edit/create ancillaries or ancillaries group
+        ],
+      },
+      { path: 'payment-plan', component: PaymentPlanComponent },
       { path: '**', redirectTo: 'summary', pathMatch: 'full' },
-    ]
+    ],
   },
   { path: '**', redirectTo: 'my/profile', pathMatch: 'full' },
-]
-
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class FleetsRoutingModule { }
+export class FleetsRoutingModule {}

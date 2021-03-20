@@ -5,12 +5,12 @@ import { BankAccountModel } from '../../@shared/models/payment-methods.model';
 import { BaseParentHttpService } from '@app/@core/base/base-parent-http-service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PartnerBankAccountsService extends BaseParentHttpService<number, BankAccountModel> {
-  public collationName: string =  'BankAccounts'
+  public collationName: string = 'BankAccounts';
   public parentRoute: string = 'Partners';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
 }

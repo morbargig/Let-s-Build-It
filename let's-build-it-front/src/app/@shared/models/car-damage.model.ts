@@ -15,7 +15,7 @@ export interface CarDamageModel {
   updateUser: string;
   createDate?: Date;
   updateDate?: Date;
-  damageMediaItems?: (CarDamageMediaModel | any)[] ;
+  damageMediaItems?: (CarDamageMediaModel | any)[];
 }
 
 export enum DamageType {

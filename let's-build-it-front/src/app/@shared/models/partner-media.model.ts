@@ -1,13 +1,13 @@
-export interface PartnerMediaModel{
+export interface PartnerMediaModel {
   partnerId?: number;
   mediaId: number;
-  documentType?: PartnerDocumentType,
+  documentType?: PartnerDocumentType;
   created?: number;
   updated?: number;
 }
 
-export enum PartnerDocumentType{
+export enum PartnerDocumentType {
   Contract,
   Disclaimer,
-  Legal
+  Legal,
 }

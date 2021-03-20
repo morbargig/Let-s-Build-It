@@ -22,32 +22,31 @@ import { asSelectItem } from '../../../../prototypes';
 import { FormSubTextComponent } from '../../../../@forms/form-fields/form-sub-text/form-sub-text.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TariffsFormService {
-  constructor(
-    private partnersService: PartnersService
-  ) { }
+  constructor(private partnersService: PartnersService) {}
 
   generate(entity: PartnerPriceModel = null, duplicate?: boolean): DynamicFormControl[] {
     let form: DynamicFormControl[] = [];
     form.push(
-      ...range(1).map(i => {
-        if (entity?.id && !duplicate) {
-          return {
-            type: FormTextComponent,
-            config: {
-              name: 'id',
-              type: 'hidden',
-              styleClass: 'd-none',
-              value: entity?.id,
-            }
-          } as DynamicFormControl
-        }
-        else {
-          return null
-        }
-      }).filter(i => !!i),
+      ...range(1)
+        .map((i) => {
+          if (entity?.id && !duplicate) {
+            return {
+              type: FormTextComponent,
+              config: {
+                name: 'id',
+                type: 'hidden',
+                styleClass: 'd-none',
+                value: entity?.id,
+              },
+            } as DynamicFormControl;
+          } else {
+            return null;
+          }
+        })
+        .filter((i) => !!i),
       {
         type: FormSelectComponent,
         config: {
@@ -59,11 +58,16 @@ export class TariffsFormService {
           value: entity?.partnerId,
           validation: [Validators.required],
           errorMessages: {
-            required: 'Partner is required'
+            required: 'Partner is required',
           },
-          optionsArr$: this.partnersService.getAll({ page: 1, pageSize: MAX_INT } as LazyLoadEvent).pipe(take(1), map(
-            (res) => res?.data.map(i => { return { label: i.name, value: i.id } as SelectItem })
-          )),
+          optionsArr$: this.partnersService.getAll({ page: 1, pageSize: MAX_INT } as LazyLoadEvent).pipe(
+            take(1),
+            map((res) =>
+              res?.data.map((i) => {
+                return { label: i.name, value: i.id } as SelectItem;
+              })
+            )
+          ),
         },
       },
 
@@ -78,7 +82,7 @@ export class TariffsFormService {
           styleClass: 'col-12 col-md-6',
           validation: [Validators.required],
           errorMessages: {
-            required: 'Name is required'
+            required: 'Name is required',
           },
         },
       },
@@ -103,7 +107,7 @@ export class TariffsFormService {
       //     styleClass: 'col-12 col-md-6',
       //   },
       // },
-      // TODO: add when server has Pricing Group 
+      // TODO: add when server has Pricing Group
       {
         type: FormCheckboxComponent,
         config: {
@@ -113,7 +117,7 @@ export class TariffsFormService {
           styleClass: 'col-12 col-md-6',
           validation: [Validators.required],
           errorMessages: {
-            required: 'State is required'
+            required: 'State is required',
           },
         },
       },
@@ -158,7 +162,7 @@ export class TariffsFormService {
           styleClass: 'col-12 col-md-6',
           validation: [Validators.required],
           errorMessages: {
-            required: 'Min Charge (minutes) is required'
+            required: 'Min Charge (minutes) is required',
           },
         },
       },
@@ -173,7 +177,7 @@ export class TariffsFormService {
           styleClass: 'col-12 col-md-6',
           validation: [Validators.required],
           errorMessages: {
-            required: `Extra Mileage (${SymbolModel.NIS}/km) is required`
+            required: `Extra Mileage (${SymbolModel.NIS}/km) is required`,
           },
         },
       },
@@ -182,29 +186,38 @@ export class TariffsFormService {
         type: FormArrayComponent,
         config: {
           name: 'priceValues',
-          value: entity?.priceValues || range(1, 6).map(i => {
-            return {
-              type: i,
-              price: null,
-              mileageIncluded: null,
-              additionalMileagePrice: null,
-            } as PartnerPriceValueModel
-          }),
-          validation: [Validators.required, (ctrl: FormArray) => {
-            return !ctrl.value?.length ? {
-              'subscriptions': 'you must add subscriptions.'
-            } : null
-          }],
-          styleClass: 'col-12',
-          data: {
-            data: entity?.priceValues || range(1, 6).map(i => {
+          value:
+            entity?.priceValues ||
+            range(1, 6).map((i) => {
               return {
                 type: i,
                 price: null,
                 mileageIncluded: null,
                 additionalMileagePrice: null,
-              } as PartnerPriceValueModel
+              } as PartnerPriceValueModel;
             }),
+          validation: [
+            Validators.required,
+            (ctrl: FormArray) => {
+              return !ctrl.value?.length
+                ? {
+                    subscriptions: 'you must add subscriptions.',
+                  }
+                : null;
+            },
+          ],
+          styleClass: 'col-12',
+          data: {
+            data:
+              entity?.priceValues ||
+              range(1, 6).map((i) => {
+                return {
+                  type: i,
+                  price: null,
+                  mileageIncluded: null,
+                  additionalMileagePrice: null,
+                } as PartnerPriceValueModel;
+              }),
             groupValidations: [],
             errorMessages: { '': '' },
             showSeparator: false,
@@ -243,15 +256,17 @@ export class TariffsFormService {
             //   },]
             // },
             formConfig: [
-              !!entity ? {
-                type: FormTextComponent,
-                config: {
-                  type: 'hidden',
-                  name: 'partnerPriceId',
-                  disabled: true,
-                  styleClass: 'd-none'
-                },
-              } : null,
+              !!entity
+                ? {
+                    type: FormTextComponent,
+                    config: {
+                      type: 'hidden',
+                      name: 'partnerPriceId',
+                      disabled: true,
+                      styleClass: 'd-none',
+                    },
+                  }
+                : null,
               {
                 type: FormSelectComponent,
                 config: {
@@ -260,7 +275,7 @@ export class TariffsFormService {
                   placeholder: 'Select Day',
                   optionsArr: asSelectItem(Period),
                   disabled: true,
-                  validation: [Validators.required]
+                  validation: [Validators.required],
                 },
               },
               {
@@ -275,11 +290,11 @@ export class TariffsFormService {
                     required: 'Price is required',
                   },
                   onChange: (currentValue: any, control: AbstractControl) => {
-                    let additionalMileagePrice = control.parent.controls['additionalMileagePrice'] as AbstractControl
-                    let mileageIncluded = control.parent.controls['mileageIncluded'].value || 1
-                    additionalMileagePrice.setValue(currentValue / (mileageIncluded))
+                    let additionalMileagePrice = control.parent.controls['additionalMileagePrice'] as AbstractControl;
+                    let mileageIncluded = control.parent.controls['mileageIncluded'].value || 1;
+                    additionalMileagePrice.setValue(currentValue / mileageIncluded);
                   },
-                }
+                },
               },
               {
                 type: FormTextComponent,
@@ -293,11 +308,11 @@ export class TariffsFormService {
                     required: 'Mileage Included is required',
                   },
                   onChange: (currentValue: any, control: AbstractControl) => {
-                    let additionalMileagePrice = control.parent.controls['additionalMileagePrice'] as AbstractControl
-                    let price = control.parent.controls['price'].value || 0
-                    additionalMileagePrice.setValue(price / currentValue)
+                    let additionalMileagePrice = control.parent.controls['additionalMileagePrice'] as AbstractControl;
+                    let price = control.parent.controls['price'].value || 0;
+                    additionalMileagePrice.setValue(price / currentValue);
                   },
-                }
+                },
               },
               {
                 type: FormTextComponent,
@@ -307,98 +322,95 @@ export class TariffsFormService {
                   placeholder: 'additional Mileage Price',
                   type: 'number',
                   disabled: true,
-                }
+                },
               },
-            ].filter(i => !!i)
+            ].filter((i) => !!i),
           } as FormArrayData,
-        }
-      },
+        },
+      }
     );
     return form;
   }
 
   generateArrControl(entity: PartnerPriceModel) {
     let form: DynamicFormControl[][] = [];
-    entity.priceValues.map(
-      i => {
-        form.push([
-
-          {
-            type: FormTextComponent,
-            config: {
-              type: 'hidden',
-              name: 'partnerPriceId',
-              value: i?.partnerPriceId,
-              disabled: true,
-              styleClass: 'd-none'
+    entity.priceValues.map((i) => {
+      form.push([
+        {
+          type: FormTextComponent,
+          config: {
+            type: 'hidden',
+            name: 'partnerPriceId',
+            value: i?.partnerPriceId,
+            disabled: true,
+            styleClass: 'd-none',
+          },
+        },
+        {
+          type: FormSelectComponent,
+          config: {
+            name: 'type',
+            label: 'Type',
+            type: 'hidden',
+            placeholder: 'Select Type',
+            styleClass: 'd-none',
+            value: i?.type,
+            optionsArr: asSelectItem(Period),
+            disabled: true,
+            validation: [Validators.required],
+          },
+        },
+        {
+          type: FormTextComponent,
+          config: {
+            name: 'price',
+            label: 'Price',
+            placeholder: 'Price',
+            value: i?.price,
+            type: 'number',
+            validation: [Validators.required],
+            errorMessages: {
+              required: 'Price is required',
+            },
+            onChange: (currentValue: any, control: AbstractControl) => {
+              let additionalMileagePrice = control.parent.controls['additionalMileagePrice'] as AbstractControl;
+              let mileageIncluded = control.parent.controls['mileageIncluded'].value || 1;
+              additionalMileagePrice.setValue(currentValue / mileageIncluded);
             },
           },
-          {
-            type: FormSelectComponent,
-            config: {
-              name: 'type',
-              label: 'Type',
-              type: 'hidden',
-              placeholder: 'Select Type',
-              styleClass: 'd-none',
-              value: i?.type,
-              optionsArr: asSelectItem(Period),
-              disabled: true,
-              validation: [Validators.required]
+        },
+        {
+          type: FormTextComponent,
+          config: {
+            name: 'mileageIncluded',
+            label: 'Mileage Included',
+            placeholder: 'Mileage Included',
+            type: 'number',
+            value: i.mileageIncluded,
+            validation: [Validators.required],
+            errorMessages: {
+              required: 'Mileage Included is required',
+            },
+            onChange: (currentValue: any, control: AbstractControl) => {
+              let additionalMileagePrice = control.parent.controls['additionalMileagePrice'] as AbstractControl;
+              let price = control.parent.controls['price'].value || 0;
+              additionalMileagePrice.setValue(price / currentValue);
             },
           },
-          {
-            type: FormTextComponent,
-            config: {
-              name: 'price',
-              label: 'Price',
-              placeholder: 'Price',
-              value: i?.price,
-              type: 'number',
-              validation: [Validators.required],
-              errorMessages: {
-                required: 'Price is required',
-              },
-              onChange: (currentValue: any, control: AbstractControl) => {
-                let additionalMileagePrice = control.parent.controls['additionalMileagePrice'] as AbstractControl
-                let mileageIncluded = control.parent.controls['mileageIncluded'].value || 1
-                additionalMileagePrice.setValue(currentValue / (mileageIncluded))
-              },
-            }
+        },
+        {
+          type: FormTextComponent,
+          config: {
+            name: 'additionalMileagePrice',
+            label: 'additional Mileage Price',
+            placeholder: 'additional Mileage Price',
+            value: i.additionalMileagePrice,
+            type: 'number',
+            disabled: true,
           },
-          {
-            type: FormTextComponent,
-            config: {
-              name: 'mileageIncluded',
-              label: 'Mileage Included',
-              placeholder: 'Mileage Included',
-              type: 'number',
-              value: i.mileageIncluded,
-              validation: [Validators.required],
-              errorMessages: {
-                required: 'Mileage Included is required',
-              },
-              onChange: (currentValue: any, control: AbstractControl) => {
-                let additionalMileagePrice = control.parent.controls['additionalMileagePrice'] as AbstractControl
-                let price = control.parent.controls['price'].value || 0
-                additionalMileagePrice.setValue(price / currentValue)
-              },
-            }
-          },
-          {
-            type: FormTextComponent,
-            config: {
-              name: 'additionalMileagePrice',
-              label: 'additional Mileage Price',
-              placeholder: 'additional Mileage Price',
-              value: i.additionalMileagePrice,
-              type: 'number',
-              disabled: true,
-            }
-          }] as DynamicFormControl[]
-        )
-      }
-    )
-    return form
+        },
+      ] as DynamicFormControl[]);
+    });
+    return form;
   }
 }

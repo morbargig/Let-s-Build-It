@@ -1,17 +1,32 @@
-<prx-wsi-modal [type]="modalPageConfig?.type" (submit)="modalPageConfig?.submit(selectedArr || selected, entity)"
-  [isValidForm]="!!selected || !!selectedArr?.length">
-  <ideo-dynamic-form-group *ngIf="!!formControls?.length" [form]="form" (formChange)="form = $event"
-    [config]="formControls" [showSubmitButton]="false" class="sticky">
+<prx-wsi-modal
+  [type]="modalPageConfig?.type"
+  (submit)="modalPageConfig?.submit(selectedArr || selected, entity)"
+  [isValidForm]="!!selected || !!selectedArr?.length"
+>
+  <ideo-dynamic-form-group
+    *ngIf="!!formControls?.length"
+    [form]="form"
+    (formChange)="form = $event"
+    [config]="formControls"
+    [showSubmitButton]="false"
+    class="sticky"
+  >
   </ideo-dynamic-form-group>
   <div class="context">
     <ul *ngIf="items?.length; else loading" class="response list-unstyled">
       <li *ngFor="let item of items">
         <div class="d-flex pick p-3 align-items-center" [ngClass]="{ selected: item.active }" (click)="onSelect(item)">
           <!-- <input *ngIf="!modalPageConfig?.noCheckbox" type="radio" [(ngModel)]="item.active" class="mr-3" /> -->
-          <img *ngIf="!modalPageConfig?.noCheckbox"
-            [src]="item.active ? ('radio-btn-checked' | icon) : ('radio-btn'  | icon)" class="mr-3" />
-          <div *ngIf="item?.img as img" class="col-1 pick-img p-0"
-            [style.background-image]="'url(' + (img | imageId: true) + ')'"></div>
+          <img
+            *ngIf="!modalPageConfig?.noCheckbox"
+            [src]="item.active ? ('radio-btn-checked' | icon) : ('radio-btn' | icon)"
+            class="mr-3"
+          />
+          <div
+            *ngIf="item?.img as img"
+            class="col-1 pick-img p-0"
+            [style.background-image]="'url(' + (img | imageId: true) + ')'"
+          ></div>
           <div class="col-5 d-flex flex-column justify-content-center">
             <h5 class="d-block">{{ item.title }}</h5>
             <h6 *ngIf="item.detailsArr?.length" class="details-container">
@@ -28,6 +43,4 @@
   </div>
 </prx-wsi-modal>
 
-<ng-template #loading>
-
-</ng-template>
+<ng-template #loading> </ng-template>

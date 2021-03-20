@@ -45,7 +45,6 @@ const routes: Routes = [
       path: 'booking',
       loadChildren: () => import('./content/bookings/booking.module').then((m) => m.BookingModule),
     },
-
   ]),
 
   // Fallback when no prior route is matched
@@ -63,4 +62,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

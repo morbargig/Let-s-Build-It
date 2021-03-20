@@ -11,7 +11,7 @@
     img {
       &.checked {
         transform: scale3d(1);
-        transition-delay: transform .1s, opacity .1s;
+        transition-delay: transform 0.1s, opacity 0.1s;
         opacity: 1;
         z-index: 2;
         display: inline-block;

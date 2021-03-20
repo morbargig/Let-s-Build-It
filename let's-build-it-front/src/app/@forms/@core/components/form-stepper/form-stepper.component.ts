@@ -17,7 +17,7 @@ export class FormStepperComponent extends CdkStepper implements OnInit {
   @Input() public activeClass = 'active';
   @Input() public inactiveClass = '';
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   public isNextButtonHidden() {
     return !(this.steps.length === this.selectedIndex + 1);

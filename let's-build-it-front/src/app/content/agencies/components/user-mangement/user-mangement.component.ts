@@ -23,8 +23,6 @@ import { UserManamenntService } from './user-manamennt.service';
 import { UserManagementModel } from '../../../../@shared/models/user-management.model';
 import { TableColumnType } from '../../../../@ideo/components/table/models/table-column';
 
-
-
 @Component({
   selector: 'prx-user-mangement',
   templateUrl: './user-mangement.component.html',
@@ -41,7 +39,7 @@ export class UserMangementComponent extends TablePageDirective<UserManagementMod
       icon: 'fas fa-edit',
       styleClass: 'btn-outline-primary ml-2',
       click: (item) => {
-        this.router.navigate(['edit', item.id], { relativeTo: this.route })
+        this.router.navigate(['edit', item.id], { relativeTo: this.route });
       },
     },
     {
@@ -55,14 +53,16 @@ export class UserMangementComponent extends TablePageDirective<UserManagementMod
     },
   ];
 
-  constructor(private sidebarService: SideBarPageService,
+  constructor(
+    private sidebarService: SideBarPageService,
     private userManagmentsService: UserManamenntService,
     private accountService: AccountService,
     private modalUserService: BsModalService,
     private route: ActivatedRoute,
     router: Router,
     modalService: BsModalService,
-    notificationsService: NotificationsService,) {
+    notificationsService: NotificationsService
+  ) {
     super(modalService, true, notificationsService, router);
     this.sidebarService.breadcrumbs = [
       { label: 'Agencies', url: '../../' },
@@ -77,7 +77,7 @@ export class UserMangementComponent extends TablePageDirective<UserManagementMod
         field: 'profileImageId',
         header: 'Avatar',
         sortable: false,
-        type: TableColumnType.Image
+        type: TableColumnType.Image,
       },
       {
         field: 'fullName',
@@ -85,9 +85,7 @@ export class UserMangementComponent extends TablePageDirective<UserManagementMod
         sortable: true,
         type: TableColumnType.Link,
         href: (evt, full) => {
-          return [
-            '/users', full.id, 'profile'
-          ];
+          return ['/users', full.id, 'profile'];
         },
         parsedFullData: (u) => `${u.firstName} ${u.lastName}`,
         filter: [{ name: 'FullName', type: TextFilterComponent, placeholder: 'Enter name' }],
@@ -126,12 +124,14 @@ export class UserMangementComponent extends TablePageDirective<UserManagementMod
               matchMode: MatchMode.Equals,
               asyncOptions: this.accountService.getRoles().pipe(
                 map((r) =>
-                  r.map((a) => {
-                    return {
-                      value: a.name,
-                      label: a.name,
-                    } as SelectItem;
-                  }).filter(x => ['Admin', 'CarOwner', 'Customer'].indexOf(x.label) < 0)
+                  r
+                    .map((a) => {
+                      return {
+                        value: a.name,
+                        label: a.name,
+                      } as SelectItem;
+                    })
+                    .filter((x) => ['Admin', 'CarOwner', 'Customer'].indexOf(x.label) < 0)
                 )
               ),
             },
@@ -154,11 +154,10 @@ export class UserMangementComponent extends TablePageDirective<UserManagementMod
       //     placeholder: 'Select tags'
       //   }],
       // },
-    ]
+    ];
   }
 
   public getDataProvider(evt: LazyLoadEvent, isExport?: boolean): Observable<IPagedList<UserManagementModel>> {
-
     // evt.filters['Partners'] = {
     //   value: null,
     //   matchMode: MatchMode.Any,
@@ -174,26 +173,26 @@ export class UserMangementComponent extends TablePageDirective<UserManagementMod
     //   }
     // };
 
-    evt.filters['Roles'] = !evt.filters['Roles'] ? {
-      value: null,
-      matchMode: MatchMode.Any,
-      'Role.Name': {
-        value: 'Customer',
-        matchMode: MatchMode.NotEquals
-      },
-      innerFilter: {
-        'Role.Name': {
-          value: 'Customer',
-          matchMode: MatchMode.NotEquals
+    evt.filters['Roles'] = !evt.filters['Roles']
+      ? {
+          value: null,
+          matchMode: MatchMode.Any,
+          'Role.Name': {
+            value: 'Customer',
+            matchMode: MatchMode.NotEquals,
+          },
+          innerFilter: {
+            'Role.Name': {
+              value: 'Customer',
+              matchMode: MatchMode.NotEquals,
+            },
+          },
         }
-      }
-    } : evt.filters['Roles'];
+      : evt.filters['Roles'];
     return this.userManagmentsService.getAll(this.sidebarService.entity.id, evt);
   }
 
   public deleteEntity(item: UserManagementModel): Observable<any> {
     return this.userManagmentsService.delete(this.sidebarService.entity.id, item.id);
   }
-
-
 }

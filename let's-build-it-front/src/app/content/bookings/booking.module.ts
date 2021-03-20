@@ -14,7 +14,14 @@ import { AgmCoreModule } from '@agm/core';
 import { BookingFinishFormComponent } from './booking-finish-form/booking-finish-form.component';
 
 @NgModule({
-  declarations: [BookingAncillaryFormComponent, BookingDatesFormComponent, BookingCustomerFormComponent, BookingVehiclesFormComponent, BookingLocationFormComponent, BookingFinishFormComponent],
-  imports: [CommonModule, BookingRoutingModule, SharedModule, IdeoModule, TableModule, IdeoFormsModule,AgmCoreModule],
+  declarations: [
+    BookingAncillaryFormComponent,
+    BookingDatesFormComponent,
+    BookingCustomerFormComponent,
+    BookingVehiclesFormComponent,
+    BookingLocationFormComponent,
+    BookingFinishFormComponent,
+  ],
+  imports: [CommonModule, BookingRoutingModule, SharedModule, IdeoModule, TableModule, IdeoFormsModule, AgmCoreModule],
 })
-export class BookingModule { }
+export class BookingModule {}

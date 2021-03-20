@@ -39,15 +39,13 @@ export class CarFormResolverService implements Resolve<WizardFormConfig> {
     private carsService: CarsService,
     private router: Router,
     private location: Location
-  ) { }
-
+  ) {}
 
   private formChanged$: Subject<FormGroup> = new Subject<FormGroup>();
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): WizardFormConfig {
     let isEdit = route.paramMap.get('id') != 'create';
 
     const titleEmitter: Subject<string> = new Subject<string>();
-
 
     const pageConfig = {
       title$: titleEmitter,
@@ -60,7 +58,6 @@ export class CarFormResolverService implements Resolve<WizardFormConfig> {
         let modelToPost: CarModel = {} as CarModel;
         modelToPost.mediaItems = [];
         if (!!model.forms[6]?.profileImgId?.length) {
-          
           modelToPost.profileImgId = model.forms[6].profileImgId[0];
         }
         if (!!model.forms[6]?.insuranceMediaId?.length) {

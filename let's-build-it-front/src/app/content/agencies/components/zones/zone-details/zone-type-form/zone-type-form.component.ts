@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'prx-zone-type-form',
   templateUrl: './zone-type-form.component.html',
-  styleUrls: ['./zone-type-form.component.scss']
+  styleUrls: ['./zone-type-form.component.scss'],
 })
 export class ZoneTypeFormComponent extends BaseFieldDirective implements Field, OnInit, OnDestroy {
   public config: FieldConfig;
@@ -28,14 +28,11 @@ export class ZoneTypeFormComponent extends BaseFieldDirective implements Field, 
 
   constructor(private fb: FormBuilder) {
     super();
-
-
   }
-
 
   optionSelected(option: ZoneType) {
     this.control.setValue(option);
-    this.config.onChange({ action: 'setDrawingMode', data: option }, this.control)
+    this.config.onChange({ action: 'setDrawingMode', data: option }, this.control);
   }
 
   ngOnInit(): void {
@@ -58,5 +55,4 @@ export class ZoneTypeFormComponent extends BaseFieldDirective implements Field, 
   ngOnDestroy(): void {
     this.ended.next(true);
   }
-
 }

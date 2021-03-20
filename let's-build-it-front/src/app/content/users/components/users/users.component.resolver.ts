@@ -30,7 +30,7 @@ export class UsersComponentResolverService implements Resolve<BasePageConfig<any
     private router: Router,
     private route: ActivatedRoute,
     private location: Location
-  ) { }
+  ) {}
 
   private dataStore: ComponentDataStore<UserModel>;
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): BasePageConfig<UserModel> {
@@ -116,9 +116,9 @@ export class UsersComponentResolverService implements Resolve<BasePageConfig<any
             'Role.Name': {
               matchMode: MatchMode.Equals,
               value: 'Customer',
-            }
-          }
-        }
+            },
+          },
+        };
 
         return this.usersService.getAll(evt);
       },
@@ -147,7 +147,9 @@ export class UsersComponentResolverService implements Resolve<BasePageConfig<any
           styleClass: 'btn-outline-success ml-2',
           tooltip: 'Profile',
           icon: 'fas fa-user',
-          click: (item, btn) => { this.router.navigate([`/users/${item.id}`, "profile"]) },
+          click: (item, btn) => {
+            this.router.navigate([`/users/${item.id}`, 'profile']);
+          },
         },
       ],
       permissions: {

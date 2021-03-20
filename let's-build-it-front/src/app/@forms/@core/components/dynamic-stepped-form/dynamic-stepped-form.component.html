@@ -1,20 +1,28 @@
 <form class="dynamic-form {{ formCssClass }} w-100" novalidate (ngSubmit)="handleSubmit($event)" *ngIf="!!form">
   <div class="row {{ formRowCssClass }}">
     <div class="col-12">
-      <ideo-form-stepper #cdkStepper *ngIf="!!config?.length" >
-        <cdk-step *ngFor="let step of config; let i = index; let isLastStep = last" [editable]="isEditable"
-          [stepControl]="step" [optional]="false">
-
+      <ideo-form-stepper #cdkStepper *ngIf="!!config?.length">
+        <cdk-step
+          *ngFor="let step of config; let i = index; let isLastStep = last"
+          [editable]="isEditable"
+          [stepControl]="step"
+          [optional]="false"
+        >
           <ng-template cdkStepLabel let-s="selectedIndex">
-            <span [ngClass]="{ error: (selected?.interacted || dyn?.form?.touched) && dyn?.form?.invalid }">{{
-              step.title 
-            }}
+            <span [ngClass]="{ error: (selected?.interacted || dyn?.form?.touched) && dyn?.form?.invalid }"
+              >{{ step.title }}
             </span>
             <!-- TODO: fix style -->
           </ng-template>
 
-          <ideo-dynamic-form-group #dyn [config]="step.group" [(form)]="form.controls['forms'].controls[i + '']"
-            [validation]="validation" [errorMessages]="errorMessages" [showSubmitButton]="false">
+          <ideo-dynamic-form-group
+            #dyn
+            [config]="step.group"
+            [(form)]="form.controls['forms'].controls[i + '']"
+            [validation]="validation"
+            [errorMessages]="errorMessages"
+            [showSubmitButton]="false"
+          >
           </ideo-dynamic-form-group>
 
           <span [ngSwitch]="footerMode">
@@ -28,8 +36,12 @@
                 <i class="fas fa-arrow-left"></i>
               </button>
 
-              <button class="btn btn-light btn-circle nav-button" *ngIf="!isLastStep" cdkStepperNext
-                [disabled]="dyn?.form?.invalid">
+              <button
+                class="btn btn-light btn-circle nav-button"
+                *ngIf="!isLastStep"
+                cdkStepperNext
+                [disabled]="dyn?.form?.invalid"
+              >
                 <i class="fas fa-arrow-right"></i>
               </button>
               <button *ngIf="!!form && isLastStep" type="submit" class="btn btn-primary" [disabled]="!form.valid">
@@ -45,8 +57,11 @@
                 </button>
 
                 <div class="nav nav-steps mr-2">
-                  <span *ngFor="let step of config; let b = index" class="bullet"
-                    [ngClass]="{ active: i == b, done: i > b }">
+                  <span
+                    *ngFor="let step of config; let b = index"
+                    class="bullet"
+                    [ngClass]="{ active: i == b, done: i > b }"
+                  >
                     <i class="bullet-dot"></i>
                   </span>
                 </div>

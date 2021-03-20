@@ -7,13 +7,14 @@
   <div class="col-lg-8 col-md-7 col-12">
     <div class="row">
       <div class="col-12">
-        <prx-wsi-card #trialCard [class]="{ 'active-card' : partnerPaymentPlan?.selectedPlan === 0 }">
+        <prx-wsi-card #trialCard [class]="{ 'active-card': partnerPaymentPlan?.selectedPlan === 0 }">
           <div custom-header>
             <i
-              [class]="partnerPaymentPlan?.selectedPlan === 0 ? 'fas fa-check-circle fa-2x' : 'fas fa-circle fa-2x'"></i>
+              [class]="partnerPaymentPlan?.selectedPlan === 0 ? 'fas fa-check-circle fa-2x' : 'fas fa-circle fa-2x'"
+            ></i>
             <span class="first-span">Trial Period</span>
             <span class="second-span">
-              {{!!trialDaysLeft ? " Current " + trialDaysLeft + " days left" : ''}}
+              {{ !!trialDaysLeft ? ' Current ' + trialDaysLeft + ' days left' : '' }}
             </span>
           </div>
           <div class="mt-3">
@@ -24,10 +25,11 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <prx-wsi-card #fixedCard [class]="{ 'active-card' : partnerPaymentPlan?.selectedPlan === 1 }">
+        <prx-wsi-card #fixedCard [class]="{ 'active-card': partnerPaymentPlan?.selectedPlan === 1 }">
           <div custom-header>
             <i
-              [class]="partnerPaymentPlan?.selectedPlan === 1 ? 'fas fa-check-circle fa-2x' : 'fas fa-circle fa-2x'"></i>
+              [class]="partnerPaymentPlan?.selectedPlan === 1 ? 'fas fa-check-circle fa-2x' : 'fas fa-circle fa-2x'"
+            ></i>
             <span class="first-span">Fixed Payment</span>
           </div>
           <div class="mt-3">
@@ -38,10 +40,11 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <prx-wsi-card #revenueCard [class]="{ 'active-card' : partnerPaymentPlan?.selectedPlan === 2 }">
+        <prx-wsi-card #revenueCard [class]="{ 'active-card': partnerPaymentPlan?.selectedPlan === 2 }">
           <div custom-header>
             <i
-              [class]="partnerPaymentPlan?.selectedPlan === 2 ? 'fas fa-check-circle fa-2x' : 'fas fa-circle fa-2x'"></i>
+              [class]="partnerPaymentPlan?.selectedPlan === 2 ? 'fas fa-check-circle fa-2x' : 'fas fa-circle fa-2x'"
+            ></i>
             <span class="first-span">Revenue % fees</span>
           </div>
           <div class="mt-3">

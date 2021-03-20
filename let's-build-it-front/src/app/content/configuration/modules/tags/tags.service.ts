@@ -7,9 +7,9 @@ import { BaseHttpService } from '@app/@core/base/base-http-service';
 @Injectable({
   providedIn: 'root',
 })
-export class TagsService extends BaseHttpService<TagModel>{
-  public collationName: string = 'tags'
+export class TagsService extends BaseHttpService<TagModel> {
+  public collationName: string = 'tags';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
 }

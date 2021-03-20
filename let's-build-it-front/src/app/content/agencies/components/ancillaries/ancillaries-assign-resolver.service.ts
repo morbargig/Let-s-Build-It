@@ -19,51 +19,58 @@ import { MatchMode } from '../../../../@ideo/components/table/models/table-filte
 import { ErrorMessages } from '../../../../@shared/models/error-messages.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class AncillariesAssignResolverService implements Resolve<ModalAssignPageModelConfig>  {
+export class AncillariesAssignResolverService implements Resolve<ModalAssignPageModelConfig> {
   private _partnerId: number;
   public formControls: DynamicFormControl[];
   public get partnerId() {
     if (!this._partnerId) {
-      this._partnerId = this.sidebarService.entity.id
+      this._partnerId = this.sidebarService.entity.id;
     }
-    return this._partnerId
+    return this._partnerId;
   }
   constructor(
-
     private entityService: AncillariesService,
     private pickService: AncillariesGroupService,
     private sidebarService: SideBarPageService,
-    private notificationsService: NotificationsService,
-  ) { }
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): ModalAssignPageModelConfig | Observable<ModalAssignPageModelConfig> | Promise<ModalAssignPageModelConfig> {
-    let evt$ = new Subject<LazyLoadEvent>()
+    private notificationsService: NotificationsService
+  ) {}
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): ModalAssignPageModelConfig | Observable<ModalAssignPageModelConfig> | Promise<ModalAssignPageModelConfig> {
+    let evt$ = new Subject<LazyLoadEvent>();
     let closeEvent$: Subject<boolean> = new Subject<boolean>();
-    setTimeout(
-      () => evt$.next({
-        page: 1, pageSize: 10, filters: {
-        } as FilterObject
+    setTimeout(() =>
+      evt$.next({
+        page: 1,
+        pageSize: 10,
+        filters: {} as FilterObject,
       } as LazyLoadEvent)
-    )
+    );
 
-    let formControls: DynamicFormControl[] = [{
-      type: FormTextComponent,
-      config: {
-        name: 'name',
-        type: 'text',
-        label: 'Name',
-        onChange: (currentValue: any, ctrl: AbstractControl) => {
-          evt$.next({
-            page: 1, pageSize: 10, filters: {
-              'Name': { matchMode: MatchMode.Contains, value: currentValue }
-            } as FilterObject
-          } as LazyLoadEvent)
+    let formControls: DynamicFormControl[] = [
+      {
+        type: FormTextComponent,
+        config: {
+          name: 'name',
+          type: 'text',
+          label: 'Name',
+          onChange: (currentValue: any, ctrl: AbstractControl) => {
+            evt$.next({
+              page: 1,
+              pageSize: 10,
+              filters: {
+                Name: { matchMode: MatchMode.Contains, value: currentValue },
+              } as FilterObject,
+            } as LazyLoadEvent);
+          },
+          placeholder: 'Enter Name',
+          styleClass: 'col-6',
         },
-        placeholder: 'Enter Name',
-        styleClass: 'col-6',
       },
-    },]
+    ];
     let type$: Subject<ModalMessage> = new Subject<ModalMessage>();
     const handelPageNotFound = (): void => {
       setTimeout(() => {
@@ -72,70 +79,78 @@ export class AncillariesAssignResolverService implements Resolve<ModalAssignPage
           title: 'Not Found',
           subTitle: 'Sorry, page not found',
           message: 'Please make sure you have typed the correct URL',
-          closeUrl: '../../'
-        })
-      })
-    }
+          closeUrl: '../../',
+        });
+      });
+    };
     return {
       type: type$,
       submit: (selected: PickModel, model: AncillaryModel) => {
-        let newModel = model
-        newModel.ancillaryGroupId = selected.id
+        let newModel = model;
+        newModel.ancillaryGroupId = selected.id;
         let errorMessages: ErrorMessages = {
-          200: 'Ancillary Assigned Successfully'
-        }
-        let entityName = 'Ancillary'
-        this.entityService.update(this.partnerId, model.id, model, errorMessages, entityName).toPromise().then(res => {
-          if (!!res) {
-            closeEvent$.next(true)
-          }
-        })
-      },
-      getAll: (evt) => this.pickService.getAll(this.partnerId, evt).pipe(map(res => {
-        let pagedRes = {
-          data: res?.data?.map(i => {
-            return {
-              id: i.id,
-              title: i.name,
-            } as PickModel
-          })
-          , total: res?.total
-        } as IPagedList<PickModel>;
-        return pagedRes
-      })),
-      getEntityById: (routePrams) => {
-        if (('id' in routePrams) && !isNaN(+routePrams?.['id'])) {
-          let req = this.entityService.get(this.partnerId, routePrams.id);
-          req.toPromise().then(res => {
+          200: 'Ancillary Assigned Successfully',
+        };
+        let entityName = 'Ancillary';
+        this.entityService
+          .update(this.partnerId, model.id, model, errorMessages, entityName)
+          .toPromise()
+          .then((res) => {
             if (!!res) {
-              type$.next({
-                mode: 'Assign',
-                title: 'Assign',
-                closeUrl: '../../'
-              })
-              return
+              closeEvent$.next(true);
             }
-            type$.next({
-              mode: 'Not Found',
-              title: 'Not Found',
-              subTitle: 'Sorry, Ancillary not found',
-              message: 'Please make sure you have typed the correct URL',
-              closeUrl: '../../'
-            })
-            return
-          }).catch(() => {
-            handelPageNotFound()
+          });
+      },
+      getAll: (evt) =>
+        this.pickService.getAll(this.partnerId, evt).pipe(
+          map((res) => {
+            let pagedRes = {
+              data: res?.data?.map((i) => {
+                return {
+                  id: i.id,
+                  title: i.name,
+                } as PickModel;
+              }),
+              total: res?.total,
+            } as IPagedList<PickModel>;
+            return pagedRes;
           })
-          return req
-        }
-        else {
-          handelPageNotFound()
+        ),
+      getEntityById: (routePrams) => {
+        if ('id' in routePrams && !isNaN(+routePrams?.['id'])) {
+          let req = this.entityService.get(this.partnerId, routePrams.id);
+          req
+            .toPromise()
+            .then((res) => {
+              if (!!res) {
+                type$.next({
+                  mode: 'Assign',
+                  title: 'Assign',
+                  closeUrl: '../../',
+                });
+                return;
+              }
+              type$.next({
+                mode: 'Not Found',
+                title: 'Not Found',
+                subTitle: 'Sorry, Ancillary not found',
+                message: 'Please make sure you have typed the correct URL',
+                closeUrl: '../../',
+              });
+              return;
+            })
+            .catch(() => {
+              handelPageNotFound();
+            });
+          return req;
+        } else {
+          handelPageNotFound();
         }
       },
       filterControls: formControls,
       evt: evt$,
       closeEvent: closeEvent$,
       closeUrl: '../../',
-    } as ModalAssignPageModelConfig
+    } as ModalAssignPageModelConfig;
   }
 }

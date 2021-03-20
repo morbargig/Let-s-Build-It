@@ -135,7 +135,7 @@ section {
         }
       }
 
-      +li {
+      + li {
         margin-left: 0.3125rem;
       }
     }
@@ -157,7 +157,7 @@ section {
 }
 
 .container-fluid {
-  >.body {
+  > .body {
     margin: 0 auto;
     padding: 1rem 0.9375rem;
     background-color: #fff;

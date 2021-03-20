@@ -8,12 +8,12 @@ import { BaseHttpService } from '@app/@core/base/base-http-service';
 @Injectable({
   providedIn: 'root',
 })
-export class AlertsService extends BaseHttpService<AlertModel>{
-  public collationName: string = 'alerts'
+export class AlertsService extends BaseHttpService<AlertModel> {
+  public collationName: string = 'alerts';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
-  
+
   public updateStatus(id: number, model: any) {
     return this.http.patch<AlertModel>(`${environment.serverUrl}/api/alerts/${id}`, model);
   }

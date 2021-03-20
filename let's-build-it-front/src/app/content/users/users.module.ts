@@ -31,4 +31,4 @@ import { IdeoFormsModule } from '../../@forms/ideo-forms.module';
     IdeoFormsModule,
   ],
 })
-export class UsersModule { }
+export class UsersModule {}

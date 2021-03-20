@@ -34,12 +34,12 @@ const routes: Routes = [
       { path: 'messages', component: MessagesComponent },
       { path: 'notifications', component: NotificationsComponent },
       { path: 'log-activities', component: LogActivitiesComponent },
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UsersRoutingModule { }
+export class UsersRoutingModule {}

@@ -45,7 +45,7 @@ export class DynamicFormControlComponent implements OnInit, AfterViewInit {
     this.mode = this.mode || (dynamicControl.config && dynamicControl.config.mode) || DynamicFormStepMode.Regular;
     this.isRequired =
       dynamicControl.config.validation && !!dynamicControl.config.validation.find((x) => x == Validators.required);
-      this.cd.detectChanges();
+    this.cd.detectChanges();
   }
 
   constructor(private stringHelper: StringHelperService, private cd: ChangeDetectorRef) {}

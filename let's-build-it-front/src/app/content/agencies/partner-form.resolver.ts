@@ -14,7 +14,7 @@ import { PartnerDocumentType } from '../../@shared/models/partner-media.model';
   providedIn: 'root',
 })
 export class PartnerFormResolverService implements Resolve<WizardFormConfig> {
-  constructor(private partnersService: PartnersService, private partnerFormService: PartnerFormService) { }
+  constructor(private partnersService: PartnersService, private partnerFormService: PartnerFormService) {}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): WizardFormConfig {
     let isEdit = route.paramMap.get('id') != 'create';
 
@@ -29,16 +29,27 @@ export class PartnerFormResolverService implements Resolve<WizardFormConfig> {
         let modelToPost: PartnerModel = {} as PartnerModel;
         modelToPost.mediaItems = [];
         if (!!model.forms[1]?.logoImgId || !!model.forms[1]?.logoImgId?.length) {
-          modelToPost.logoImgId = !!model.forms[1]?.logoImgId?.length ? model.forms[1].logoImgId[0].id : model.forms[1]?.logoImgId;
+          modelToPost.logoImgId = !!model.forms[1]?.logoImgId?.length
+            ? model.forms[1].logoImgId[0].id
+            : model.forms[1]?.logoImgId;
         }
         if (!!model.forms[1]?.contractMediaId?.length) {
-          modelToPost.mediaItems.push({ mediaId: model.forms[1].contractMediaId[0].id, documentType: PartnerDocumentType.Contract });
+          modelToPost.mediaItems.push({
+            mediaId: model.forms[1].contractMediaId[0].id,
+            documentType: PartnerDocumentType.Contract,
+          });
         }
         if (!!model.forms[1]?.disclaimerMediaId?.length) {
-          modelToPost.mediaItems.push({ mediaId: model.forms[1].disclaimerMediaId[0].id, documentType: PartnerDocumentType.Disclaimer });
+          modelToPost.mediaItems.push({
+            mediaId: model.forms[1].disclaimerMediaId[0].id,
+            documentType: PartnerDocumentType.Disclaimer,
+          });
         }
         if (!!model.forms[1]?.legalMediaId?.length) {
-          modelToPost.mediaItems.push({ mediaId: model.forms[1].legalMediaId[0].id, documentType: PartnerDocumentType.Legal });
+          modelToPost.mediaItems.push({
+            mediaId: model.forms[1].legalMediaId[0].id,
+            documentType: PartnerDocumentType.Legal,
+          });
         }
         modelToPost.id = model.forms[0].id;
         modelToPost.name = model.forms[0].name;
@@ -61,9 +72,11 @@ export class PartnerFormResolverService implements Resolve<WizardFormConfig> {
             if (!!isEdit) {
               titleEmitter.next(`Edit ${x.name}`);
             }
-            x['contractMediaId'] = x.mediaItems?.find(z => z.documentType == PartnerDocumentType.Contract)?.mediaId;
-            x['disclaimerMediaId'] = x.mediaItems?.find(z => z.documentType == PartnerDocumentType.Disclaimer)?.mediaId;
-            x['legalMediaId'] = x.mediaItems?.find(z => z.documentType == PartnerDocumentType.Legal)?.mediaId;
+            x['contractMediaId'] = x.mediaItems?.find((z) => z.documentType == PartnerDocumentType.Contract)?.mediaId;
+            x['disclaimerMediaId'] = x.mediaItems?.find(
+              (z) => z.documentType == PartnerDocumentType.Disclaimer
+            )?.mediaId;
+            x['legalMediaId'] = x.mediaItems?.find((z) => z.documentType == PartnerDocumentType.Legal)?.mediaId;
             return x;
           })
         ),

@@ -10,11 +10,10 @@ import { BaseHttpService } from '@app/@core/base/base-http-service';
 @Injectable({
   providedIn: 'root',
 })
-export class PartnersService extends BaseHttpService<PartnerModel>{
-  public collationName: string = 'partners'
+export class PartnersService extends BaseHttpService<PartnerModel> {
+  public collationName: string = 'partners';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
-    
+    super(http, queryBuilder);
   }
 
   public updateGeneralDetails(id: number, model: any): Observable<PartnerModel> {
@@ -33,14 +32,24 @@ export class PartnersService extends BaseHttpService<PartnerModel>{
     return this.http.patch<PartnerModel>(`${environment.serverUrl}/api/partners/${id}/Contact`, model);
   }
 
-  public updatePaymentPlan(id: number, paymentPlanId: number, messages: ErrorMessages, entity?: string): Observable<PartnerModel> {
-    let options = messages ? {
-      params: {
-        'autoNotification': 'true',
-        'entity': entity,
-        ...messages
-      }
-    } : null
-    return this.http.patch<PartnerModel>(`${environment.serverUrl}/api/partners/${id}/PaymentPlan/${paymentPlanId}`, options);
+  public updatePaymentPlan(
+    id: number,
+    paymentPlanId: number,
+    messages: ErrorMessages,
+    entity?: string
+  ): Observable<PartnerModel> {
+    let options = messages
+      ? {
+          params: {
+            autoNotification: 'true',
+            entity: entity,
+            ...messages,
+          },
+        }
+      : null;
+    return this.http.patch<PartnerModel>(
+      `${environment.serverUrl}/api/partners/${id}/PaymentPlan/${paymentPlanId}`,
+      options
+    );
   }
 }

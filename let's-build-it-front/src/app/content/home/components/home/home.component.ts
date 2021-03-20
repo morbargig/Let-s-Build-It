@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
     // }
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   // Skip() {
   //   this.skipService

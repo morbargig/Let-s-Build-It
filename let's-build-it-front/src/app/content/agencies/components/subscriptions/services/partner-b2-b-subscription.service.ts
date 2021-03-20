@@ -4,14 +4,13 @@ import { QueryBuilderService } from '../../../../../@ideo/infrastructure/service
 import { PartnerB2BSubscriptionModel } from '../../../../../@shared/models/partner-b2b-subscription.model';
 import { BaseParentHttpService } from '@app/@core/base/base-parent-http-service';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PartnerB2BSubscriptionService extends BaseParentHttpService<number, PartnerB2BSubscriptionModel> {
-  public collationName: string =  'B2B/Subscriptions'
+  public collationName: string = 'B2B/Subscriptions';
   public parentRoute: string = 'Partners';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
 }

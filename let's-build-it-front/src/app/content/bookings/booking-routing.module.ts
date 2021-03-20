@@ -17,9 +17,9 @@ const routes: Routes = [
     resolve: { config: BookingFormResolverService },
     children: [
       // { path: 'create-user', component: NewUserComponent, outlet: 'create-user' },
-      // TODO for use in the right component 
+      // TODO for use in the right component
       // <router-outlet name="route1"></router-outlet>
-    ]
+    ],
   },
 ];
 
@@ -27,4 +27,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class BookingRoutingModule { }
+export class BookingRoutingModule {}

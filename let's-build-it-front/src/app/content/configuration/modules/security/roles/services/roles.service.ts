@@ -7,10 +7,10 @@ import { BaseHttpService } from '@app/@core/base/base-http-service';
 @Injectable({
   providedIn: 'root',
 })
-export class RolesService extends BaseHttpService<RoleModel>{
-  public collationName: string = 'Security/Roles'
+export class RolesService extends BaseHttpService<RoleModel> {
+  public collationName: string = 'Security/Roles';
   constructor(http: HttpClient, queryBuilder: QueryBuilderService) {
-    super(http, queryBuilder)
+    super(http, queryBuilder);
   }
-  public bulk:any = null;
+  public bulk: any = null;
 }
