@@ -60,7 +60,7 @@ export class AuthenticationService {
    * @return The user credentials.
    */
   register(context: RegisterContext): Observable<AuthorizationEntity> {
-    // Replace by proper registration call
+    // Replace by proper registration call 
     return this.accountService.register(context).pipe(
       tap((x) =>
         this.credentialsService.setCredentials(
