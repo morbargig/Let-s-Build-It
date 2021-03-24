@@ -47,6 +47,7 @@ export class AuthLoginComponent extends BaseFormComponent implements OnInit {
    * @param form The form value: user + password
    */
   login({ valid, value }: { valid: boolean; value: any }) {
+    // debugger
     if (valid) {
       this.isLoading = true;
 
@@ -60,7 +61,8 @@ export class AuthLoginComponent extends BaseFormComponent implements OnInit {
         )
         .subscribe(
           (credentials) => {
-            log.debug(`${credentials.firstName + credentials.lastName} successfully logged in`);
+            // debugger
+            // log.debug(`${credentials?.firstName + credentials?.lastName} successfully logged in`);
             this.route.queryParams.subscribe((params) => this.redirect(params));
           },
           (error) => {
@@ -82,7 +84,7 @@ export class AuthLoginComponent extends BaseFormComponent implements OnInit {
   private createForm() {
     this.form = this.formBuilder.group({
       employId: ['******', Validators.required],
-      password: ['123456', Validators.required],
+      pass: ['123456', Validators.required],
       remember: false,
     });
   }

@@ -6,20 +6,23 @@ export interface LoginContext {
 
 export interface RegisterContext {
   employId: number;
+  pass: string;
+
   firstName: string;
   lastName: string;
   class: string;
   job: string;
   email: string;
-  pass: string;
   phone: number
 }
 
 export interface AuthorizationEntity {
   employId: number;
-  authorized: boolean;
   email: string;
-  fullName: string;
+  firstName: string;
+  lastName: string;
+
+  authorized: boolean;
   expiresIn: Date | string;
   accessToken: string;
   admin?: boolean;

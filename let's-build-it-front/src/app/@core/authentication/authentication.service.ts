@@ -34,10 +34,10 @@ export class AuthenticationService {
     // Replace by proper authentication call
 
     const request = {
-      employId: context.employId,
+      employId: Number(context.employId),
       pass: context.pass,
     };
-    return this.accountService.authenticate(request).pipe(
+    return this.accountService.login(request).pipe(
       tap((x) =>
         this.credentialsService.setCredentials(
           {
@@ -52,8 +52,6 @@ export class AuthenticationService {
       ),
       switchMap((res) => this.accountService.getUserPermissions())
     );
-    // this.credentialsService.setCredentials(data, context.remember);
-    // return of(data);
   }
 
   /**

@@ -65,7 +65,7 @@ export class CredentialsService {
   }
 
   private createCredentialsFromAuthEntity(authorizationEntity: AuthorizationEntity) {
-    const username = authorizationEntity.fullName;
+    const username = authorizationEntity.firstName + authorizationEntity.lastName;
     const expiresAt = JSON.stringify(authorizationEntity.expiresIn);
 
     return {

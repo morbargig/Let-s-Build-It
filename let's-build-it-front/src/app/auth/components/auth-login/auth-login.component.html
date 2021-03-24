@@ -12,12 +12,8 @@
 
     <div class="form-group">
       <label class="label" translate>Employ id</label>
-      <input
-        type="text"
-        formControlName="employId"
-        class="form-control input"
-        [placeholder]="'Employ id' | translate"
-      />
+      <input type="text" formControlName="employId" class="form-control input"
+        [placeholder]="'Employ id' | translate" />
       <small [hidden]="form.controls.employId.valid || form.controls.employId.untouched" class="text-danger" translate>
         <span translate> Employ id </span>
         <span translate> required </span>
@@ -26,28 +22,21 @@
 
     <div class="form-group">
       <label class="label" translate>Password</label>
-      <input
-        type="password"
-        formControlName="password"
-        class="form-control input"
-        [placeholder]="'Username' | translate"
-      />
-      <small [hidden]="form.controls.password.valid || form.controls.password.untouched" class="text-danger" translate>
+      <input type="password" formControlName="pass" class="form-control input" [placeholder]="'Username' | translate" />
+      <small [hidden]="form.controls.pass.valid || form.controls.pass.untouched" class="text-danger" translate>
         Password is required
       </small>
     </div>
 
     <div class="form-group d-flex justify-content-between">
       <prx-checkbox formControlName="remember" label="Remember me" [id]="'rememberme'"></prx-checkbox>
-      <a routerLink="/register" style="color: #2d709f; font-family: Montserrat; font-weight: 500" translate
-        >Don't have an account?</a
-      >
+      <a routerLink="/register" style="color: #2d709f; font-family: Montserrat; font-weight: 500" translate>Don't have
+        an account?</a>
     </div>
 
     <div class="form-group mb-0 d-flex align-items-center justify-content-between">
-      <a routerLink="/forgot" style="color: #2d709f; font-family: Montserrat; font-weight: 500" translate
-        >Forgot your password?</a
-      >
+      <a routerLink="/forgot" style="color: #2d709f; font-family: Montserrat; font-weight: 500" translate>Forgot your
+        password?</a>
 
       <prx-button type="submit" color="primary" [isLoading]="isLoading" [disabled]="form.invalid">
         <span class="col-12" translate>Login</span>

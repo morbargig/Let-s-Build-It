@@ -6,7 +6,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons';
 import { finalize } from 'rxjs/operators';
 import { BaseFormComponent } from '@core/base/base-form-component';
-import { RegisterContext } from '../../../@core/authentication/authentication.models';
 import { RedirectService } from '../../../@core/services/redirect.service';
 
 const logger = new Logger('Register');
@@ -33,6 +32,9 @@ export class AuthRegisterComponent extends BaseFormComponent implements OnInit {
 
   register() {
     this.isLoading = true;
+
+    let registerData = this.form.value
+    delete registerData['confirmPass']
     this.authenticationService
       .register(this.form.value)
       .pipe(
@@ -43,12 +45,13 @@ export class AuthRegisterComponent extends BaseFormComponent implements OnInit {
       )
       .subscribe(
         (credentials) => {
-          logger.debug(`${credentials.fullName} successfully registered`);
+          logger.debug(`${credentials.firstName + credentials.lastName} successfully registered`);
           this.route.queryParams.subscribe(
             (params) => {
-              // redirect here or de whatever you need to do with after registration
-              logger.debug(`redirecting to the confirmation page`)
               this.route.queryParams.subscribe((params) => this.redirect(params));
+              // redirect here or de whatever you need to do with after registration
+              // logger.debug(`redirecting to the confirmation page`)
+              // this.route.queryParams.subscribe((params) => this.redirect(params));
             }
           );
         },
@@ -69,15 +72,15 @@ export class AuthRegisterComponent extends BaseFormComponent implements OnInit {
 
   private createForm() {
     this.form = this.formBuilder.group({
-      firstName: ['', Validators.required, Validators.minLength(1)],
-      lastName: ['', Validators.required, Validators.minLength(1)],
-      employId: ['', Validators.required, Validators.min(0)],
+      employId: ['', Validators.required, '', Validators.min(0)],
+      firstName: ['', Validators.required, '', Validators.minLength(1)],
+      lastName: ['', Validators.required, '', Validators.minLength(1)],
       class: ['', Validators.required],
       job: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
+      phone: ['', Validators.required, '', Validators.min(500000000), '', Validators.max(559999999)],
+      email: ['', Validators.required, '', Validators.email],
+      pass: ['', Validators.required],
+      confirmPass: ['', Validators.required],
     });
   }
 }

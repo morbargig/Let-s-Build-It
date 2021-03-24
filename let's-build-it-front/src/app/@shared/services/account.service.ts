@@ -1,10 +1,10 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AuthenticationResponseModel } from '../models/authentication.response';
 import { environment } from '../../../environments/environment';
 import { RoleModel } from '../models/role.model';
-import { startWith, switchMap, tap, map } from 'rxjs/operators';
+import { startWith, tap, map } from 'rxjs/operators';
 import { CacheKeys, StorageKeysService } from '@app/@ideo/infrastructure/services/storage-keys.service';
 import { IPagedList } from '../models/paged-list.response';
 import { RegisterContext } from '../../@core/authentication/authentication.models';
@@ -61,11 +61,12 @@ export class AccountService {
   }
 
   public getUserPermissions(): Observable<any> {
-    return this.http.get(`${environment.serverUrl}/api/Account/Permissions`).pipe(
-      tap((res) => {
-        this.permissions = res;
-      })
-    );
+    // return this.http.get(`${environment.serverUrl}/api/Account/Permissions`).pipe(
+    //   tap((res) => {
+    //     this.permissions = res;
+    //   })
+    // );
+    return of(null)
   }
 
   public listenToLoginState(): Observable<AuthenticationResponseModel> {
@@ -73,8 +74,8 @@ export class AccountService {
     return this.loginState.pipe(startWith(currentState));
   }
 
-  public authenticate(model: { employId: number; pass: string }): Observable<AuthenticationResponseModel> {
-    return this.http.post<AuthenticationResponseModel>(`${environment.serverUrl}/api/Account/Authenticate`, model).pipe(
+  public login(model: { employId: number; pass: string }): Observable<AuthenticationResponseModel> {
+    return this.http.post<AuthenticationResponseModel>(`${environment.serverUrl}/api/Account/Login`, model).pipe(
       tap((u) => {
         this.user = u;
       })
