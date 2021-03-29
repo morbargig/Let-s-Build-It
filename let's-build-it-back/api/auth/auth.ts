@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import { verify } from "jsonwebtoken";
-import { userModel } from "../api/users/users.modules";
+import { userModel } from "../users/users.modules";
 
 const auth = (req, res, next) => {
     // get barber token

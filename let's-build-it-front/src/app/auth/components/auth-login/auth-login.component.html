@@ -30,13 +30,13 @@
 
     <div class="form-group d-flex justify-content-between">
       <prx-checkbox formControlName="remember" label="Remember me" [id]="'rememberme'"></prx-checkbox>
-      <a routerLink="/register" style="color: #2d709f; font-family: Montserrat; font-weight: 500" translate>Don't have
-        an account?</a>
+      <a routerLink="/register" style="color: #2d709f; font-family: Montserrat; font-weight: 500" translate>
+        {{"Don't have an account?"}}</a>
     </div>
 
     <div class="form-group mb-0 d-flex align-items-center justify-content-between">
-      <a routerLink="/forgot" style="color: #2d709f; font-family: Montserrat; font-weight: 500" translate>Forgot your
-        password?</a>
+      <a routerLink="/forgot" style="color: #2d709f; font-family: Montserrat; font-weight: 500" translate>
+        Forgot your password?</a>
 
       <prx-button type="submit" color="primary" [isLoading]="isLoading" [disabled]="form.invalid">
         <span class="col-12" translate>Login</span>

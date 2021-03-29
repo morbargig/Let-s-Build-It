@@ -13,12 +13,8 @@
 
     <div class="form-group">
       <label class="control-label bold small text-uppercase" translate>First Name</label>
-      <input
-        type="text"
-        formControlName="firstName"
-        class="form-control bg-light form-control-rounded"
-        [placeholder]="'First Name' | translate"
-      />
+      <input type="text" formControlName="firstName" class="form-control bg-light form-control-rounded"
+        [placeholder]="'First Name' | translate" />
       <small [hidden]="form.controls.firstName.valid || form.controls.firstName.untouched" class="text-danger">
         <span translate> First Name</span>
         <span translate>required </span>
@@ -26,112 +22,33 @@
     </div>
     <div class="form-group">
       <label class="control-label bold small text-uppercase" translate>Last Name</label>
-      <input
-        type="text"
-        formControlName="lastName"
-        class="form-control bg-light form-control-rounded"
-        [placeholder]="'Last Name' | translate"
-      />
+      <input type="text" formControlName="lastName" class="form-control bg-light form-control-rounded"
+        [placeholder]="'Last Name' | translate" />
       <small [hidden]="form.controls.lastName.valid || form.controls.lastName.untouched" class="text-danger">
         <span translate> Last Name</span>
         <span translate>required </span>
       </small>
     </div>
-
     <div class="form-group row">
-      <div class="col-md-6">
-        <label class="control-label bold small text-uppercase" translate>Employ id</label>
-        <input
-          type="text"
-          formControlName="employId"
-          class="form-control bg-light form-control-rounded"
-          [placeholder]="'Employ id' | translate"
-        />
-        <small [hidden]="form.controls.employId.valid || form.controls.employId.untouched" class="text-danger">
-          <span translate> Employ id</span>
-          <span translate>required </span>
-        </small>
-      </div>
-
-      <div class="col-md-6">
-        <label class="control-label bold small text-uppercase" translate>Class</label>
-        <input
-          type="text"
-          formControlName="class"
-          class="form-control bg-light form-control-rounded"
-          [placeholder]="'Class' | translate"
-        />
-        <small [hidden]="form.controls.class.valid || form.controls.class.untouched" class="text-danger">
-          <span translate> Class</span>
-          <span translate>required </span>
-        </small>
-      </div>
-
-      <div class="col-md-6">
-        <label class="control-label bold small text-uppercase" translate>Job</label>
-        <input
-          type="email"
-          formControlName="job"
-          class="form-control bg-light form-control-rounded"
-          [placeholder]="'Job' | translate"
-        />
-        <small [hidden]="form.controls.job.valid || form.controls.job.untouched" class="text-danger">
-          <span translate> Job</span>
-          <span translate>required </span>
-        </small>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <div class="col-md-6">
+      <div *ngFor="let ctr of ctrArr" class="col-md-6">
         <label class="control-label bold small text-uppercase" translate>
-          <span translate> Phone</span>
-          <span translate>Number </span>
+          <span translate>{{ctr.translateName}} </span>
         </label>
-        <input
-          type="password"
-          formControlName="password"
-          class="form-control bg-light form-control-rounded"
-          [placeholder]="('Phone' | translate) + ' ' + ('Number' | translate)"
-        />
-        <small [hidden]="form.controls.password.valid || form.controls.password.untouched" class="text-danger">
-          <span translate> Phone</span>
-          <span translate>Number </span>
+        <input [type]="ctr.type" [formControlName]="ctr.controlName" class="form-control bg-light form-control-rounded"
+          [placeholder]="( ctr.translateName | translate)" />
+        <small [hidden]="ctrHidden(ctr.controlName)" class="text-danger">
+          <span translate> {{ctr.translateName}}</span>
           <span translate>required </span>
         </small>
       </div>
     </div>
-
-    <!-- <div class="form-group row">
-      <div class="col-md-6">
-        <label class="control-label bold small text-uppercase" translate>Password</label>
-        <input type="password" formControlName="password" class="form-control bg-light form-control-rounded"
-          [placeholder]="'Password' | translate" />
-        <small [hidden]="form.controls.password.valid || form.controls.password.untouched" class="text-danger">
-          <span translate> Password</span>
-          <span translate>required </span>
-        </small>
-      </div>
-
-      <div class="col-md-6">
-        <label class="control-label bold small text-uppercase"> <span translate>Confirm </span>
-          <span translate>Password </span></label>
-        <input type="password" formControlName="confirmPassword" class="form-control bg-light form-control-rounded"
-          [placeholder]="('Confirm' | translate) + ' ' +   ('Password' | translate)" />
-        <small [hidden]="form.controls.confirmPassword.valid || form.controls.confirmPassword.untouched"
-          class="text-danger">
-          <span translate>Confirm </span>
-          <span translate>Password </span>
-          <span translate>required </span>
-        </small>
-      </div>
-    </div> -->
 
     <div class="form-group d-flex align-items-center justify-content-end">
-      <button type="submit" class="btn btn-primary btn-rounded" [disabled]="form.invalid || isLoading">
-        <span translate>Register</span>
-        <fa-icon [icon]="longArrowAltRight" class="ml-2"></fa-icon>
+      <button type="submit" class="btn btn-primary btn-rounded">
+        <fa-icon [icon]="longArrowAltRight"></fa-icon>
+        <span class="ml-2" translate>Register</span>
       </button>
+      <!-- <button (click)="register()"> </button> -->
     </div>
   </form>
 </div>

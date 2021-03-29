@@ -1,7 +1,5 @@
-export interface User {
-    _id?: number,
-    email: string,
-    pass: string,
+import { RegisterContext } from '../auth/auth.model';
+export interface User extends RegisterContext {
     role?: string[],
-    date?: Date,
+    _id?: number,
 }

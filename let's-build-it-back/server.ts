@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import express from 'express'
-import router from './api/users/users'
+import router from './api/router'
 import mongoose from 'mongoose'
 import path from 'path'
 import bodyParser from 'body-parser'
@@ -42,10 +42,10 @@ const cmdResponse = (error, stdout, stderr) => {
     const connection = await checkDbConnection(MONGO_URL)
         .catch(err => {
             // TODO start manual mongoDB
-            console.log("\nstart manual mongoDB Connection");
-            const { exec } = require("child_process");
-            exec('brew services start mongodb-community', cmdResponse);
             if (process.env.AUTO_DB === 'true') {
+                console.log("\nstart manual mongoDB Connection");
+                const { exec } = require("child_process");
+                exec('brew services start mongodb-community', cmdResponse);
                 return checkDbConnection(MONGO_URL).catch(err => {
                     console.error('Error connecting db:', err.message)
                     process.env.noDBConnection = true as any
@@ -72,7 +72,7 @@ const cmdResponse = (error, stdout, stderr) => {
             next()
         })
         app.use(express.static(path.join(__dirname, 'dist')))
-        app.use('/', router)
+        app.use('/api', router)
         // app.get('*', function (req, res) {
         //     res.sendFile(path.join(__dirname, 'dist', 'index.html'))
         // })

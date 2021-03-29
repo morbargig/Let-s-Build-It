@@ -15,7 +15,7 @@ export class ApplicationConfigurationService {
   initialize() {
     return new Promise((resolve) => {
       this._layout.initializeLayout();
-      resolve();
+      resolve(null);
     });
   }
 }

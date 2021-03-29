@@ -62,8 +62,8 @@ export class AuthenticationService {
   register(context: RegisterContext): Observable<AuthorizationEntity> {
     // Replace by proper registration call 
     return this.accountService.register(context).pipe(
-      tap((x) =>
-        this.credentialsService.setCredentials(
+      tap((x) => {
+        return this.credentialsService.setCredentials(
           {
             accessToken: x.token,
             email: x.email,
@@ -72,6 +72,7 @@ export class AuthenticationService {
             expiresIn: x.validTo,
           } as AuthorizationEntity,
         )
+      }
       ),
       switchMap((res) => this.accountService.getUserPermissions())
     );
